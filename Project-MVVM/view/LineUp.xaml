@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="Project_MVVM.view.LineUp"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" Height="747" Width="1144">
+    <Grid Margin="0,0,-744,-436"  >
+        <DataGrid Name="rLineUp" HorizontalAlignment="Left" Height="482" Margin="107,190,0,0" VerticalAlignment="Top" Width="996" ItemsSource="{Binding LineUpList}" SelectedItem="{Binding SelectedLineUp}"/>
+        <ComboBox Name="cboStageKeuze" HorizontalAlignment="Left" Margin="107,146,0,0" VerticalAlignment="Top" Width="161" ItemsSource="{Binding StageList}" DisplayMemberPath="Name"/>
+        <TextBox Name="txtZoeken" HorizontalAlignment="Left" Height="23" Margin="883,145,0,0" TextWrapping="Wrap" Text="Zoeken" VerticalAlignment="Top" Width="120"/>
+        <Button Name="btnVoegToe" Content="Voeg toe" HorizontalAlignment="Left" Margin="107,698,0,0" VerticalAlignment="Top" Width="75"  />
+        <Button Name="btnVerwijderen2" Content="Verwijderen" HorizontalAlignment="Left" Margin="248,698,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteLineUpCommand}"/>
+        <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="390,698,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateLineUpCommand}"/>
+
+    </Grid>
+</UserControl>

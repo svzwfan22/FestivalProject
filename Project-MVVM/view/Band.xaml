@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="Project_MVVM.view.Band"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" Width="1358" Height="752">
+
+    <Grid>
+        <ListBox x:Name="lstBand" Margin="176,136,829,182" ItemsSource="{Binding BandList}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedBand}"/>
+        <Label x:Name="lblNaam" Content="Naam:" HorizontalAlignment="Left" Margin="795,161,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtNaam" HorizontalAlignment="Left" Height="23" Margin="851,165,0,0" TextWrapping="Wrap" Text="{Binding ElementName=lstBand, Path=SelectedItem.Name}" VerticalAlignment="Top" Width="120" />
+        <Rectangle x:Name="foto" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="100" Margin="1095,155,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
+        <Label x:Name="lblOmschrijving" Content="Omschrijving:" HorizontalAlignment="Left" Margin="795,206,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtOmschrijving" HorizontalAlignment="Left" Height="46" Margin="851,237,0,0" TextWrapping="Wrap" Text="{Binding ElementName=lstBand, Path=SelectedItem.Description}" VerticalAlignment="Top" Width="227"/>
+        <Label x:Name="lblGenres" Content="Genres:" HorizontalAlignment="Left" Margin="795,296,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="chkGenres" Content="CheckBox" HorizontalAlignment="Left" Margin="851,304,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="chkGenres2" Content="CheckBox" HorizontalAlignment="Left" Margin="959,304,0,0" VerticalAlignment="Top"/>
+        <CheckBox  x:Name="chkGenres3" Content="CheckBox" HorizontalAlignment="Left" Margin="1062,304,0,0" VerticalAlignment="Top"/>
+        <CheckBox  x:Name="chkGenres4" Content="CheckBox" HorizontalAlignment="Left" Margin="851,335,0,0" VerticalAlignment="Top"/>
+        <CheckBox  x:Name="chkGenres5" Content="CheckBox" HorizontalAlignment="Left" Margin="959,335,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="chkGenres6" Content="CheckBox" HorizontalAlignment="Left" Margin="1062,335,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblFacebook" Content="Facebook:" HorizontalAlignment="Left" Margin="795,453,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtFacebook" HorizontalAlignment="Left" Height="23" Margin="866,457,0,0" TextWrapping="Wrap" Text="{Binding ElementName=lstBand, Path=SelectedItem.Facebook}" VerticalAlignment="Top" Width="120"/>
+        <Label x:Name="lblTwitter" Content="Twitter:" HorizontalAlignment="Left" Margin="1003,453,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtTwitter" HorizontalAlignment="Left" Height="23" Margin="1062,457,0,0" TextWrapping="Wrap" Text="{Binding ElementName=lstBand, Path=SelectedItem.Twitter}" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btnOpslaan" Content="Opslaan" HorizontalAlignment="Left" Margin="866,502,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="btnVerwijderen" Content="Verwijderen" HorizontalAlignment="Left" Margin="1058,502,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteBandCommand}"/>
+        <Label x:Name="lblStage" Content="Stage:" HorizontalAlignment="Left" Margin="795,362,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cboStage" HorizontalAlignment="Left" Margin="851,366,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label x:Name="lblBegin" Content="Begin:" HorizontalAlignment="Left" Margin="795,405,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblTot" Content="Tot:" HorizontalAlignment="Left" Margin="975,405,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtBegin" HorizontalAlignment="Left" Height="23" Margin="850,408,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtTot" HorizontalAlignment="Left" Height="23" Margin="1025,408,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btnAnnuleren" Content="Annuleren" HorizontalAlignment="Left" Margin="962,502,0,0" VerticalAlignment="Top" Width="75" />
+
+    </Grid>
+</UserControl>
