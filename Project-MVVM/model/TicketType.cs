@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,6 +42,48 @@ namespace Project_MVVM.model
         public override string ToString()
         {
             return ID + " " + Name;
+        }
+
+        public static ObservableCollection<TicketType> GetTicket()
+        {
+            string sql = "SELECT * FROM TicketType";
+            // DbParameter par1= Database.AddParameter("par1","jan")
+            DbDataReader reader = Database.GetData(sql);//,par1);
+
+            ObservableCollection<Ticket> ticket = new ObservableCollection<Ticket>();
+
+            while (reader.Read())
+            {
+                ticket.Add(Create(reader));
+            }
+            return ticket;
+        }
+
+        private static TicketType Create(IDataRecord record)
+        {
+            return new TicketType()
+            {
+                ID = record["ID"].ToString(),
+                Name = record["Name"].ToString(),
+                //Price = record["Price"].ToString(),
+
+                //AvailableTickets = record["AvailableTickets"].ToString()
+
+
+            };
+        }
+
+        public override string ToString()
+        {
+            return Name ;
+        }
+        public static void PrintTickets(ObservableCollection<TicketType> Tickets)
+        {
+
+            foreach (TicketType ticket in Tickets)
+            {
+                Console.WriteLine(ticket.ToString());
+            }
         }
     }
 }

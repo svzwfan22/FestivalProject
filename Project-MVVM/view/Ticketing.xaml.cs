@@ -27,31 +27,10 @@ namespace Project_MVVM.view
 
         private void TicketToevoegenClick(object sender, RoutedEventArgs e)
         {
-            rtlTicket.Visibility = Visibility.Hidden;
-            rtlTicket2.Visibility = Visibility.Hidden;
-            rtlTicket3.Visibility = Visibility.Hidden;
-            rtlTicket4.Visibility = Visibility.Hidden;
-            rtlTicket5.Visibility = Visibility.Hidden;
-            rtlTicket6.Visibility = Visibility.Hidden;
-            lblBeschikbaar.Visibility = Visibility.Hidden;
-            lblBeschikbaar2.Visibility = Visibility.Hidden;
-            lblBeschikbaar3.Visibility = Visibility.Hidden;
-            lblBeschikbaar4.Visibility = Visibility.Hidden;
-            lblBeschikbaar5.Visibility = Visibility.Hidden;
-            lblBeschikbaar6.Visibility = Visibility.Hidden;
-            lblPrijs.Visibility = Visibility.Hidden;
-            lblPrijs2.Visibility = Visibility.Hidden;
-            lblPrijs3.Visibility = Visibility.Hidden;
-            lblPrijs4.Visibility = Visibility.Hidden;
-            lblPrijs5.Visibility = Visibility.Hidden;
+            lstTickets.Visibility = Visibility.Hidden;
+           
 
-            lblPrijs6.Visibility = Visibility.Hidden;
-            lblType.Visibility = Visibility.Hidden;
-            lblType2.Visibility = Visibility.Hidden;
-            lblType3.Visibility = Visibility.Hidden;
-            lblType4.Visibility = Visibility.Hidden;
-            lblType5.Visibility = Visibility.Hidden;
-            lblType6.Visibility = Visibility.Hidden;
+            
             btnToevoegen.Visibility = Visibility.Hidden;
 
             lblTicketNaam.Visibility = Visibility.Visible;
@@ -76,31 +55,8 @@ namespace Project_MVVM.view
             txtKostprijs.Visibility = Visibility.Hidden;
             txtTicketNaam.Visibility = Visibility.Hidden;
 
-            rtlTicket.Visibility = Visibility.Visible;
-            rtlTicket2.Visibility = Visibility.Visible;
-            rtlTicket3.Visibility = Visibility.Visible;
-            rtlTicket4.Visibility = Visibility.Visible;
-            rtlTicket5.Visibility = Visibility.Visible;
-            rtlTicket6.Visibility = Visibility.Visible;
-            lblBeschikbaar.Visibility = Visibility.Visible;
-            lblBeschikbaar2.Visibility = Visibility.Visible;
-            lblBeschikbaar3.Visibility = Visibility.Visible;
-            lblBeschikbaar4.Visibility = Visibility.Visible;
-            lblBeschikbaar5.Visibility = Visibility.Visible;
-            lblBeschikbaar6.Visibility = Visibility.Visible;
-            lblPrijs.Visibility = Visibility.Visible;
-            lblPrijs2.Visibility = Visibility.Visible;
-            lblPrijs3.Visibility = Visibility.Visible;
-            lblPrijs4.Visibility = Visibility.Visible;
-            lblPrijs5.Visibility = Visibility.Visible;
-
-            lblPrijs6.Visibility = Visibility.Visible;
-            lblType.Visibility = Visibility.Visible;
-            lblType2.Visibility = Visibility.Visible;
-            lblType3.Visibility = Visibility.Visible;
-            lblType4.Visibility = Visibility.Visible;
-            lblType5.Visibility = Visibility.Visible;
-            lblType6.Visibility = Visibility.Visible;
+           lstTickets.Visibility = Visibility.Visible;
+           
             btnToevoegen.Visibility = Visibility.Visible;
 
             lstReservaties.Visibility = Visibility.Visible;

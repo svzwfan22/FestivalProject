@@ -5,31 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" Width="1358" Height="752">
     <Grid  Margin="0,0,0,-22" Loaded="Grid_Loaded_1">
-        <Rectangle Name="rtlTicket" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="82" Margin="71,50,0,0" Stroke="Black" VerticalAlignment="Top" Width="302"/>
-        <Label Name="lblType" Content="Ticket type" HorizontalAlignment="Left" Margin="83,58,0,0" VerticalAlignment="Top"/>
-        <Label Name="lblPrijs" Content="Kostprijs:" HorizontalAlignment="Left" Margin="83,88,0,0" VerticalAlignment="Top"/>
-        <Label Name="lblBeschikbaar" Content="Nog beschikbaar:" HorizontalAlignment="Left" Margin="191,88,0,0" VerticalAlignment="Top"/>
-        <Rectangle Name="rtlTicket2" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="82" Margin="71,156,0,0" Stroke="Black" VerticalAlignment="Top" Width="302"/>
-        <Label Name="lblType2" Content="Ticket type" HorizontalAlignment="Left" Margin="83,164,0,0" VerticalAlignment="Top"/>
-        <Label Name="lblPrijs2" Content="Kostprijs:" HorizontalAlignment="Left" Margin="83,194,0,0" VerticalAlignment="Top"/>
-        <Label Name="lblBeschikbaar2" Content="Nog beschikbaar:" HorizontalAlignment="Left" Margin="191,194,0,0" VerticalAlignment="Top"/>
-        <Rectangle Name="rtlTicket3" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="82" Margin="71,264,0,0" Stroke="Black" VerticalAlignment="Top" Width="302"/>
-        <Label Name="lblType3" Content="Ticket type" HorizontalAlignment="Left" Margin="83,272,0,0" VerticalAlignment="Top"/>
-        <Label Name="lblPrijs3" Content="Kostprijs:" HorizontalAlignment="Left" Margin="83,302,0,0" VerticalAlignment="Top"/>
-        <Label Name="lblBeschikbaar3" Content="Nog beschikbaar:" HorizontalAlignment="Left" Margin="191,302,0,0" VerticalAlignment="Top"/>
-        <Rectangle Name="rtlTicket4" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="82" Margin="71,374,0,0" Stroke="Black" VerticalAlignment="Top" Width="302"/>
-        <Label Name="lblType4" Content="Ticket type" HorizontalAlignment="Left" Margin="83,382,0,0" VerticalAlignment="Top"/>
-        <Label Name="lblPrijs4" Content="Kostprijs:" HorizontalAlignment="Left" Margin="83,412,0,0" VerticalAlignment="Top"/>
-        <Label Name="lblBeschikbaar4" Content="Nog beschikbaar:" HorizontalAlignment="Left" Margin="191,412,0,0" VerticalAlignment="Top"/>
-        <Rectangle Name="rtlTicket5" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="82" Margin="71,490,0,0" Stroke="Black" VerticalAlignment="Top" Width="302"/>
-        <Label Name="lblType5" Content="Ticket type" HorizontalAlignment="Left" Margin="83,498,0,0" VerticalAlignment="Top"/>
-        <Label Name="lblPrijs5" Content="Kostprijs:" HorizontalAlignment="Left" Margin="83,528,0,0" VerticalAlignment="Top"/>
-        <Label Name="lblBeschikbaar5" Content="Nog beschikbaar:" HorizontalAlignment="Left" Margin="191,528,0,0" VerticalAlignment="Top"/>
-        <Rectangle Name="rtlTicket6" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="82" Margin="71,606,0,0" Stroke="Black" VerticalAlignment="Top" Width="302"/>
-        <Label Name="lblType6" Content="Ticket type" HorizontalAlignment="Left" Margin="83,614,0,0" VerticalAlignment="Top"/>
-        <Label Name="lblPrijs6" Content="Kostprijs:" HorizontalAlignment="Left" Margin="83,644,0,0" VerticalAlignment="Top"/>
-        <Label Name="lblBeschikbaar6" Content="Nog beschikbaar:" HorizontalAlignment="Left" Margin="191,644,0,0" VerticalAlignment="Top"/>
-        <DataGrid Name="lstReservaties" HorizontalAlignment="Left" Height="638" Margin="483,50,0,0" VerticalAlignment="Top" Width="741" ItemsSource="{Binding TicketList}"/>
+        <ListBox Name="lstTickets" ItemsSource="{Binding TicketTypeList}" SelectedItem="{Binding SelectedTicket}" Margin="91,50,1010,86"></ListBox>
+            <DataGrid Name="lstReservaties" HorizontalAlignment="Left" Height="638" Margin="483,50,0,0" VerticalAlignment="Top" Width="741" ItemsSource="{Binding TicketList}"/>
         <Button Name="btnReserveren2" Content="Reserveren" HorizontalAlignment="Left" Margin="817,710,0,0" VerticalAlignment="Top" Width="75" Click="TicketReserverenClick"/>
         <Button Name="btnToevoegen" Content="Toevoegen" HorizontalAlignment="Left" Margin="183,710,0,0" VerticalAlignment="Top" Width="75" Click="TicketToevoegenClick"/>
         <Label x:Name="lblTicketNaam" Content="Ticketnaam:" HorizontalAlignment="Left" Margin="112,68,0,0" VerticalAlignment="Top"/>
