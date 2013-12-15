@@ -3,13 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             
+             
              mc:Ignorable="d" Width="1358" Height="752">
 
     <Grid>
         <ListBox x:Name="lstBand" Margin="176,136,829,182" ItemsSource="{Binding BandList}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedBand}"/>
         <Label x:Name="lblNaam" Content="Naam:" HorizontalAlignment="Left" Margin="795,161,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtNaam" HorizontalAlignment="Left" Height="23" Margin="851,165,0,0" TextWrapping="Wrap" Text="{Binding ElementName=lstBand, Path=SelectedItem.Name}" VerticalAlignment="Top" Width="120" />
-        <Rectangle x:Name="foto" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="100" Margin="1095,155,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
+        <Image Margin="5" AllowDrop="True" Source="{Binding SelectedBand.Picture,Converter={StaticResource image}}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Drop">
+                    <custom:EventToCommand Command="{Binding DemoCommand}"  PassEventArgsToCommand="True" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Image>
         <Label x:Name="lblOmschrijving" Content="Omschrijving:" HorizontalAlignment="Left" Margin="795,206,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtOmschrijving" HorizontalAlignment="Left" Height="46" Margin="851,237,0,0" TextWrapping="Wrap" Text="{Binding ElementName=lstBand, Path=SelectedItem.Description}" VerticalAlignment="Top" Width="227"/>
         <Label x:Name="lblGenres" Content="Genres:" HorizontalAlignment="Left" Margin="795,296,0,0" VerticalAlignment="Top"/>

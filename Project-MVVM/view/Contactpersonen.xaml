@@ -8,13 +8,9 @@
         <ComboBox HorizontalAlignment="Left" Margin="148,82,0,0" VerticalAlignment="Top" Width="200" Height="26" ItemsSource="{Binding ContactpersonList}" DisplayMemberPath="JobRole"/>
         <Label Content="Selecteer een type:" HorizontalAlignment="Left" Margin="11,82,0,0" VerticalAlignment="Top" Width="132"/>
         <DataGrid ItemsSource="{Binding ContactpersonList}" HorizontalAlignment="Left" Height="484" Margin="11,168,0,0" VerticalAlignment="Top" Width="782" SelectedItem="{Binding SelectedContactperson}">
-            <!--<DataGrid.Columns>
-                <DataGridTextColumn Header="Naam" Binding="{Binding Name}" />
-                <DataGridTextColumn Header="Voornaam" Binding="{Binding Voornaam}" />
-                <DataGridTextColumn Header="Telefoon" Binding="{Binding Phone}"/>
-                <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
-                <DataGridTextColumn Header="Type" Binding="{Binding Type}"/>
-            </DataGrid.Columns>-->
+            <DataGrid.Columns>
+                <DataGridComboBoxColumn Header="JobRole" ItemsSource="{Binding ContactpersonList}" DisplayMemberPath="JobRole" />
+            </DataGrid.Columns>
         </DataGrid>
         <Label Content="Contactpersonen" HorizontalAlignment="Left" Margin="11,133,0,0" VerticalAlignment="Top"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="672,136,0,0" TextWrapping="Wrap" Text="Zoeken" VerticalAlignment="Top" Width="120"/>
@@ -22,16 +18,16 @@
         <Button Content="Voeg toe" HorizontalAlignment="Left" Margin="148,678,0,0" VerticalAlignment="Top" Width="75" Click="ContactpersoonToevoegenClick"/>
         <Button Content="Verwijder" HorizontalAlignment="Left" Margin="279,678,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteContactpersonCommand}"/>
         <Label x:Name="lblNaam" Content="Naam:" HorizontalAlignment="Left" Margin="845,173,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblVoornaam" Content="Voornaam:" HorizontalAlignment="Left" Margin="845,199,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblVoornaam" Content="Bedrijf:" HorizontalAlignment="Left" Margin="845,199,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblTel" Content="tel.:" HorizontalAlignment="Left" Margin="845,225,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblEmail" Content="e-mail:" HorizontalAlignment="Left" Margin="845,251,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblType" Content="Type:" HorizontalAlignment="Left" Margin="845,292,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtNaam" HorizontalAlignment="Left" Height="23" Margin="944,177,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtVoornaam" HorizontalAlignment="Left" Height="23" Margin="944,202,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtTel" HorizontalAlignment="Left" Height="23" Margin="944,228,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtEmail" HorizontalAlignment="Left" Height="23" Margin="944,254,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <ComboBox x:Name="cboType" HorizontalAlignment="Left" Margin="944,296,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnOpslaan" Content="Opslaan" HorizontalAlignment="Left" Margin="866,332,0,0" VerticalAlignment="Top" Width="75"/>
+        <TextBox x:Name="txtNaam" HorizontalAlignment="Left" Height="23" Margin="944,177,0,0" TextWrapping="Wrap" Text="{Binding ElementName=ContactpersonList, Path=Name}" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtVoornaam" HorizontalAlignment="Left" Height="23" Margin="944,202,0,0" TextWrapping="Wrap" Text="{Binding ElementName=ContactpersonList, Path=Company}" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtTel" HorizontalAlignment="Left" Height="23" Margin="944,228,0,0" TextWrapping="Wrap" Text="{Binding ElementName=ContactpersonList, Path=Phone}" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtEmail" HorizontalAlignment="Left" Height="23" Margin="944,254,0,0" TextWrapping="Wrap" Text="{Binding ElementName=ContactpersonList, Path=Email}" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="cboType" HorizontalAlignment="Left" Margin="944,296,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding ContactpersonList}" DisplayMemberPath="JobRole"/>
+        <Button x:Name="btnOpslaan" Content="Opslaan" HorizontalAlignment="Left" Margin="866,332,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SaveCommand}"/>
         <Button x:Name="btnAnnuleren" Content="Annuleren" HorizontalAlignment="Left" Margin="979,332,0,0" VerticalAlignment="Top" Width="75" Click="AnnulerenClick"/>
     </Grid>
 </UserControl>

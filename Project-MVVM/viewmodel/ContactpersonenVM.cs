@@ -55,5 +55,16 @@ namespace Project_MVVM.viewmodel
             Contactperson.PrintContactpersons(ContactpersonList);
         }
 
+        public ICommand SaveCommand
+        {
+            get { return new RelayCommand<Contactperson>(SaveContactperson); }
+        }
+
+        public void SaveContactperson(Contactperson cpn)
+        {
+
+            Contactperson.SaveContactperson(cpn);
+        }
+
     }
 }

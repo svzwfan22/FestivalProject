@@ -39,8 +39,10 @@
       <HintPath>C:\Program Files (x86)\Laurent Bugnion (GalaSoft)\Mvvm Light Toolkit\Binaries\WPF45\GalaSoft.MvvmLight.WPF45.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -58,6 +60,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="convertor\BytesToImageConverter.cs" />
     <Compile Include="model\Band.cs" />
     <Compile Include="model\Contactperson.cs" />
     <Compile Include="model\ContactpersonType.cs" />
