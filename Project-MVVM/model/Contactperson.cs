@@ -123,13 +123,23 @@ namespace Project_MVVM.model
         //    }
         //}
 
+        private static ObservableCollection<ContactpersonType> _jobRoleList;
+
+        public static ObservableCollection<ContactpersonType> JobRoleList
+        {
+            get { return  _jobRoleList; }
+            set {  _jobRoleList = value; }
+        }
+        
+
         public static ObservableCollection<Contactperson> GetContactpersons()
         {
-            string sql = "SELECT * FROM Contactperson";
+            string sql = "SELECT * FROM Contactpersoon";
             // DbParameter par1= Database.AddParameter("par1","jan")
             DbDataReader reader = Database.GetData(sql);//,par1);
 
             ObservableCollection<Contactperson> contactpersons = new ObservableCollection<Contactperson>();
+            JobRoleList = ContactpersonType.contactpersontypes;
 
             while (reader.Read())
             {
@@ -163,7 +173,7 @@ namespace Project_MVVM.model
             try
             {
                 trans = Database.BeginTransaction();
-                string sql = "DELETE FROM Contactperson WHERE Name=@name";
+                string sql = "DELETE FROM Contactpersoon WHERE Name=@name";
 
                 DbParameter par1 = Database.AddParameter("@ID", cpn.ID);
                 DbParameter par2 = Database.AddParameter("@Name", cpn.Name);
@@ -196,7 +206,7 @@ namespace Project_MVVM.model
             try
             {
                 trans = Database.BeginTransaction();
-                string sql = "INSERT INTO Contactperson(Name,Company,Email,Phone,JobRole) VALUES (@Name,@Company, @Email, @Phone, @JobRole);";
+                string sql = "INSERT INTO Contactpersoon(Name,Company,Email,Phone,JobRole) VALUES (@Name,@Company, @Email, @Phone, @JobRole);";
 
                 //DbParameter par1 = Database.AddParameter("@ID", cpn.ID);
                 DbParameter par2 = Database.AddParameter("@Name", cpn.Name);

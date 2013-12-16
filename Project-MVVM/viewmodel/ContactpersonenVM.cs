@@ -25,9 +25,12 @@ namespace Project_MVVM.viewmodel
             set { _contactpersonList = value; OnPropertyChanged("ContactpersonList"); }
         }
 
+        
+
         public ContactpersonenVM()
         {
             _contactpersonList = Contactperson.GetContactpersons();
+            
         }
 
         private Contactperson _selectedContactperson;

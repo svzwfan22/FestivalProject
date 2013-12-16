@@ -23,9 +23,18 @@ namespace Project_MVVM.viewmodel
             set { _ticketList = value; OnPropertyChanged("TicketList"); }
         }
 
+        private ObservableCollection<TicketType> _ticketTypeList;
+
+        public ObservableCollection<TicketType> TicketTypeList
+        {
+            get { return _ticketTypeList; }
+            set { _ticketTypeList = value; OnPropertyChanged("TicketTypeList"); }
+        }
+
         public TicketingVM()
         {
             _ticketList = Ticket.GetTicket();
+            _ticketTypeList = TicketType.GetTicketTypes();
             
         }
     }

@@ -7,9 +7,22 @@
     <Grid x:Name="root" Loaded="ContactpersonenLoaded">
         <ComboBox HorizontalAlignment="Left" Margin="148,82,0,0" VerticalAlignment="Top" Width="200" Height="26" ItemsSource="{Binding ContactpersonList}" DisplayMemberPath="JobRole"/>
         <Label Content="Selecteer een type:" HorizontalAlignment="Left" Margin="11,82,0,0" VerticalAlignment="Top" Width="132"/>
-        <DataGrid ItemsSource="{Binding ContactpersonList}" HorizontalAlignment="Left" Height="484" Margin="11,168,0,0" VerticalAlignment="Top" Width="782" SelectedItem="{Binding SelectedContactperson}">
+        <DataGrid  AutoGenerateColumns="False" ItemsSource="{Binding ContactpersonList}" HorizontalAlignment="Left" Height="484" Margin="11,168,0,0" VerticalAlignment="Top" Width="782" SelectedItem="{Binding SelectedContactperson}">
             <DataGrid.Columns>
-                <DataGridComboBoxColumn Header="JobRole" ItemsSource="{Binding ContactpersonList}" DisplayMemberPath="JobRole" />
+                <DataGridTextColumn Header="ID" Binding="{Binding ID}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Company" Binding="{Binding Company}"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="JobRole">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox  ItemsSource="{Binding JobRoleList}" DisplayMemberPath="Name" SelectedItem="JobRole.Name" SelectedValuePath="ID" SelectedValue="{Binding JobRole.ID}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="City" Binding="{Binding City}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Email" Binding="{Binding Email}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Phone" Binding="{Binding Phone}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Cellphone" Binding="{Binding Cellphone}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Contactpersonen" HorizontalAlignment="Left" Margin="11,133,0,0" VerticalAlignment="Top"/>

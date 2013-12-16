@@ -39,24 +39,22 @@ namespace Project_MVVM.model
             get { return _availableTickets; }
             set { _availableTickets = value; }
         }
-        public override string ToString()
-        {
-            return ID + " " + Name;
-        }
+       
 
-        public static ObservableCollection<TicketType> GetTicket()
+        public static ObservableCollection<TicketType> GetTicketTypes()
         {
             string sql = "SELECT * FROM TicketType";
             // DbParameter par1= Database.AddParameter("par1","jan")
             DbDataReader reader = Database.GetData(sql);//,par1);
 
-            ObservableCollection<Ticket> ticket = new ObservableCollection<Ticket>();
+            ObservableCollection<TicketType> ticketType = new ObservableCollection<TicketType>();
 
             while (reader.Read())
             {
-                ticket.Add(Create(reader));
+                ticketType.Add(Create(reader));
             }
-            return ticket;
+            return ticketType;
+            
         }
 
         private static TicketType Create(IDataRecord record)
@@ -65,9 +63,8 @@ namespace Project_MVVM.model
             {
                 ID = record["ID"].ToString(),
                 Name = record["Name"].ToString(),
-                //Price = record["Price"].ToString(),
-
-                //AvailableTickets = record["AvailableTickets"].ToString()
+                //Price = (Double)record["Price"],
+                //AvailableTickets = (int)record["AvailableTickets"],
 
 
             };
@@ -75,7 +72,7 @@ namespace Project_MVVM.model
 
         public override string ToString()
         {
-            return Name ;
+            return Name + " " +  Price + " " + AvailableTickets;
         }
         public static void PrintTickets(ObservableCollection<TicketType> Tickets)
         {

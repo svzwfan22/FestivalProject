@@ -11,9 +11,9 @@ namespace Project_MVVM.model
 {
     public class ContactpersonType
     {
-        private string _ID;
+        private int _ID;
 
-        public string ID
+        public int ID
         {
             get { return _ID; }
             set { _ID = value; }
@@ -27,13 +27,15 @@ namespace Project_MVVM.model
             set { _name = value; }
         }
 
+        public static ObservableCollection<ContactpersonType> contactpersontypes = new ObservableCollection<ContactpersonType>();
+
         public static ObservableCollection<ContactpersonType> GetContactpersonTypes()
         {
             string sql = "SELECT * FROM ContactpersonType";
             // DbParameter par1= Database.AddParameter("par1","jan")
             DbDataReader reader = Database.GetData(sql);//,par1);
 
-            ObservableCollection<ContactpersonType> contactpersontypes = new ObservableCollection<ContactpersonType>();
+            
 
             while (reader.Read())
             {
@@ -46,7 +48,7 @@ namespace Project_MVVM.model
         {
             return new ContactpersonType()
             {
-                ID = record["ID"].ToString(),
+                ID = (int)record["ID"],
                 Name = record["Name"].ToString()
 
             };
