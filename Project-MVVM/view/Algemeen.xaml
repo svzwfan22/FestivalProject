@@ -26,15 +26,13 @@
         <Label Content="tot" HorizontalAlignment="Left" Margin="279,60,0,0" VerticalAlignment="Top"/>
         <Button Content="Instellen" HorizontalAlignment="Left" Margin="479,62,0,0" VerticalAlignment="Top" Width="75"/>
         <Label Name="lblStageNaam" Content="Naam:" HorizontalAlignment="Left" Margin="322,233,0,0" VerticalAlignment="Top"/>
-        <TextBox Name="txtStage" HorizontalAlignment="Left" Height="23" Margin="384,236,0,0" TextWrapping="Wrap" Text="{Binding NewStage}" VerticalAlignment="Top" Width="120"/>
+        
         <Button Name="btnStageOpslaan" Content="Opslaan" HorizontalAlignment="Left" Margin="338,276,0,0" VerticalAlignment="Top" Width="75" Command="{Binding AddStageCommand}"/>
         <Button Name="btnStageAnnuleren" Content="Annuleren" HorizontalAlignment="Left" Margin="429,276,0,0" VerticalAlignment="Top" Width="75" Click="AnnulerenClick"/>
-        <Label x:Name="lblContacttypeNaam" Content="Naam:" HorizontalAlignment="Left" Margin="322,233,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtContacttype" HorizontalAlignment="Left" Height="23" Margin="384,236,0,0" TextWrapping="Wrap" Text="{Binding NewContactperson}" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnContacttypeOpslaan" Content="Opslaan" HorizontalAlignment="Left" Margin="338,276,0,0" VerticalAlignment="Top" Width="75" Command="{Binding AddContactpersonCommand}"/>
+        
         <Button x:Name="btnContacttypeAnnuleren" Content="Annuleren" HorizontalAlignment="Left" Margin="429,276,0,0" VerticalAlignment="Top" Width="75" Click="AnnulerenClick"/>
         <Label x:Name="lblGenreNaam" Content="Naam:" HorizontalAlignment="Left" Margin="796,233,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtGenre" HorizontalAlignment="Left" Height="23" Margin="858,236,0,0" TextWrapping="Wrap" Text="{Binding NewGenre}" VerticalAlignment="Top" Width="120"/>
+        
         <Button x:Name="btnGenreOpslaan" Content="Opslaan" HorizontalAlignment="Left" Margin="812,276,0,0" VerticalAlignment="Top" Width="75" Command="{Binding AddGenreCommand}"/>
         <Button x:Name="btnGenreAnnuleren" Content="Annuleren" HorizontalAlignment="Left" Margin="903,276,0,0" VerticalAlignment="Top" Width="75" Click="AnnulerenClick"/>
     </Grid>

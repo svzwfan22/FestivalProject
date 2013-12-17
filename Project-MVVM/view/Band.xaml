@@ -12,12 +12,12 @@
         <ListBox x:Name="lstBand" Margin="176,136,829,182" ItemsSource="{Binding BandList}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedBand}"/>
         <Label x:Name="lblNaam" Content="Naam:" HorizontalAlignment="Left" Margin="795,161,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtNaam" HorizontalAlignment="Left" Height="23" Margin="851,165,0,0" TextWrapping="Wrap" Text="{Binding ElementName=lstBand, Path=SelectedItem.Name}" VerticalAlignment="Top" Width="120" />
-        <Image Margin="5" AllowDrop="True" >
-           <!--<i:Interaction.Triggers>
+        <Image Margin="1043,66,149,533" AllowDrop="True" >
+           <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Drop">
                     <custom:EventToCommand Command="{Binding DemoCommand}"  PassEventArgsToCommand="True" />
                 </i:EventTrigger>
-            </i:Interaction.Triggers>-->
+            </i:Interaction.Triggers>
         </Image>
         <Label x:Name="lblOmschrijving" Content="Omschrijving:" HorizontalAlignment="Left" Margin="795,206,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtOmschrijving" HorizontalAlignment="Left" Height="46" Margin="851,237,0,0" TextWrapping="Wrap" Text="{Binding ElementName=lstBand, Path=SelectedItem.Description}" VerticalAlignment="Top" Width="227"/>

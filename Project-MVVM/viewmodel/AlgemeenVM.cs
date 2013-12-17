@@ -49,8 +49,8 @@ namespace Project_MVVM.viewmodel
 
         public AlgemeenVM()
         {
-            _contactpersonList = Contactperson.GetContactpersons();
-            _contactpersonTypeList = ContactpersonType.GetContactpersonTypes();
+           // _contactpersonList = Contactperson.GetContactpersons();
+            _contactpersonTypeList = ContactpersonType.contactpersontypes;
             _genreList = Genre.GetGenres();
             _stageList = Stage.GetStages();
         }

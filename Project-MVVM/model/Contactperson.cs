@@ -139,7 +139,7 @@ namespace Project_MVVM.model
             DbDataReader reader = Database.GetData(sql);//,par1);
 
             ObservableCollection<Contactperson> contactpersons = new ObservableCollection<Contactperson>();
-            JobRoleList = ContactpersonType.contactpersontypes;
+            JobRoleList = ContactpersonType.GetContactpersonTypes();
 
             while (reader.Read())
             {
@@ -150,9 +150,10 @@ namespace Project_MVVM.model
 
         private static Contactperson Create(IDataRecord record)
         {
+            //Contactperson contactpersoon = new Contactperson();
             return new Contactperson()
             {
-                ID = record["ID"].ToString(),
+            ID = record["ID"].ToString(),
                 Name = record["Name"].ToString(),
                 Company = record["Company"].ToString(),
                 //JobRole = record["JobRole"].ToString(),
@@ -161,9 +162,14 @@ namespace Project_MVVM.model
                 Cellphone = record["Cellphone"].ToString(),
                 Phone = record["Phone"].ToString(),
                 JobRole = new ContactpersonType {
-                    Name = record["JobRole"].ToString()
+                    ID = (int)record["JobRole"],
+                    Name = JobRoleList[(int)record["JobRole"]-1].Name
+
+                    
+                    
                 }
             };
+                //return contactpersoon;
         }
 
         public static int DeleteContactperson(Contactperson cpn)

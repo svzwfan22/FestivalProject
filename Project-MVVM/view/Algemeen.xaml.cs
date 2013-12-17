@@ -27,7 +27,7 @@ namespace Project_MVVM.view
         private void StageToevoegenClick(object sender, RoutedEventArgs e)
         {
             lblStageNaam.Visibility = Visibility.Visible;
-            txtStage.Visibility = Visibility.Visible;
+            //txtStage.Visibility = Visibility.Visible;
             btnStageAnnuleren.Visibility = Visibility.Visible;
             btnStageOpslaan.Visibility = Visibility.Visible;
         }
@@ -40,16 +40,16 @@ namespace Project_MVVM.view
 
         private void ContactpersoonTypeToevoegenClick(object sender, RoutedEventArgs e)
         {
-            lblContacttypeNaam.Visibility = Visibility.Visible;
-            txtContacttype.Visibility = Visibility.Visible;
+            //lblContacttypeNaam.Visibility = Visibility.Visible;
+            //txtContacttype.Visibility = Visibility.Visible;
             btnContacttypeAnnuleren.Visibility = Visibility.Visible;
-            btnContacttypeOpslaan.Visibility = Visibility.Visible;
+            //btnContacttypeOpslaan.Visibility = Visibility.Visible;
         }
 
         private void GenreToevoegenClick(object sender, RoutedEventArgs e)
         {
             lblGenreNaam.Visibility = Visibility.Visible;
-            txtGenre.Visibility = Visibility.Visible;
+            //txtGenre.Visibility = Visibility.Visible;
             btnGenreAnnuleren.Visibility = Visibility.Visible;
             btnGenreOpslaan.Visibility = Visibility.Visible;
         }
@@ -57,17 +57,17 @@ namespace Project_MVVM.view
         private void AlgemeenLoaded(object sender, RoutedEventArgs e)
         {
             lblStageNaam.Visibility = Visibility.Hidden;
-            txtStage.Visibility = Visibility.Hidden;
+           // txtStage.Visibility = Visibility.Hidden;
             btnStageAnnuleren.Visibility = Visibility.Hidden;
             btnStageOpslaan.Visibility = Visibility.Hidden;
 
-            lblContacttypeNaam.Visibility = Visibility.Hidden;
-            txtContacttype.Visibility = Visibility.Hidden;
+            //lblContacttypeNaam.Visibility = Visibility.Hidden;
+            //txtContacttype.Visibility = Visibility.Hidden;
             btnContacttypeAnnuleren.Visibility = Visibility.Hidden;
-            btnContacttypeOpslaan.Visibility = Visibility.Hidden;
+            //btnContacttypeOpslaan.Visibility = Visibility.Hidden;
 
             lblGenreNaam.Visibility = Visibility.Hidden;
-            txtGenre.Visibility = Visibility.Hidden;
+            //txtGenre.Visibility = Visibility.Hidden;
             btnGenreAnnuleren.Visibility = Visibility.Hidden;
             btnGenreOpslaan.Visibility = Visibility.Hidden;
         }
@@ -75,17 +75,17 @@ namespace Project_MVVM.view
         private void AnnulerenClick(object sender, RoutedEventArgs e)
         {
             lblStageNaam.Visibility = Visibility.Hidden;
-            txtStage.Visibility = Visibility.Hidden;
+            //txtStage.Visibility = Visibility.Hidden;
             btnStageAnnuleren.Visibility = Visibility.Hidden;
             btnStageOpslaan.Visibility = Visibility.Hidden;
 
-            lblContacttypeNaam.Visibility = Visibility.Hidden;
-            txtContacttype.Visibility = Visibility.Hidden;
+            //lblContacttypeNaam.Visibility = Visibility.Hidden;
+           // txtContacttype.Visibility = Visibility.Hidden;
             btnContacttypeAnnuleren.Visibility = Visibility.Hidden;
-            btnContacttypeOpslaan.Visibility = Visibility.Hidden;
+            //btnContacttypeOpslaan.Visibility = Visibility.Hidden;
 
             lblGenreNaam.Visibility = Visibility.Hidden;
-            txtGenre.Visibility = Visibility.Hidden;
+            //txtGenre.Visibility = Visibility.Hidden;
             btnGenreAnnuleren.Visibility = Visibility.Hidden;
             btnGenreOpslaan.Visibility = Visibility.Hidden;
         }
