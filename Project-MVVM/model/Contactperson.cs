@@ -212,7 +212,7 @@ namespace Project_MVVM.model
             try
             {
                 trans = Database.BeginTransaction();
-                string sql = "INSERT INTO Contactpersoon(Name,Company,Email,Phone,JobRole) VALUES (@Name,@Company, @Email, @Phone, @JobRole);";
+                string sql = "INSERT INTO Contactpersoon(Name,Company,Email,Phone,JobRole) VALUES (@Name,@Company, @Email,  @Phone,@JobRole);";
 
                 //DbParameter par1 = Database.AddParameter("@ID", cpn.ID);
                 DbParameter par2 = Database.AddParameter("@Name", cpn.Name);
@@ -221,12 +221,45 @@ namespace Project_MVVM.model
                 DbParameter par5 = Database.AddParameter("@Email", cpn.Email);
                 //DbParameter par6 = Database.AddParameter("@Cellphone", cpn.Cellphone);
                 DbParameter par7 = Database.AddParameter("@Phone", cpn.Phone);
-                DbParameter par8 = Database.AddParameter("@JobRole", cpn.JobRole);
+                DbParameter par8 = Database.AddParameter("@JobRole", cpn.JobRole.ID);
 
 
                 int rowsaffected = 0;
 
-                rowsaffected += Database.ModifyData(trans, sql, par2, par3, par5, par7, par8);
+                rowsaffected += Database.ModifyData(trans, sql, par2, par3,  par5,   par7, par8);
+                Console.WriteLine(rowsaffected + " row(s) are affected");
+                trans.Commit();
+                return rowsaffected;
+            }
+            catch (Exception)
+            {
+                trans.Rollback();
+                return 0;
+            }
+        }
+
+        public static int UpdateContactperson(Contactperson cpn)
+        {
+            DbTransaction trans = null;
+
+            try
+            {
+                trans = Database.BeginTransaction();
+                string sql = "UPDATE Contactpersoon SET Name=@name, Company=@Company, City=@City, Email=@Email, Cellphone=@Cellphone, Phone=@Phone, JobRole=@JobRole WHERE ID=@ID";
+
+                DbParameter par1 = Database.AddParameter("@ID", cpn.ID);
+                DbParameter par2 = Database.AddParameter("@Name", cpn.Name);
+                DbParameter par3 = Database.AddParameter("@Company", cpn.Company);
+                DbParameter par4 = Database.AddParameter("@City", cpn.City);
+                DbParameter par5 = Database.AddParameter("@Email", cpn.Email);
+                DbParameter par6 = Database.AddParameter("@Cellphone", cpn.Cellphone);
+                DbParameter par7 = Database.AddParameter("@Phone", cpn.Phone);
+                DbParameter par8 = Database.AddParameter("@JobRole", cpn.JobRole.ID);
+
+
+                int rowsaffected = 0;
+
+                rowsaffected += Database.ModifyData(trans, sql, par1, par2, par3, par4, par5, par6, par7, par8);
                 Console.WriteLine(rowsaffected + " row(s) are affected");
                 trans.Commit();
                 return rowsaffected;

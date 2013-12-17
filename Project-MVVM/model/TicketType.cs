@@ -43,7 +43,7 @@ namespace Project_MVVM.model
 
         public static ObservableCollection<TicketType> GetTicketTypes()
         {
-            string sql = "SELECT * FROM TicketType";
+            string sql = "SELECT * FROM TicketTypes";
             // DbParameter par1= Database.AddParameter("par1","jan")
             DbDataReader reader = Database.GetData(sql);//,par1);
 
@@ -63,16 +63,14 @@ namespace Project_MVVM.model
             {
                 ID = record["ID"].ToString(),
                 Name = record["Name"].ToString(),
-                //Price = (Double)record["Price"],
-                //AvailableTickets = (int)record["AvailableTickets"],
-
-
+                Price = (Double)record["Price"],
+                AvailableTickets = (int)record["AvailableTickets"]
             };
         }
 
         public override string ToString()
         {
-            return Name + " " +  Price + " " + AvailableTickets;
+            return Name + " " +  "Price: " + Price + " "+" Available Tickets: " + AvailableTickets;
         }
         public static void PrintTickets(ObservableCollection<TicketType> Tickets)
         {

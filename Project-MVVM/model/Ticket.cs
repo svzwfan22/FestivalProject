@@ -49,7 +49,7 @@ namespace Project_MVVM.model
 
         public static ObservableCollection<Ticket> GetTicket()
         {
-            string sql = "SELECT * FROM Ticket";
+            string sql = "SELECT * FROM Ticketten";
             // DbParameter par1= Database.AddParameter("par1","jan")
             DbDataReader reader = Database.GetData(sql);//,par1);
 
@@ -70,7 +70,7 @@ namespace Project_MVVM.model
                 Ticketholder = record["Ticketholder"].ToString(),
                 TicketholderEmail = record["TicketholderEmail"].ToString(),
                 //TicketType = record["TicketType"].ToString(),
-                 //Amount = record["Amount"].ToString,
+                 Amount = (int)record["Amount"],
                 TicketType = new TicketType
                 {
                     Name = record["TicketType"].ToString()

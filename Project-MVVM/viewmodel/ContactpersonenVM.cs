@@ -41,7 +41,13 @@ namespace Project_MVVM.viewmodel
             set { _selectedContactperson = value; OnPropertyChanged("SelectedContactperson"); }
         }
 
+        private ContactpersonType _selectedContactpersonType;
 
+        public ContactpersonType SelectedContactpersonType
+        {
+            get { return _selectedContactpersonType; }
+            set { _selectedContactpersonType = value; OnPropertyChanged("SelectedContactpersonType"); }
+        }
 
         public ICommand DeleteContactpersonCommand
         {
@@ -66,8 +72,18 @@ namespace Project_MVVM.viewmodel
         public void SaveContactperson(Contactperson cpn)
         {
 
-            Contactperson.SaveContactperson(cpn);
+            Contactperson.SaveContactperson(SelectedContactperson);
         }
 
+        public ICommand UpdateContactpersonCommand
+        {
+            get { return new RelayCommand<Contactperson>(UpdateContactperson); }
+        }
+
+        public void UpdateContactperson(Contactperson cpn)
+        {
+
+            Contactperson.UpdateContactperson(SelectedContactperson);
+        }
     }
 }
