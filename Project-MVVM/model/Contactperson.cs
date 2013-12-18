@@ -13,9 +13,9 @@ namespace Project_MVVM.model
 {
     public class Contactperson 
     {
-        private string _ID;
+        private int _ID;
 
-        public string ID
+        public int ID
         {
             get { return _ID; }
             set { _ID = value; }
@@ -130,20 +130,21 @@ namespace Project_MVVM.model
             get { return  _jobRoleList; }
             set {  _jobRoleList = value; }
         }
-        
-
+        public static ObservableCollection<Contactperson> contactpersons = new ObservableCollection<Contactperson>();
+        public static int aantal = 1;
         public static ObservableCollection<Contactperson> GetContactpersons()
         {
-            string sql = "SELECT * FROM Contactpersoon";
+            string sql = "SELECT * FROM ContactPerson";
             // DbParameter par1= Database.AddParameter("par1","jan")
             DbDataReader reader = Database.GetData(sql);//,par1);
 
-            ObservableCollection<Contactperson> contactpersons = new ObservableCollection<Contactperson>();
+            //ObservableCollection<Contactperson> contactpersons = new ObservableCollection<Contactperson>();
             JobRoleList = ContactpersonType.GetContactpersonTypes();
 
             while (reader.Read())
             {
                 contactpersons.Add(Create(reader));
+                aantal++;
             }
             return contactpersons;
         }
@@ -153,7 +154,7 @@ namespace Project_MVVM.model
             //Contactperson contactpersoon = new Contactperson();
             return new Contactperson()
             {
-            ID = record["ID"].ToString(),
+            ID = (int)record["ID"],
                 Name = record["Name"].ToString(),
                 Company = record["Company"].ToString(),
                 //JobRole = record["JobRole"].ToString(),
@@ -179,7 +180,7 @@ namespace Project_MVVM.model
             try
             {
                 trans = Database.BeginTransaction();
-                string sql = "DELETE FROM Contactpersoon WHERE Name=@name";
+                string sql = "DELETE FROM ContactPerson WHERE Name=@name";
 
                 DbParameter par1 = Database.AddParameter("@ID", cpn.ID);
                 DbParameter par2 = Database.AddParameter("@Name", cpn.Name);
@@ -212,7 +213,7 @@ namespace Project_MVVM.model
             try
             {
                 trans = Database.BeginTransaction();
-                string sql = "INSERT INTO Contactpersoon(Name,Company,Email,Phone,JobRole) VALUES (@Name,@Company, @Email,  @Phone,@JobRole);";
+                string sql = "INSERT INTO ContactPerson(Name,Company,Email,Phone,JobRole) VALUES (@Name,@Company, @Email,  @Phone,@JobRole);";
 
                 //DbParameter par1 = Database.AddParameter("@ID", cpn.ID);
                 DbParameter par2 = Database.AddParameter("@Name", cpn.Name);
@@ -245,7 +246,7 @@ namespace Project_MVVM.model
             try
             {
                 trans = Database.BeginTransaction();
-                string sql = "UPDATE Contactpersoon SET Name=@name, Company=@Company, City=@City, Email=@Email, Cellphone=@Cellphone, Phone=@Phone, JobRole=@JobRole WHERE ID=@ID";
+                string sql = "UPDATE ContactPerson SET Name=@name, Company=@Company, City=@City, Email=@Email, Cellphone=@Cellphone, Phone=@Phone, JobRole=@JobRole WHERE ID=@ID";
 
                 DbParameter par1 = Database.AddParameter("@ID", cpn.ID);
                 DbParameter par2 = Database.AddParameter("@Name", cpn.Name);

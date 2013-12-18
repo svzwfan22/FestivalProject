@@ -7,7 +7,7 @@
     <Grid x:Name="root" >
         <ComboBox HorizontalAlignment="Left" Margin="148,82,0,0" VerticalAlignment="Top" Width="200" Height="26" ItemsSource="{Binding JobRoleList}" DisplayMemberPath="Name"/>
         <Label Content="Selecteer een type:" HorizontalAlignment="Left" Margin="11,82,0,0" VerticalAlignment="Top" Width="132"/>
-        <DataGrid  AutoGenerateColumns="False" ItemsSource="{Binding ContactpersonList}" HorizontalAlignment="Left" Height="484" Margin="11,168,0,0" VerticalAlignment="Top" Width="986" SelectedItem="{Binding SelectedContactperson}">
+        <DataGrid  AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding ContactpersonList}" HorizontalAlignment="Left" Height="484" Margin="11,168,0,0" VerticalAlignment="Top" Width="986" SelectedItem="{Binding SelectedContactperson}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding ID}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
@@ -15,7 +15,7 @@
                 <DataGridTemplateColumn Header="JobRole">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <ComboBox  ItemsSource="{Binding JobRoleList}" DisplayMemberPath="Name" SelectedItem="JobRole.Name" SelectedValuePath="ID" SelectedValue="{Binding JobRole.ID}"/>
+                            <ComboBox  ItemsSource="{Binding JobRoleList}" DisplayMemberPath="Name" SelectedItem="{Binding JobRole.Name,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="ID" SelectedValue="{Binding JobRole.ID,UpdateSourceTrigger=PropertyChanged}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

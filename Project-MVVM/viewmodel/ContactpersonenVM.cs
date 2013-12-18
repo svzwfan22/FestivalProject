@@ -66,13 +66,26 @@ namespace Project_MVVM.viewmodel
 
         public ICommand SaveCommand
         {
-            get { return new RelayCommand<Contactperson>(SaveContactperson); }
+            get { return new RelayCommand(SaveContactperson); }
         }
 
-        public void SaveContactperson(Contactperson cpn)
+        public void SaveContactperson()
         {
+            Contactperson cp = new Contactperson();
+            
+            
+            cp.JobRole = new ContactpersonType();
+            cp.ID = Contactperson.aantal;
+            Contactperson.contactpersons.Add(cp);
 
-            Contactperson.SaveContactperson(SelectedContactperson);
+            //cp = SelectedContactperson;
+            //cp.JobRole.ID = SelectedContactpersonType.ID;
+            //int id = (int)SelectedContactperson.ID;
+            //id = Contactperson.aantal;
+            //Contactperson.JobRoleList[id - 1] = new ContactpersonType();
+            //Contactperson.JobRoleList[id - 1] = SelectedContactpersonType;
+
+            //Contactperson.SaveContactperson(cp);
         }
 
         public ICommand UpdateContactpersonCommand
@@ -83,7 +96,15 @@ namespace Project_MVVM.viewmodel
         public void UpdateContactperson(Contactperson cpn)
         {
 
-            Contactperson.UpdateContactperson(SelectedContactperson);
+            //Contactperson.UpdateContactperson(SelectedContactperson);
+            Contactperson contactpersoon = SelectedContactperson;
+            int id = (int)contactpersoon.ID;
+
+            if (id != Contactperson.aantal) {
+                Contactperson.UpdateContactperson(SelectedContactperson);
+            } else {
+                Contactperson.SaveContactperson(SelectedContactperson);
+            }
         }
     }
 }
