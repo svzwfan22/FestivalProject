@@ -9,7 +9,7 @@
         <Label Content="Selecteer een type:" HorizontalAlignment="Left" Margin="11,82,0,0" VerticalAlignment="Top" Width="132"/>
         <DataGrid  AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding ContactpersonList}" HorizontalAlignment="Left" Height="484" Margin="11,168,0,0" VerticalAlignment="Top" Width="986" SelectedItem="{Binding SelectedContactperson}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding ID}"></DataGridTextColumn>
+                <!--<DataGridTextColumn Header="ID" Binding="{Binding ID}"></DataGridTextColumn>-->
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Company" Binding="{Binding Company}"></DataGridTextColumn>
                 <DataGridTemplateColumn Header="JobRole">
@@ -27,7 +27,7 @@
         </DataGrid>
         <Label Content="Contactpersonen" HorizontalAlignment="Left" Margin="11,133,0,0" VerticalAlignment="Top"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="877,133,0,0" TextWrapping="Wrap" Text="Zoeken" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Bewerk" HorizontalAlignment="Left" Margin="11,678,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateContactpersonCommand}"/>
+        <Button Content="Opslaan" HorizontalAlignment="Left" Margin="11,678,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateContactpersonCommand}"/>
         <Button Content="Voeg toe" HorizontalAlignment="Left" Margin="148,678,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SaveCommand}"/>
         <Button Content="Verwijder" HorizontalAlignment="Left" Margin="279,678,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteContactpersonCommand}"/>
         

@@ -5,18 +5,33 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" Height="677.113" Width="1410.317">
     <Grid  Margin="0,0,-11,5" Loaded="AlgemeenLoaded">
-        <DataGrid Name="lstStages" HorizontalAlignment="Left" Height="364" Margin="62,228,0,0" VerticalAlignment="Top" Width="228" ItemsSource="{Binding StageList}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedStage}"/>
-        <DataGrid Name="lstContactpersoontypes" HorizontalAlignment="Left" Height="364" Margin="532,228,0,0" VerticalAlignment="Top" Width="228" ItemsSource="{Binding ContactpersonTypeList}"  SelectedItem="{Binding SelectedContactpersonType}"/>
-        <DataGrid Name="lstGenres" HorizontalAlignment="Left" Height="364" Margin="1006,228,0,0" VerticalAlignment="Top" Width="228" ItemsSource="{Binding GenreList}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedGenre}"/>
-        <Button Content="Update" HorizontalAlignment="Left" Margin="62,628,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateStageCommand}"/>
+        <DataGrid CanUserAddRows="False" Name="lstStages" HorizontalAlignment="Left" Height="364" Margin="62,228,0,0" VerticalAlignment="Top" Width="228" ItemsSource="{Binding StageList}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedStage}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <!--<DataGridTextColumn Header="ID" Binding="{Binding ID}"></DataGridTextColumn>-->
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid CanUserAddRows="False" AutoGenerateColumns="False" Name="lstContactpersoontypes" HorizontalAlignment="Left" Height="364" Margin="532,228,0,0" VerticalAlignment="Top" Width="228" ItemsSource="{Binding ContactpersonTypeList}"  SelectedItem="{Binding SelectedContactpersonType}">
+            <DataGrid.Columns>
+                <!--<DataGridTextColumn Header="ID" Binding="{Binding ID}"></DataGridTextColumn>-->
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid CanUserAddRows="False" AutoGenerateColumns="False" Name="lstGenres" HorizontalAlignment="Left" Height="364" Margin="1006,228,0,0" VerticalAlignment="Top" Width="228" ItemsSource="{Binding GenreList}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedGenre}">
+            <DataGrid.Columns>
+                <!--<DataGridTextColumn Header="ID" Binding="{Binding ID}"></DataGridTextColumn>-->
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Voeg toe" HorizontalAlignment="Left" Margin="62,628,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateStageCommand}"/>
         <Button Content="Verwijder" HorizontalAlignment="Left" Margin="215,628,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteStageCommand}"/>
-        <Button Content="Update" HorizontalAlignment="Left" Margin="532,628,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateContactpersonTypeCommand}"/>
+        <Button Content="Voeg toe" HorizontalAlignment="Left" Margin="532,628,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateContactpersonTypeCommand}"/>
         <Button Content="Verwijder" HorizontalAlignment="Left" Margin="685,628,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteContactpersonTypeCommand}"/>
-        <Button Content="Update" HorizontalAlignment="Left" Margin="1006,628,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateGenreCommand}"/>
+        <Button Content="Voeg toe" HorizontalAlignment="Left" Margin="1006,628,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateGenreCommand}"/>
         <Button Content="Verwijder" HorizontalAlignment="Left" Margin="1158,628,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteGenreCommand}"/>
-        <Button Content="Voeg toe" HorizontalAlignment="Left" Margin="139,628,0,0" VerticalAlignment="Top" Width="75" Command="{Binding AddStageCommand}"/>
-        <Button Content="Voeg toe" HorizontalAlignment="Left" Margin="609,628,0,0" VerticalAlignment="Top" Width="75" Command="{Binding AddContactpersonTypeCommand}"/>
-        <Button Content="Voeg toe" HorizontalAlignment="Left" Margin="1082,628,0,0" VerticalAlignment="Top" Width="75" Command="{Binding AddGenreCommand}"/>
+        <Button Content="Opslaan" HorizontalAlignment="Left" Margin="139,628,0,0" VerticalAlignment="Top" Width="75" Command="{Binding AddStageCommand}"/>
+        <Button Content="Opslaan" HorizontalAlignment="Left" Margin="609,628,0,0" VerticalAlignment="Top" Width="75" Command="{Binding AddContactpersonTypeCommand}"/>
+        <Button Content="Opslaan" HorizontalAlignment="Left" Margin="1082,628,0,0" VerticalAlignment="Top" Width="75" Command="{Binding AddGenreCommand}"/>
         <Label Content="Stages" HorizontalAlignment="Left" Margin="152,169,0,0" VerticalAlignment="Top" Height="31" Width="48"/>
         <Label Content="Contactpersoontypes" HorizontalAlignment="Left" Margin="579,169,0,0" VerticalAlignment="Top" Height="31" Width="137"/>
         <Label Content="Genres" HorizontalAlignment="Left" Margin="1094,169,0,0" VerticalAlignment="Top" Height="31" Width="49"/>
@@ -25,15 +40,5 @@
         <DatePicker HorizontalAlignment="Left" Margin="319,60,0,0" VerticalAlignment="Top"/>
         <Label Content="tot" HorizontalAlignment="Left" Margin="279,60,0,0" VerticalAlignment="Top"/>
         <Button Content="Instellen" HorizontalAlignment="Left" Margin="479,62,0,0" VerticalAlignment="Top" Width="75"/>
-        <Label Name="lblStageNaam" Content="Naam:" HorizontalAlignment="Left" Margin="322,233,0,0" VerticalAlignment="Top"/>
-        
-        <Button Name="btnStageOpslaan" Content="Opslaan" HorizontalAlignment="Left" Margin="338,276,0,0" VerticalAlignment="Top" Width="75" Command="{Binding AddStageCommand}"/>
-        <Button Name="btnStageAnnuleren" Content="Annuleren" HorizontalAlignment="Left" Margin="429,276,0,0" VerticalAlignment="Top" Width="75" Click="AnnulerenClick"/>
-        
-        <Button x:Name="btnContacttypeAnnuleren" Content="Annuleren" HorizontalAlignment="Left" Margin="429,276,0,0" VerticalAlignment="Top" Width="75" Click="AnnulerenClick"/>
-        <Label x:Name="lblGenreNaam" Content="Naam:" HorizontalAlignment="Left" Margin="796,233,0,0" VerticalAlignment="Top"/>
-        
-        <Button x:Name="btnGenreOpslaan" Content="Opslaan" HorizontalAlignment="Left" Margin="812,276,0,0" VerticalAlignment="Top" Width="75" Command="{Binding AddGenreCommand}"/>
-        <Button x:Name="btnGenreAnnuleren" Content="Annuleren" HorizontalAlignment="Left" Margin="903,276,0,0" VerticalAlignment="Top" Width="75" Click="AnnulerenClick"/>
     </Grid>
 </UserControl>

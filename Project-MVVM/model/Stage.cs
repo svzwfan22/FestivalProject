@@ -12,9 +12,9 @@ namespace Project_MVVM.model
 {
     public class Stage
     {
-        private string _ID;
+        private int _ID;
 
-        public string ID
+        public int ID
         {
             get { return _ID; }
             set { _ID = value; }
@@ -61,18 +61,20 @@ namespace Project_MVVM.model
         //        Console.WriteLine(stage.ToString());
         //    }
         //}
-
+        public static ObservableCollection<Stage> stages = new ObservableCollection<Stage>();
+        public static int aantal = 1;
         public static ObservableCollection<Stage> GetStages()
         {
             string sql = "SELECT * FROM Stage";
             // DbParameter par1= Database.AddParameter("par1","jan")
             DbDataReader reader = Database.GetData(sql);//,par1);
 
-            ObservableCollection<Stage> stages = new ObservableCollection<Stage>();
+            //ObservableCollection<Stage> stages = new ObservableCollection<Stage>();
 
             while (reader.Read())
             {
                 stages.Add(Create(reader));
+                aantal++;
             }
             return stages;
         }
@@ -81,7 +83,7 @@ namespace Project_MVVM.model
         {
             return new Stage()
             {
-                ID = record["ID"].ToString(),
+                ID = (int)record["ID"],
                 Name = record["Name"].ToString()
                 
             };

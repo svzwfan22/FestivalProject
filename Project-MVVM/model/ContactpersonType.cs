@@ -28,7 +28,7 @@ namespace Project_MVVM.model
         }
 
         public static ObservableCollection<ContactpersonType> contactpersontypes = new ObservableCollection<ContactpersonType>();
-
+        public static int aantal = 1;
         public static ObservableCollection<ContactpersonType> GetContactpersonTypes()
         {
             string sql = "SELECT * FROM ContactpersonType";
@@ -40,6 +40,7 @@ namespace Project_MVVM.model
             while (reader.Read())
             {
                 contactpersontypes.Add(Create(reader));
+                aantal++;
             }
             return contactpersontypes;
         }

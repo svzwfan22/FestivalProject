@@ -65,12 +65,20 @@ namespace Project_MVVM.viewmodel
 
         public ICommand UpdateGenreCommand
         {
-            get { return new RelayCommand<Genre>(UpdateGenre); }
+            get { return new RelayCommand(UpdateGenre); }
         }
 
-        public void UpdateGenre(Genre gnr)
+        public void UpdateGenre()
         {
-            Genre.UpdateGenre(SelectedGenre);
+            
+
+            Genre gnr = new Genre();
+
+            gnr.ID = Genre.aantal;
+            //gnr.Name = new Genre();
+            Genre.genres.Add(gnr);
+
+            //Genre.UpdateGenre(SelectedGenre);
         }
 
         public ICommand DeleteGenreCommand
@@ -106,7 +114,18 @@ namespace Project_MVVM.viewmodel
 
         public void AddGenre(Genre gnr)
         {
-            Genre.InsertGenre(SelectedGenre);
+            
+
+            Genre genre = SelectedGenre;
+            int id = (int)genre.ID;
+
+            if (id != Genre.aantal) {
+                Genre.UpdateGenre(SelectedGenre);
+            } else {
+                Genre.InsertGenre(SelectedGenre);
+            }
+
+            
         }
 
         private ContactpersonType _selectedContactpersonType;
@@ -119,12 +138,16 @@ namespace Project_MVVM.viewmodel
 
         public ICommand UpdateContactpersonTypeCommand
         {
-            get { return new RelayCommand<ContactpersonType>(UpdateContactpersonType); }
+            get { return new RelayCommand(UpdateContactpersonType); }
         }
 
-        public void UpdateContactpersonType(ContactpersonType cpt)
+        public void UpdateContactpersonType()
         {
-            ContactpersonType.UpdateContactpersonType(SelectedContactpersonType);
+            ContactpersonType cpt = new ContactpersonType();
+
+            cpt.ID = ContactpersonType.aantal;
+            
+            ContactpersonType.contactpersontypes.Add(cpt);
         }
 
         public ICommand DeleteContactpersonTypeCommand
@@ -160,7 +183,17 @@ namespace Project_MVVM.viewmodel
 
         public void AddContactpersonType(ContactpersonType cpt)
         {
-            ContactpersonType.InsertContactpersonType(SelectedContactpersonType);
+            ContactpersonType contactpersooon = SelectedContactpersonType;
+            int id = (int)contactpersooon.ID;
+
+            if (id != ContactpersonType.aantal)
+            {
+                ContactpersonType.UpdateContactpersonType(SelectedContactpersonType);
+            }
+            else
+            {
+                ContactpersonType.InsertContactpersonType(SelectedContactpersonType);
+            }
         }
 
         private Stage _selectedStage;
@@ -173,12 +206,16 @@ namespace Project_MVVM.viewmodel
 
         public ICommand UpdateStageCommand
         {
-            get { return new RelayCommand<Stage>(UpdateStage); }
+            get { return new RelayCommand(UpdateStage); }
         }
 
-        public void UpdateStage(Stage stg)
+        public void UpdateStage()
         {
-            Stage.UpdateStage(SelectedStage);
+            Stage stg = new Stage();
+
+            stg.ID = Stage.aantal;
+
+            Stage.stages.Add(stg);
         }
 
 
@@ -215,7 +252,17 @@ namespace Project_MVVM.viewmodel
 
         public void AddStage(Stage stg)
         {
-            Stage.InsertStage(SelectedStage);
+            Stage stagee = SelectedStage;
+            int id = (int)stagee.ID;
+
+            if (id != Stage.aantal)
+            {
+                Stage.UpdateStage(SelectedStage);
+            }
+            else
+            {
+                Stage.InsertStage(SelectedStage);
+            }
         }
     }
 }

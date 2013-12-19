@@ -12,9 +12,9 @@ namespace Project_MVVM.model
 {
     public class Genre
     {
-        private string _ID;
+        private int _ID;
 
-        public string ID
+        public int ID
         {
             get { return _ID; }
             set { _ID = value; }
@@ -61,18 +61,20 @@ namespace Project_MVVM.model
         //        Console.WriteLine(genre.ToString());
         //    }
         //}
-
+        public static ObservableCollection<Genre> genres = new ObservableCollection<Genre>();
+        public static int aantal = 1;
         public static ObservableCollection<Genre> GetGenres()
         {
             string sql = "SELECT * FROM Genre";
             // DbParameter par1= Database.AddParameter("par1","jan")
             DbDataReader reader = Database.GetData(sql);//,par1);
 
-            ObservableCollection<Genre> genres = new ObservableCollection<Genre>();
+            //ObservableCollection<Genre> genres = new ObservableCollection<Genre>();
 
             while (reader.Read())
             {
                 genres.Add(Create(reader));
+                aantal++;
             }
             return genres;
         }
@@ -81,7 +83,7 @@ namespace Project_MVVM.model
         {
             return new Genre()
             {
-                ID = record["ID"].ToString(),
+                ID = (int)record["ID"],
                 Name = record["Name"].ToString()
 
             };
