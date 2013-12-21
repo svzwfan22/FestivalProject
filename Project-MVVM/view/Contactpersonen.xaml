@@ -7,7 +7,7 @@
     <Grid x:Name="root" >
         <ComboBox HorizontalAlignment="Left" Margin="148,82,0,0" VerticalAlignment="Top" Width="200" Height="26" ItemsSource="{Binding JobRoleList}" DisplayMemberPath="Name"/>
         <Label Content="Selecteer een type:" HorizontalAlignment="Left" Margin="11,82,0,0" VerticalAlignment="Top" Width="132"/>
-        <DataGrid  AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding ContactpersonList}" HorizontalAlignment="Left" Height="484" Margin="11,168,0,0" VerticalAlignment="Top" Width="986" SelectedItem="{Binding SelectedContactperson}">
+        <DataGrid  AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding GefilterdeContacts}" HorizontalAlignment="Left" Height="484" Margin="11,168,0,0" VerticalAlignment="Top" Width="986" SelectedItem="{Binding SelectedContactperson}">
             <DataGrid.Columns>
                 <!--<DataGridTextColumn Header="ID" Binding="{Binding ID}"></DataGridTextColumn>-->
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
@@ -26,10 +26,11 @@
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Contactpersonen" HorizontalAlignment="Left" Margin="11,133,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="877,133,0,0" TextWrapping="Wrap" Text="Zoeken" VerticalAlignment="Top" Width="120"/>
+        <TextBox Name="txtZoeken" HorizontalAlignment="Left" Height="23" Margin="739,133,0,0" TextWrapping="Wrap" Text="Zoeken" VerticalAlignment="Top" Width="149"/>
         <Button Content="Opslaan" HorizontalAlignment="Left" Margin="11,678,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateContactpersonCommand}"/>
         <Button Content="Voeg toe" HorizontalAlignment="Left" Margin="148,678,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SaveCommand}"/>
         <Button Content="Verwijder" HorizontalAlignment="Left" Margin="279,678,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteContactpersonCommand}"/>
-        
+        <Button Content="Zoeken" HorizontalAlignment="Left" Height="23" Margin="902,133,0,0" VerticalAlignment="Top" Width="95" Command="{Binding SearchCommand}" CommandParameter="{Binding ElementName=txtZoeken, Path=Text}"/>
+
     </Grid>
 </UserControl>

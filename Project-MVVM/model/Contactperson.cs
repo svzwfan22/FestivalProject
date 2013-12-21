@@ -213,21 +213,21 @@ namespace Project_MVVM.model
             try
             {
                 trans = Database.BeginTransaction();
-                string sql = "INSERT INTO ContactPerson(Name,Company,Email,Phone,JobRole) VALUES (@Name,@Company, @Email,  @Phone,@JobRole);";
+                string sql = "INSERT INTO ContactPerson(Name,Company,City,Email,Cellphone,Phone,JobRole) VALUES (@Name,@Company,@City,@Email,@Cellphone,@Phone,@JobRole);";
 
                 //DbParameter par1 = Database.AddParameter("@ID", cpn.ID);
                 DbParameter par2 = Database.AddParameter("@Name", cpn.Name);
                 DbParameter par3 = Database.AddParameter("@Company", cpn.Company);
-                //DbParameter par4 = Database.AddParameter("@City", cpn.City);
+                DbParameter par4 = Database.AddParameter("@City", cpn.City);
                 DbParameter par5 = Database.AddParameter("@Email", cpn.Email);
-                //DbParameter par6 = Database.AddParameter("@Cellphone", cpn.Cellphone);
+                DbParameter par6 = Database.AddParameter("@Cellphone", cpn.Cellphone);
                 DbParameter par7 = Database.AddParameter("@Phone", cpn.Phone);
                 DbParameter par8 = Database.AddParameter("@JobRole", cpn.JobRole.ID);
 
 
                 int rowsaffected = 0;
 
-                rowsaffected += Database.ModifyData(trans, sql, par2, par3,  par5,   par7, par8);
+                rowsaffected += Database.ModifyData(trans, sql, par2, par3, par4, par5, par6,  par7, par8);
                 Console.WriteLine(rowsaffected + " row(s) are affected");
                 trans.Commit();
                 return rowsaffected;
@@ -270,6 +270,19 @@ namespace Project_MVVM.model
                 trans.Rollback();
                 return 0;
             }
+        }
+
+        public static ObservableCollection<Contactperson> GetContactsByString(string search)
+        {
+            ObservableCollection<Contactperson> lstGevondenContacts = new ObservableCollection<Contactperson>();
+            foreach (Contactperson contactperson in contactpersons)
+            {
+                if (contactperson.Name.ToUpper().Contains(search.ToUpper()) || contactperson.Phone.ToUpper().Contains(search.ToUpper()) || contactperson.Email.ToUpper().Contains(search.ToUpper()) || contactperson.Company.ToUpper().Contains(search.ToUpper()) || contactperson.City.ToUpper().Contains(search.ToUpper()) || contactperson.Cellphone.ToUpper().Contains(search.ToUpper()))
+                {
+                    lstGevondenContacts.Add(contactperson);
+                }
+            }
+            return lstGevondenContacts;
         }
 
         public override string ToString()

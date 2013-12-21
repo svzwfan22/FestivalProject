@@ -17,6 +17,14 @@ namespace Project_MVVM.viewmodel
             get { return "Contactpers."; }
         }
 
+        private ObservableCollection<Contactperson> _gefilterdeContacts;
+
+        public ObservableCollection<Contactperson> GefilterdeContacts
+        {
+            get { return _gefilterdeContacts; }
+            set { _gefilterdeContacts = value; OnPropertyChanged("GefilterdeContacts"); }
+        }
+
         private ObservableCollection<Contactperson> _contactpersonList;
 
         public ObservableCollection<Contactperson> ContactpersonList
@@ -30,6 +38,7 @@ namespace Project_MVVM.viewmodel
         public ContactpersonenVM()
         {
             _contactpersonList = Contactperson.GetContactpersons();
+            _gefilterdeContacts = ContactpersonList;
             
         }
 
@@ -105,6 +114,16 @@ namespace Project_MVVM.viewmodel
             } else {
                 Contactperson.SaveContactperson(SelectedContactperson);
             }
+        }
+
+        public ICommand SearchCommand
+        {
+            get { return new RelayCommand<string>(Search); }
+        }
+        private void Search(string str)
+        {
+            Console.WriteLine(str);
+            GefilterdeContacts = Contactperson.GetContactsByString(str);
         }
     }
 }
