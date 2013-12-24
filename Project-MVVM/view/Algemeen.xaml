@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" Height="677.113" Width="1410.317">
-    <Grid  Margin="0,0,-11,5" Loaded="AlgemeenLoaded">
+    <Grid  Margin="0,0,-11,5">
         <DataGrid CanUserAddRows="False" Name="lstStages" HorizontalAlignment="Left" Height="364" Margin="62,228,0,0" VerticalAlignment="Top" Width="228" ItemsSource="{Binding StageList}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedStage}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <!--<DataGridTextColumn Header="ID" Binding="{Binding ID}"></DataGridTextColumn>-->

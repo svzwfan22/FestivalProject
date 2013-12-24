@@ -11,7 +11,7 @@ using System.Windows.Shapes;
 using System.Windows;
 using System.Windows.Media;
 
-namespace Atraction.convertor
+namespace Project_MVVM.convertor
 {
     public class BytesToImageConverter : IValueConverter
     {
@@ -23,7 +23,7 @@ namespace Atraction.convertor
             {
                 //ImageSource result = null;
 
-                if (bytes.Length == 0) return new BitmapImage(new Uri(@"C:\Users\alisio\Desktop\howest\2NMCT\Business Applications\oefeningen\Atraction\Atraction\images\noimage.png"));
+                if (bytes.Length == 0) return new BitmapImage(new Uri(@"C:\Users\Mike\Documents\Business applications\Project-MVVM\Project-MVVM\image\noimage.png"));
 
                 //MemoryStream memoryStream = new MemoryStream(bytes);
 
@@ -40,7 +40,7 @@ namespace Atraction.convertor
             }
             else
             {
-                return new BitmapImage(new Uri(@"C:\Users\alisio\Desktop\howest\2NMCT\Business Applications\oefeningen\Atraction\Atraction\images\noimage.png"));
+                return new BitmapImage(new Uri(@"C:\Users\Mike\Documents\Business applications\Project-MVVM\Project-MVVM\image\noimage.png"));
             }
         }
 

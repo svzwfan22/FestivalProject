@@ -3,6 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="view/MainWindow.xaml">
     <Application.Resources>
-         
+        <Style x:Key="ImageBox" TargetType="{x:Type Image}">
+            <Setter Property="MinWidth" Value="50"/>
+            <Setter Property="MinHeight" Value="150"/>
+            <!--<Setter Property="Source" Value="content/images/blank.jpg"/>-->
+        </Style>
     </Application.Resources>
 </Application>

@@ -24,35 +24,7 @@ namespace Project_MVVM.view
         {
             InitializeComponent();
         }
-        private void StageToevoegenClick(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void StageBewerkenClick(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void ContactpersoonTypeToevoegenClick(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void GenreToevoegenClick(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void AlgemeenLoaded(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void AnnulerenClick(object sender, RoutedEventArgs e)
-        {
-            
-        }
+        
        
     }
 }
