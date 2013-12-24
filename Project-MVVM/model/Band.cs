@@ -149,7 +149,7 @@ namespace Project_MVVM.model
             try
             {
                 trans = Database.BeginTransaction();
-                string sql = "UPDATE Bands SET Name=@name, Description=@Description, Facebook=@Facebook, Genres=@Genres, Twitter=@Twitter, @Picture=Picture WHERE ID=@ID";
+                string sql = "UPDATE Bands SET Name=@name, Description=@Description, Facebook=@Facebook, Genres=@Genres, Twitter=@Twitter, Picture=@Picture WHERE ID=@ID";
 
                 DbParameter par1 = Database.AddParameter("@ID", bnd.ID);
                 DbParameter par2 = Database.AddParameter("@Name", bnd.Name);
@@ -163,6 +163,38 @@ namespace Project_MVVM.model
                 int rowsaffected = 0;
 
                 rowsaffected += Database.ModifyData(trans, sql, par1, par2, par3, par4, par5, par6, par7);
+                Console.WriteLine(rowsaffected + " row(s) are affected");
+                trans.Commit();
+                return rowsaffected;
+            }
+            catch (Exception)
+            {
+                trans.Rollback();
+                return 0;
+            }
+        }
+
+        public static int DeleteBand(Band bnd)
+        {
+            DbTransaction trans = null;
+
+            try
+            {
+                trans = Database.BeginTransaction();
+                string sql = "DELETE FROM Bands WHERE Name=@name";
+
+                DbParameter par1 = Database.AddParameter("@ID", bnd.ID);
+                DbParameter par2 = Database.AddParameter("@Name", bnd.Name);
+                DbParameter par3 = Database.AddParameter("@Description", bnd.Description);
+                DbParameter par4 = Database.AddParameter("@Facebook", bnd.Facebook);
+                DbParameter par5 = Database.AddParameter("@Genres", bnd.Genres);
+                DbParameter par6 = Database.AddParameter("@Twitter", bnd.Twitter);
+                DbParameter par7 = Database.AddParameter("@Picture", bnd.Picture);
+
+
+                int rowsaffected = 0;
+
+                rowsaffected += Database.ModifyData(trans, sql, par1, par2);
                 Console.WriteLine(rowsaffected + " row(s) are affected");
                 trans.Commit();
                 return rowsaffected;

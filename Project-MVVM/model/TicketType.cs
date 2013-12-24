@@ -11,9 +11,9 @@ namespace Project_MVVM.model
 {
     public class TicketType
     {
-        private string _ID;
+        private int _ID;
 
-        public string ID
+        public int ID
         {
             get { return _ID; }
             set { _ID = value; }
@@ -39,19 +39,21 @@ namespace Project_MVVM.model
             get { return _availableTickets; }
             set { _availableTickets = value; }
         }
-       
 
+        public static ObservableCollection<TicketType> ticketType = new ObservableCollection<TicketType>();
+        public static int aantal = 1;
         public static ObservableCollection<TicketType> GetTicketTypes()
         {
             string sql = "SELECT * FROM TicketTypes";
             // DbParameter par1= Database.AddParameter("par1","jan")
             DbDataReader reader = Database.GetData(sql);//,par1);
 
-            ObservableCollection<TicketType> ticketType = new ObservableCollection<TicketType>();
+            //ObservableCollection<TicketType> ticketType = new ObservableCollection<TicketType>();
 
             while (reader.Read())
             {
                 ticketType.Add(Create(reader));
+                aantal++;
             }
             return ticketType;
             
@@ -61,11 +63,95 @@ namespace Project_MVVM.model
         {
             return new TicketType()
             {
-                ID = record["ID"].ToString(),
+                ID = (int)record["ID"],
                 Name = record["Name"].ToString(),
                 Price = (Double)record["Price"],
                 AvailableTickets = (int)record["AvailableTickets"]
             };
+        }
+
+        public static int UpdateTicketType(TicketType tkt)
+        {
+            DbTransaction trans = null;
+
+            try
+            {
+                trans = Database.BeginTransaction();
+                string sql = "UPDATE TicketTypes SET Name=@name,Price=@Price,AvailableTickets=@AvailableTickets WHERE ID=@ID";
+
+                DbParameter par1 = Database.AddParameter("@ID", tkt.ID);
+                DbParameter par2 = Database.AddParameter("@Name", tkt.Name);
+                DbParameter par3 = Database.AddParameter("@Price", tkt.Price);
+                DbParameter par4 = Database.AddParameter("@AvailableTickets", tkt.AvailableTickets);
+
+
+                int rowsaffected = 0;
+
+                rowsaffected += Database.ModifyData(trans, sql, par2, par1, par3,par4);
+                Console.WriteLine(rowsaffected + " row(s) are affected");
+                trans.Commit();
+                return rowsaffected;
+            }
+            catch (Exception)
+            {
+                trans.Rollback();
+                return 0;
+            }
+        }
+
+        public static int InsertTicketType(TicketType tkt)
+        {
+            DbTransaction trans = null;
+
+            try
+            {
+                trans = Database.BeginTransaction();
+                string sql = "INSERT INTO TicketTypes (Name,Price,AvailableTickets) VALUES (@name,@Price,@AvailableTickets)";
+
+                //DbParameter par1 = Database.AddParameter("@ID", "4");
+                DbParameter par2 = Database.AddParameter("@Name", tkt.Name);
+                DbParameter par3 = Database.AddParameter("@Price", tkt.Price);
+                DbParameter par4 = Database.AddParameter("@AvailableTickets", tkt.AvailableTickets);
+
+                int rowsaffected = 0;
+
+                rowsaffected += Database.ModifyData(trans, sql, par2,par3,par4);
+                Console.WriteLine(rowsaffected + " row(s) are affected");
+                trans.Commit();
+                return rowsaffected;
+            }
+            catch (Exception)
+            {
+                trans.Rollback();
+                return 0;
+            }
+        }
+
+        public static int DeleteTicketType(TicketType tkt)
+        {
+            DbTransaction trans = null;
+
+            try
+            {
+                trans = Database.BeginTransaction();
+                string sql = "DELETE FROM TicketTypes WHERE Name=@name";
+
+                DbParameter par1 = Database.AddParameter("@ID", tkt.ID);
+                DbParameter par2 = Database.AddParameter("@Name", tkt.Name);
+
+
+                int rowsaffected = 0;
+
+                rowsaffected += Database.ModifyData(trans, sql, par2, par1);
+                Console.WriteLine(rowsaffected + " row(s) are affected");
+                trans.Commit();
+                return rowsaffected;
+            }
+            catch (Exception)
+            {
+                trans.Rollback();
+                return 0;
+            }
         }
 
         public override string ToString()

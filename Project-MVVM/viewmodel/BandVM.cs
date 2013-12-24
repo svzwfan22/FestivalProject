@@ -67,6 +67,7 @@ namespace Project_MVVM.viewmodel
 
         public void DeleteBand()
         {
+            Band.DeleteBand(SelectedBand);
             if (SelectedBand != null)
                 BandList.Remove(SelectedBand);
             Console.WriteLine("delete command");
@@ -150,6 +151,9 @@ namespace Project_MVVM.viewmodel
             
         }
 
+       
+        
+        
         }
 
         

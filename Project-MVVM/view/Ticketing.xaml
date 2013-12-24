@@ -4,28 +4,35 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" Width="1358" Height="752">
-    <Grid  Margin="0,0,0,-22" Loaded="Grid_Loaded_1">
-        <ListBox Name="lstTickets" ItemsSource="{Binding TicketTypeList}" SelectedItem="{Binding SelectedTicket}" Margin="91,50,1010,86"></ListBox>
-            <DataGrid Name="lstReservaties" HorizontalAlignment="Left" Height="638" Margin="483,50,0,0" VerticalAlignment="Top" Width="741" ItemsSource="{Binding TicketList}"/>
-        <Button Name="btnReserveren2" Content="Reserveren" HorizontalAlignment="Left" Margin="817,710,0,0" VerticalAlignment="Top" Width="75" Click="TicketReserverenClick"/>
-        <Button Name="btnToevoegen" Content="Toevoegen" HorizontalAlignment="Left" Margin="183,710,0,0" VerticalAlignment="Top" Width="75" Click="TicketToevoegenClick"/>
-        <Label x:Name="lblTicketNaam" Content="Ticketnaam:" HorizontalAlignment="Left" Margin="112,68,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblKostprijs" Content="Kostprijs:" HorizontalAlignment="Left" Margin="112,97,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblAantal" Content="Aantal:" HorizontalAlignment="Left" Margin="112,126,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtTicketNaam" HorizontalAlignment="Left" Height="23" Margin="209,69,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtKostprijs" HorizontalAlignment="Left" Height="23" Margin="209,97,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtAantal" HorizontalAlignment="Left" Height="23" Margin="209,125,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnToevoegen2" Content="Toevoegen" HorizontalAlignment="Left" Margin="137,164,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="btnAnnuleren" Content="Annuleren" HorizontalAlignment="Left" Margin="237,164,0,0" VerticalAlignment="Top" Width="75" Click="AnnulerenClick"/>
-        <Label x:Name="lblNaam" Content="Naam:" HorizontalAlignment="Left" Margin="751,56,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblVoornaam" Content="Voornaam:" HorizontalAlignment="Left" Margin="751,87,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblEmail" Content="e-mail:" HorizontalAlignment="Left" Margin="751,118,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtNaam" HorizontalAlignment="Left" Height="23" Margin="844,58,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtVoornaam" HorizontalAlignment="Left" Height="23" Margin="844,90,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtEmail" HorizontalAlignment="Left" Height="23" Margin="844,122,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Label x:Name="lblTicket" Content="Ticket:" HorizontalAlignment="Left" Margin="751,166,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cboTicket" HorizontalAlignment="Left" Margin="844,169,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnReserveren" Content="Reserveren" HorizontalAlignment="Left" Margin="795,218,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="btnAnnuleren_Copy" Content="Annuleren" HorizontalAlignment="Left" Margin="899,218,0,0" VerticalAlignment="Top" Width="75" Click="AnnulerenClick"/>
+    <Grid  Margin="0,0,0,-22" >
+        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" Name="lstTickets" ItemsSource="{Binding TicketTypeList}" SelectedItem="{Binding SelectedTicketType}" Margin="91,50,936,86">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Price" Binding="{Binding Price}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Available Tickets" Binding="{Binding AvailableTickets}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" Name="lstReservaties" HorizontalAlignment="Left" Height="638" Margin="544,50,0,0" VerticalAlignment="Top" Width="680" ItemsSource="{Binding TicketList}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Ticketholder" Binding="{Binding Ticketholder}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Ticketholder Email" Binding="{Binding TicketholderEmail}"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="TicketType">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox  ItemsSource="{Binding TicketTypesList}" DisplayMemberPath="Name" SelectedItem="{Binding TicketTypeID.Name,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="ID" SelectedValue="{Binding TicketTypeID.ID,UpdateSourceTrigger=PropertyChanged}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Amount" Binding="{Binding Amount}"></DataGridTextColumn>
+            </DataGrid.Columns>
+            
+        </DataGrid>
+        <Button Name="btnReserveren2" Content="Opslaan" HorizontalAlignment="Left" Margin="912,710,0,0" VerticalAlignment="Top" Width="75" />
+        <Button Name="btnReserverenVerwijderen" Content="Verwijderen" HorizontalAlignment="Left" Margin="1031,710,0,0" VerticalAlignment="Top" Width="75" />
+        <Button Name="btnToevoegen" Content="Toevoegen" HorizontalAlignment="Left" Margin="112,710,0,0" VerticalAlignment="Top" Width="75" Command="{Binding AddTicketTypeCommand}"/>
+        <Button x:Name="btnOpslaan" Content="Opslaan" HorizontalAlignment="Left" Margin="216,710,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SaveTicketTypeCommand}"/>
+        <Button x:Name="btnVerwijderen" Content="Verwijderen" HorizontalAlignment="Left" Margin="322,710,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteTicketTypeCommand}"/>
+        <Button x:Name="btnToevoegenReservatie" Content="Toevoegen" HorizontalAlignment="Left" Margin="796,710,0,0" VerticalAlignment="Top" Width="75" />
+        <Button x:Name="btnAfdrukken" Content="Afdrukken" HorizontalAlignment="Left" Margin="678,710,0,0" VerticalAlignment="Top" Width="75" />
     </Grid>
 </UserControl>

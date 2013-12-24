@@ -11,9 +11,9 @@ namespace Project_MVVM.model
 {
     public class Ticket
     {
-        private string _ID;
+        private int _ID;
 
-        public string ID
+        public int ID
         {
             get { return _ID; }
             set { _ID = value; }
@@ -32,13 +32,15 @@ namespace Project_MVVM.model
             get { return _ticketholderEmail; }
             set { _ticketholderEmail = value; }
         }
-        private TicketType _ticketType;
+        private TicketType _ticketTypeID;
 
-        public TicketType TicketType
+        public TicketType TicketTypeID
         {
-            get { return _ticketType; }
-            set { _ticketType = value; }
+            get { return _ticketTypeID; }
+            set { _ticketTypeID = value; }
         }
+
+
         private int _amount;
 
         public int Amount
@@ -46,18 +48,29 @@ namespace Project_MVVM.model
             get { return _amount; }
             set { _amount = value; }
         }
+        private static ObservableCollection<TicketType> _ticketTypesList;
 
+        public static ObservableCollection<TicketType> TicketTypesList
+        {
+            get { return _ticketTypesList; }
+            set { _ticketTypesList = value; }
+        }
+
+        public static ObservableCollection<Ticket> ticket = new ObservableCollection<Ticket>();
+        public static int aantal = 1;
         public static ObservableCollection<Ticket> GetTicket()
         {
             string sql = "SELECT * FROM Ticketten";
             // DbParameter par1= Database.AddParameter("par1","jan")
             DbDataReader reader = Database.GetData(sql);//,par1);
 
-            ObservableCollection<Ticket> ticket = new ObservableCollection<Ticket>();
+            //ObservableCollection<Ticket> ticket = new ObservableCollection<Ticket>();
+            TicketTypesList = TicketType.GetTicketTypes();
 
             while (reader.Read())
             {
                 ticket.Add(Create(reader));
+                aantal++;
             }
             return ticket;
         }
@@ -66,15 +79,16 @@ namespace Project_MVVM.model
         {
             return new Ticket()
             {
-                ID = record["ID"].ToString(),
+                ID = (int)record["ID"],
                 Ticketholder = record["Ticketholder"].ToString(),
                 TicketholderEmail = record["TicketholderEmail"].ToString(),
                 //TicketType = record["TicketType"].ToString(),
                  Amount = (int)record["Amount"],
-                TicketType = new TicketType
+                TicketTypeID = new TicketType
                 {
-                    Name = record["TicketType"].ToString()
-                },
+                    ID = (int)record["TicketTypeID"],
+                    Name = TicketTypesList[(int)record["TicketTypeID"]-1].Name
+                }
                 
 
             };
