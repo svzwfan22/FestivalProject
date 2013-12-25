@@ -41,7 +41,7 @@ namespace Project_MVVM.model
         }
 
         public static ObservableCollection<TicketType> ticketType = new ObservableCollection<TicketType>();
-        public static int aantal = 1;
+        public static int aantalType = 1;
         public static ObservableCollection<TicketType> GetTicketTypes()
         {
             string sql = "SELECT * FROM TicketTypes";
@@ -53,7 +53,7 @@ namespace Project_MVVM.model
             while (reader.Read())
             {
                 ticketType.Add(Create(reader));
-                aantal++;
+                aantalType++;
             }
             return ticketType;
             

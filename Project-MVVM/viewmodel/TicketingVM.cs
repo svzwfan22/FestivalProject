@@ -52,7 +52,7 @@ namespace Project_MVVM.viewmodel
         public TicketingVM()
         {
             _ticketList = Ticket.GetTicket();
-            _ticketTypeList = TicketType.GetTicketTypes();
+            _ticketTypeList = TicketType.ticketType;
             
         }
 
@@ -66,7 +66,7 @@ namespace Project_MVVM.viewmodel
 
             TicketType tkt = new TicketType();
 
-            tkt.ID = TicketType.aantal;
+            tkt.ID = TicketType.aantalType;
             
             TicketType.ticketType.Add(tkt);
 
@@ -83,7 +83,7 @@ namespace Project_MVVM.viewmodel
             TicketType tickettype = SelectedTicketType;
             int id = (int)tickettype.ID;
 
-            if (id != TicketType.aantal)
+            if (id != TicketType.aantalType)
             {
                 TicketType.UpdateTicketType(SelectedTicketType);
             }
