@@ -24,7 +24,8 @@ namespace Project_MVVM.view
         {
             InitializeComponent();
         }
-
+        
+        
         
     }
 }

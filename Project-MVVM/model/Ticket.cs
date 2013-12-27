@@ -18,6 +18,15 @@ namespace Project_MVVM.model
             get { return _ID; }
             set { _ID = value; }
         }
+
+        private int _aantalVorig;
+
+        public int AantalVorig
+        {
+            get { return _aantalVorig; }
+            set { _aantalVorig = value; }
+        }
+
         private string _ticketholder;
 
         public string Ticketholder
@@ -56,11 +65,11 @@ namespace Project_MVVM.model
             set { _ticketTypesList = value; }
         }
 
-        public static ObservableCollection<Ticket> ticket = new ObservableCollection<Ticket>();
+        public static ObservableCollection<Ticket> tickets = new ObservableCollection<Ticket>();
         public static int aantal = 1;
         public static ObservableCollection<Ticket> GetTicket()
         {
-            string sql = "SELECT * FROM Ticketten";
+            string sql = "SELECT * FROM Tickets";
             // DbParameter par1= Database.AddParameter("par1","jan")
             DbDataReader reader = Database.GetData(sql);//,par1);
 
@@ -69,10 +78,10 @@ namespace Project_MVVM.model
 
             while (reader.Read())
             {
-                ticket.Add(Create(reader));
+                tickets.Add(Create(reader));
                 aantal++;
             }
-            return ticket;
+            return tickets;
         }
 
         private static Ticket Create(IDataRecord record)
@@ -84,6 +93,7 @@ namespace Project_MVVM.model
                 TicketholderEmail = record["TicketholderEmail"].ToString(),
                 //TicketType = record["TicketType"].ToString(),
                  Amount = (int)record["Amount"],
+                 AantalVorig = (int)record["AantalVorig"],
                 TicketTypeID = new TicketType
                 {
                     ID = (int)record["TicketTypeID"],
@@ -92,6 +102,225 @@ namespace Project_MVVM.model
                 
 
             };
+        }
+
+        public static int UpdateTicket(Ticket ticket)
+        {
+           
+            DbTransaction trans = null;
+
+            ObservableCollection<TicketType> ticketType = TicketType.ticketType;
+            ObservableCollection<Ticket> ticketVorig = Ticket.GetTicket();
+            int aantaltickets = ticketType[ticket.TicketTypeID.ID - 1].AvailableTickets;
+            int aantalNu = ticket.Amount;
+            int aantalVorig = ticket.AantalVorig;
+
+            if (aantalNu > aantalVorig)
+            {
+                if (aantaltickets - (aantalNu - aantalVorig) >= 0)
+                {
+                    return UpdateTicket(trans, ticket, aantaltickets);
+                }
+                else
+                {
+                    
+                    return 0;
+                }
+            }
+            else if (aantalNu < aantalVorig)
+            {
+                if (aantalNu >= 0)
+                {
+                    return UpdateTicket(trans, ticket, aantaltickets);
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                int idVorig = ticketVorig[ticket.ID -1].TicketTypeID.ID;
+                if (idVorig != ticket.TicketTypeID.ID)
+                {
+                    if (aantaltickets >= aantalNu)
+                    {
+                        int rowsaffected = 0;
+                        rowsaffected += UpdateTicketType(idVorig, -aantalVorig, ticketType[idVorig - 1].AvailableTickets);
+                        rowsaffected += UpdateTicketType(ticket.TicketTypeID.ID, aantalVorig, aantaltickets);
+                        try
+                        {
+                            trans = Database.BeginTransaction();
+
+                            string sql = "UPDATE Tickets SET Ticketholder=@TicketHolder,TicketholderEmail=@TicketHolderEmail,TicketTypeID=@TicketTypeID,Amount=@Amount,AantalVorig=@AantalVorig WHERE ID=@ID";
+                            DbParameter par1 = Database.AddParameter("@TicketHolder", ticket.Ticketholder);
+                            DbParameter par2 = Database.AddParameter("@ID", ticket.ID);
+                            DbParameter par3 = Database.AddParameter("@TicketHolderEmail", ticket.TicketholderEmail);
+                            DbParameter par4 = Database.AddParameter("@TicketTypeID", ticket.TicketTypeID.ID);
+                            DbParameter par5 = Database.AddParameter("@Amount", ticket.Amount);
+                            DbParameter par6 = Database.AddParameter("@AantalVorig", ticket.Amount);
+
+                            rowsaffected += Database.ModifyData(trans, sql, par1, par2, par3, par4, par5,par6);
+
+                            trans.Commit();
+                            
+                            return rowsaffected;
+                        }
+                        catch (Exception)
+                        {
+                            
+                            trans.Rollback();
+                            return 0;
+                        }
+                    }
+                    else
+                    {
+                        
+                        return 0;
+                    }
+                }
+                else
+                {
+                    
+                    return 0;
+                }
+            }
+        }
+
+        public static int UpdateTicket(DbTransaction trans, Ticket ticket, int aantaltickets)
+        {
+            ObservableCollection<TicketType> types = new ObservableCollection<TicketType>();
+            types = TicketType.ticketType;
+            int vorig = tickets[ticket.ID].AantalVorig;
+
+            UpdateTicketType(ticket.TicketTypeID.ID, ticket.Amount - vorig, aantaltickets);
+
+            try
+            {
+                trans = Database.BeginTransaction();
+
+                string sql = "UPDATE Tickets SET Ticketholder=@TicketHolder,TicketholderEmail=@TicketHolderEmail,TicketTypeID=@TicketTypeID,Amount=@Amount,AantalVorig=@AantalVorig WHERE ID=@ID";
+                DbParameter par1 = Database.AddParameter("@TicketHolder", ticket.Ticketholder);
+                DbParameter par2 = Database.AddParameter("@ID", ticket.ID);
+                DbParameter par3 = Database.AddParameter("@TicketHolderEmail", ticket.TicketholderEmail);
+                DbParameter par4 = Database.AddParameter("@TicketTypeID", ticket.TicketTypeID.ID);
+                DbParameter par5 = Database.AddParameter("@Amount", ticket.Amount);
+                DbParameter par6 = Database.AddParameter("@AantalVorig", ticket.Amount);
+
+                int rowsaffected = 0;
+                rowsaffected += Database.ModifyData(trans, sql, par1, par2, par3, par4, par5);
+
+                trans.Commit();
+                
+                return rowsaffected;
+            }
+            catch (Exception)
+            {
+                
+                trans.Rollback();
+                return 0;
+            }
+        }
+
+        public static int UpdateTicketType(int id, int tickets, int vorig)
+        {
+            
+            DbTransaction trans = null;
+
+            try
+            {
+                trans = Database.BeginTransaction();
+
+                string sql = "UPDATE TicketTypes SET AvailableTickets=@AvailableTickets WHERE ID=@ID";
+                DbParameter par1 = Database.AddParameter("@ID", id);
+                DbParameter par2 = Database.AddParameter("@AvailableTickets", vorig - tickets);
+
+                int rowsaffected = 0;
+                rowsaffected += Database.ModifyData(trans, sql, par1, par2);
+
+                trans.Commit();
+                
+                return rowsaffected;
+            }
+            catch (Exception)
+            {
+                
+                trans.Rollback();
+                return 0;
+            }
+        }
+
+        public static int InsertTicket(Ticket ticket)
+        {
+            
+            DbTransaction trans = null;
+
+            int aantaltickets = TicketType.ticketType[ticket.TicketTypeID.ID - 1].AvailableTickets;
+            ObservableCollection<TicketType> types = TicketType.ticketType;
+            int vorig = types[ticket.TicketTypeID.ID - 1].AvailableTickets;
+
+            if (vorig - ticket.Amount >= 0)
+            {
+                UpdateTicketType(ticket.TicketTypeID.ID, ticket.Amount, vorig);
+
+                try
+                {
+                    trans = Database.BeginTransaction();
+
+                    string sql = "INSERT INTO Tickets (Ticketholder,TicketholderEmail,TicketTypeID,Amount,AantalVorig)VALUES(@TicketHolder,@TicketHolderEmail,@TicketTypeID,@Amount,@AantalVorig)";
+                    DbParameter par1 = Database.AddParameter("@TicketHolder", ticket.Ticketholder);
+                    //DbParameter par2 = Database.AddParameter("@ID", aantal);
+                    DbParameter par3 = Database.AddParameter("@TicketHolderEmail", ticket.TicketholderEmail);
+                    DbParameter par4 = Database.AddParameter("@TicketTypeID", ticket.TicketTypeID.ID);
+                    DbParameter par5 = Database.AddParameter("@Amount", ticket.Amount);
+                    DbParameter par6 = Database.AddParameter("@AantalVorig", ticket.Amount);
+
+                    int rowsaffected = 0;
+                    rowsaffected += Database.ModifyData(trans, sql, par1, par3, par4, par5,par6);
+
+                    trans.Commit();
+                    
+                    return rowsaffected;
+                }
+                catch (Exception)
+                {
+                    
+                    trans.Rollback();
+                    return 0;
+                }
+            }
+            else
+            {
+                
+                return 0;
+            }
+        }
+
+        public static int DeleteTicket(Ticket tkt)
+        {
+            DbTransaction trans = null;
+
+            try
+            {
+                trans = Database.BeginTransaction();
+                string sql = "DELETE FROM Tickets WHERE Ticketholder=@Ticketholder";
+
+                DbParameter par1 = Database.AddParameter("@ID", tkt.ID);
+                DbParameter par2 = Database.AddParameter("@Ticketholder", tkt.Ticketholder);
+
+
+                int rowsaffected = 0;
+
+                rowsaffected += Database.ModifyData(trans, sql, par2, par1);
+                Console.WriteLine(rowsaffected + " row(s) are affected");
+                trans.Commit();
+                return rowsaffected;
+            }
+            catch (Exception)
+            {
+                trans.Rollback();
+                return 0;
+            }
         }
 
         public override string ToString()

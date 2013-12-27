@@ -105,10 +105,57 @@ namespace Project_MVVM.viewmodel
                 TicketTypeList.Remove(SelectedTicketType);
             Console.WriteLine("delete command");
             TicketType.PrintTickets(TicketTypeList);
+        }
+
+        public ICommand AddTicketCommand
+        {
+            get { return new RelayCommand(AddTicket); }
+        }
+        public void AddTicket()
+        {
 
 
+            Ticket tkt = new Ticket();
+            tkt.TicketTypeID = new TicketType();
+            tkt.ID = Ticket.aantal;
 
+            Ticket.tickets.Add(tkt);
+        }
 
+        public ICommand SaveTicketCommand
+        {
+            get { return new RelayCommand<Ticket>(SaveTicket); }
+        }
+
+        public void SaveTicket(Ticket tkt)
+        {
+            Ticket ticket = SelectedTicket;
+            int id = (int)ticket.ID;
+
+            if (id != Ticket.aantal)
+            {
+                Ticket.UpdateTicket(SelectedTicket);
+                
+            }
+            else
+            {
+                Ticket.InsertTicket(SelectedTicket);
+                
+            }
+        }
+
+        public ICommand DeleteTicketCommand
+        {
+            get { return new RelayCommand<Ticket>(DeleteTicket); }
+        }
+
+        public void DeleteTicket(Ticket tkt)
+        {
+            Ticket.DeleteTicket(SelectedTicket);
+            if (SelectedTicket != null)
+                TicketList.Remove(SelectedTicket);
+            Console.WriteLine("delete command");
+            Ticket.PrintTickets(TicketList);
         }
     }
 }
