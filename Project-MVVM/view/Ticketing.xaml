@@ -33,6 +33,6 @@
         <Button x:Name="btnOpslaan" Content="Opslaan" HorizontalAlignment="Left" Margin="216,710,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SaveTicketTypeCommand}"/>
         <Button x:Name="btnVerwijderen" Content="Verwijderen" HorizontalAlignment="Left" Margin="322,710,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteTicketTypeCommand}"/>
         <Button x:Name="btnToevoegenReservatie" Content="Toevoegen" HorizontalAlignment="Left" Margin="796,710,0,0" VerticalAlignment="Top" Width="75" Command="{Binding AddTicketCommand}"/>
-        <Button x:Name="btnAfdrukken" Content="Afdrukken" HorizontalAlignment="Left" Margin="678,710,0,0" VerticalAlignment="Top" Width="75" />
+        <Button x:Name="btnAfdrukken" Content="Afdrukken" HorizontalAlignment="Left" Margin="678,710,0,0" VerticalAlignment="Top" Width="75" Command="{Binding PrintTicketCommand}"/>
     </Grid>
 </UserControl>

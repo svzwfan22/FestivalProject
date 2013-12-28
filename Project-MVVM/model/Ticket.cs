@@ -1,8 +1,11 @@
-﻿using System;
+﻿using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Wordprocessing;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -97,7 +100,8 @@ namespace Project_MVVM.model
                 TicketTypeID = new TicketType
                 {
                     ID = (int)record["TicketTypeID"],
-                    Name = TicketTypesList[(int)record["TicketTypeID"]-1].Name
+                    Name = TicketTypesList[(int)record["TicketTypeID"]-1].Name,
+                    Price = TicketTypesList[(int)record["TicketTypeID"]-1].Price
                 }
                 
 
@@ -208,7 +212,7 @@ namespace Project_MVVM.model
                 DbParameter par6 = Database.AddParameter("@AantalVorig", ticket.Amount);
 
                 int rowsaffected = 0;
-                rowsaffected += Database.ModifyData(trans, sql, par1, par2, par3, par4, par5);
+                rowsaffected += Database.ModifyData(trans, sql, par1, par2, par3, par4, par5, par6);
 
                 trans.Commit();
                 
@@ -327,12 +331,45 @@ namespace Project_MVVM.model
         {
             return ID + " " + Ticketholder + " " + TicketholderEmail;
         }
-        public static void PrintTickets(ObservableCollection<Ticket> Tickets)
+        public static void PrintTicketjes(ObservableCollection<Ticket> Tickets)
         {
 
             foreach (Ticket ticket in Tickets)
             {
                 Console.WriteLine(ticket.ToString());
+            }
+        }
+
+        public static void PrintTickets(Ticket tkt)
+        {
+            foreach (Ticket ssc in tickets)
+            {
+                string filename = "Ticket" + "_" + ssc.Ticketholder +".docx";
+                File.Copy("template.docx", filename, true);
+                WordprocessingDocument newdoc = WordprocessingDocument.Open(filename, true);
+                IDictionary<String, BookmarkStart> bookmarks = new Dictionary<String, BookmarkStart>();
+                foreach (BookmarkStart bms in newdoc.MainDocumentPart.RootElement.Descendants<BookmarkStart>())
+                {
+                    bookmarks[bms.Name] = bms;
+                }
+
+                double prijs = ssc.TicketTypeID.Price * ssc.Amount;
+
+                bookmarks["Date"].Parent.InsertAfter<Run>(new Run(new Text(DateTime.Today.ToString())), bookmarks["Date"]);
+                bookmarks["Name"].Parent.InsertAfter<Run>(new Run(new Text(ssc.Ticketholder)), bookmarks["Name"]);
+                bookmarks["Type"].Parent.InsertAfter<Run>(new Run(new Text(ssc.TicketTypeID.Name)), bookmarks["Type"]);
+                bookmarks["Amount"].Parent.InsertAfter<Run>(new Run(new Text(ssc.Amount.ToString())), bookmarks["Amount"]);
+                bookmarks["Price"].Parent.InsertAfter<Run>(new Run(new Text(ssc.TicketTypeID.Price.ToString())), bookmarks["Price"]);
+                bookmarks["Total"].Parent.InsertAfter<Run>(new Run(new Text(prijs.ToString())), bookmarks["Total"]);
+                Run run = new Run(new Text("111000111"));
+                RunProperties prop = new RunProperties();
+                RunFonts font = new RunFonts() { Ascii = "Free 3 of 9 Extended", HighAnsi = "Free 3 of 9 Extended" };
+                FontSize size = new FontSize() { Val = "96" };
+                prop.Append(font);
+                prop.Append(size);
+                run.PrependChild<RunProperties>(prop);
+                bookmarks["Barcode"].Parent.InsertAfter<Run>(run, bookmarks["Barcode"]);
+                newdoc.Close();
             }
         }
 

@@ -155,7 +155,17 @@ namespace Project_MVVM.viewmodel
             if (SelectedTicket != null)
                 TicketList.Remove(SelectedTicket);
             Console.WriteLine("delete command");
-            Ticket.PrintTickets(TicketList);
+            Ticket.PrintTicketjes(TicketList);
+        }
+
+        public ICommand PrintTicketCommand
+        {
+            get { return new RelayCommand<Ticket>(PrintTicket); }
+        }
+
+        public void PrintTicket(Ticket tkt)
+        {
+            Ticket.PrintTickets(SelectedTicket);
         }
     }
 }
