@@ -17,6 +17,14 @@ namespace Project_MVVM.viewmodel
             get { return "Algemeen"; }
         }
 
+        private ObservableCollection<Festival> _datumList;
+
+        public ObservableCollection<Festival> DatumList
+        {
+            get { return _datumList; }
+            set { _datumList = value; OnPropertyChanged("DatumList"); }
+        }
+
         private ObservableCollection<Contactperson> _contactpersonList;
 
         public ObservableCollection<Contactperson> ContactpersonList
@@ -50,9 +58,10 @@ namespace Project_MVVM.viewmodel
         public AlgemeenVM()
         {
            // _contactpersonList = Contactperson.GetContactpersons();
+            _datumList = Festival.GetDatums();
             _contactpersonTypeList = ContactpersonType.contactpersontypes;
             _genreList = Genre.GetGenres();
-            _stageList = Stage.GetStages();
+            _stageList = Stage.stages;
         }
 
         private Genre _selectedGenre;
@@ -61,6 +70,26 @@ namespace Project_MVVM.viewmodel
         {
             get { return _selectedGenre; }
             set { _selectedGenre = value; OnPropertyChanged("SelectedGenre"); }
+        }
+
+        private Festival _selectedDatum;
+
+        public Festival SelectedDatum
+        {
+            get { return _selectedDatum; }
+            set { _selectedDatum = value; OnPropertyChanged("SelectedDatum"); }
+        }
+
+        public ICommand UpdateDatumCommand
+        {
+            get { return new RelayCommand<Festival>(UpdateDatum); }
+        }
+
+
+        public void UpdateDatum(Festival fst)
+        {
+            Festival.UpdateDatum(SelectedDatum);
+
         }
 
         public ICommand UpdateGenreCommand

@@ -36,9 +36,9 @@
         <Label Content="Contactpersoontypes" HorizontalAlignment="Left" Margin="579,169,0,0" VerticalAlignment="Top" Height="31" Width="137"/>
         <Label Content="Genres" HorizontalAlignment="Left" Margin="1094,169,0,0" VerticalAlignment="Top" Height="31" Width="49"/>
         <Label Content="festival:" HorizontalAlignment="Left" Margin="62,60,0,0" VerticalAlignment="Top"/>
-        <DatePicker HorizontalAlignment="Left" Margin="129,60,0,0" VerticalAlignment="Top"/>
-        <DatePicker HorizontalAlignment="Left" Margin="319,60,0,0" VerticalAlignment="Top"/>
+        <DatePicker HorizontalAlignment="Left" Margin="129,60,0,0" VerticalAlignment="Top" Text="{Binding Path=DatumList.StartDate}"/>
+        <DatePicker HorizontalAlignment="Left" Margin="319,60,0,0" VerticalAlignment="Top" Text="{Binding Path=DatumList.EndDate}"/>
         <Label Content="tot" HorizontalAlignment="Left" Margin="279,60,0,0" VerticalAlignment="Top"/>
-        <Button Content="Instellen" HorizontalAlignment="Left" Margin="479,62,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Instellen" HorizontalAlignment="Left" Margin="479,62,0,0" VerticalAlignment="Top" Width="75"  Command="{Binding UpdateDatumCommand}"/>
     </Grid>
 </UserControl>
