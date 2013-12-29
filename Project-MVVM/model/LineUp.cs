@@ -11,9 +11,9 @@ namespace Project_MVVM.model
 {
     public class LineUp
     {
-        private string _ID;
+        private int _ID;
 
-        public string ID
+        public int ID
         {
             get { return _ID; }
             set { _ID = value; }
@@ -53,18 +53,20 @@ namespace Project_MVVM.model
             get { return _band; }
             set { _band = value; }
         }
-
+        public static ObservableCollection<LineUp> lineup = new ObservableCollection<LineUp>();
+        public static int aantal = 1;
         public static ObservableCollection<LineUp> GetLineUp()
         {
-            string sql = "SELECT * FROM LineUp";
+            string sql = "SELECT * FROM LineUpTable";
             // DbParameter par1= Database.AddParameter("par1","jan")
             DbDataReader reader = Database.GetData(sql);//,par1);
 
-            ObservableCollection<LineUp> lineup = new ObservableCollection<LineUp>();
+            //ObservableCollection<LineUp> lineup = new ObservableCollection<LineUp>();
 
             while (reader.Read())
             {
                 lineup.Add(Create(reader));
+                aantal++;
             }
             return lineup;
         }
@@ -73,7 +75,7 @@ namespace Project_MVVM.model
         {
             return new LineUp()
             {
-                ID = record["ID"].ToString(),
+                ID = (int)record["ID"],
                 //Band = record["Band"].ToString(),
                 From = record["From"].ToString(),
                 Until = record["Until"].ToString(),
@@ -98,7 +100,7 @@ namespace Project_MVVM.model
             try
             {
                 trans = Database.BeginTransaction();
-                string sql = "UPDATE LineUp SET From=@From, Until=@Until, Band=@Band, Stage=@Stage WHERE ID=@ID";
+                string sql = "UPDATE LineUpTable SET From=@From, Until=@Until, Band=@Band, Stage=@Stage WHERE ID=@ID";
 
                 DbParameter par1 = Database.AddParameter("@ID", lnp.ID);
                 DbParameter par2 = Database.AddParameter("@From", lnp.From);
