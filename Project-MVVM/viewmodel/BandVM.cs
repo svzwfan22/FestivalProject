@@ -46,7 +46,7 @@ namespace Project_MVVM.viewmodel
 
         public BandVM()
         {
-            _bandList = Band.GetBand();
+            _bandList = Band.band;
         }
 
         private Band _selectedBand;

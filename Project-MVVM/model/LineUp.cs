@@ -39,19 +39,35 @@ namespace Project_MVVM.model
             get { return _until; }
             set { _until = value; }
         }
-        private Stage _stage;
+        private Stage _stages;
 
-        public Stage Stage
+        public Stage Stages
         {
-            get { return _stage; }
-            set { _stage = value; }
+            get { return _stages; }
+            set { _stages = value; }
         }
-        private Band _band;
+        private Band _bands;
 
-        public Band Band
+        public Band Bands
         {
-            get { return _band; }
-            set { _band = value; }
+            get { return _bands; }
+            set { _bands = value; }
+        }
+
+        private static ObservableCollection<Stage> _stagekesList;
+
+        public static ObservableCollection<Stage> StagekesList
+        {
+            get { return _stagekesList; }
+            set { _stagekesList = value; }
+        }
+
+        private static ObservableCollection<Band> _bandjesList;
+
+        public static ObservableCollection<Band> BandjesList
+        {
+            get { return _bandjesList; }
+            set { _bandjesList = value; }
         }
         public static ObservableCollection<LineUp> lineup = new ObservableCollection<LineUp>();
         public static int aantal = 1;
@@ -61,7 +77,8 @@ namespace Project_MVVM.model
             // DbParameter par1= Database.AddParameter("par1","jan")
             DbDataReader reader = Database.GetData(sql);//,par1);
 
-            //ObservableCollection<LineUp> lineup = new ObservableCollection<LineUp>();
+            StagekesList = Stage.GetStages();
+            BandjesList = Band.GetBand();
 
             while (reader.Read())
             {
@@ -76,19 +93,21 @@ namespace Project_MVVM.model
             return new LineUp()
             {
                 ID = (int)record["ID"],
-                //Band = record["Band"].ToString(),
+                
                 From = record["From"].ToString(),
                 Until = record["Until"].ToString(),
-                // Stage = record["Stage"].ToString(),
-                //Date = record["Date"].ToString()
-                Band = new Band
+                
+                Date = (DateTime)record["Date"],
+                Bands = new Band
                 {
-                    Name = record["Band"].ToString()
+                    ID = (int)record["Band"],
+                    Name = BandjesList[(int)record["Band"]-1].Name
                 },
-                Stage = new Stage
+                Stages = new Stage
                 {
-                    Name = record["Stage"].ToString()
-                },
+                    ID = (int)record["Stage"],
+                    Name = StagekesList[(int)record["Stage"]-1].Name
+                }
                 
 
             };
@@ -105,8 +124,8 @@ namespace Project_MVVM.model
                 DbParameter par1 = Database.AddParameter("@ID", lnp.ID);
                 DbParameter par2 = Database.AddParameter("@From", lnp.From);
                 DbParameter par3 = Database.AddParameter("@Until", lnp.Until);
-                DbParameter par4 = Database.AddParameter("@Band", lnp.Band);
-                DbParameter par5 = Database.AddParameter("@Stage", lnp.Stage);
+                DbParameter par4 = Database.AddParameter("@Band", lnp.Bands);
+                DbParameter par5 = Database.AddParameter("@Stage", lnp.Stages);
 
                 int rowsaffected = 0;
 

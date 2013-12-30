@@ -5,7 +5,27 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" Height="747" Width="1144">
     <Grid Margin="0,0,-744,-436"  >
-        <DataGrid Name="rLineUp" HorizontalAlignment="Left" Height="482" Margin="107,190,0,0" VerticalAlignment="Top" Width="996" ItemsSource="{Binding LineUpList}" SelectedItem="{Binding SelectedLineUp}"/>
+        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" Name="lstLineUp" HorizontalAlignment="Left" Height="460" Margin="107,198,0,0" VerticalAlignment="Top" Width="967" ItemsSource="{Binding LineUpList}" SelectedItem="{Binding SelectedLineUp}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Date" Binding="{Binding Date}"></DataGridTextColumn>
+                <DataGridTextColumn Header="From" Binding="{Binding From}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Until" Binding="{Binding Until}"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Stage">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox  ItemsSource="{Binding StagekesList}" DisplayMemberPath="Name" SelectedItem="{Binding Stages.Name,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="ID" SelectedValue="{Binding Stages.ID,UpdateSourceTrigger=PropertyChanged}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Band">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox  ItemsSource="{Binding BandjesList}" DisplayMemberPath="Name" SelectedItem="{Binding Bands.Name,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="ID" SelectedValue="{Binding Bands.ID,UpdateSourceTrigger=PropertyChanged}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
         <ComboBox Name="cboStageKeuze" HorizontalAlignment="Left" Margin="107,146,0,0" VerticalAlignment="Top" Width="161" ItemsSource="{Binding StageList}" DisplayMemberPath="Name"/>
         <TextBox Name="txtZoeken" HorizontalAlignment="Left" Height="23" Margin="883,145,0,0" TextWrapping="Wrap" Text="Zoeken" VerticalAlignment="Top" Width="120"/>
         <Button Name="btnVoegToe" Content="Voeg toe" HorizontalAlignment="Left" Margin="107,698,0,0" VerticalAlignment="Top" Width="75"  />

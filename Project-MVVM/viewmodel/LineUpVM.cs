@@ -25,18 +25,49 @@ namespace Project_MVVM.viewmodel
             set { _lineUpList = value; OnPropertyChanged("LineUpList"); }
         }
 
-        public LineUpVM()
-        {
-            _stageList = Stage.GetStages();
-            _lineUpList = LineUp.GetLineUp();
-        }
-
         private LineUp _selectedLineUp;
 
         public LineUp SelectedLineUp
         {
             get { return _selectedLineUp; }
             set { _selectedLineUp = value; OnPropertyChanged("SelectedLineUp"); }
+        }
+
+        private ObservableCollection<Stage> _stageList;
+
+        public ObservableCollection<Stage> StageList
+        {
+            get { return _stageList; }
+            set { _stageList = value; OnPropertyChanged("StageList"); }
+        }
+
+        private ObservableCollection<Band> _bandList;
+
+        public ObservableCollection<Band> BandList
+        {
+            get { return _bandList; }
+            set { _bandList = value; OnPropertyChanged("BandList"); }
+        }
+        private Stage _selectedStage;
+
+        public Stage SelectedStage
+        {
+            get { return _selectedStage; }
+            set { _selectedStage = value; OnPropertyChanged("SelectedStage"); }
+        }
+        private Band _selectedBand;
+
+        public Band SelectedBand
+        {
+            get { return _selectedBand; }
+            set { _selectedBand = value; OnPropertyChanged("SelectedBand"); }
+        }
+        
+
+        public LineUpVM()
+        {
+            //_stageList = Stage.GetStages();
+            _lineUpList = LineUp.GetLineUp();
         }
 
         public ICommand UpdateLineUpCommand
@@ -61,14 +92,6 @@ namespace Project_MVVM.viewmodel
                 LineUpList.Remove(SelectedLineUp);
             Console.WriteLine("delete command");
             LineUp.PrintLineUps(LineUpList);
-        }
-
-        private ObservableCollection<Stage> _stageList;
-
-        public ObservableCollection<Stage> StageList
-        {
-            get { return _stageList; }
-            set { _stageList = value; OnPropertyChanged("StageList"); }
         }
 
         
