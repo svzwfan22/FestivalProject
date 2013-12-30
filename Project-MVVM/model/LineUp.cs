@@ -119,17 +119,18 @@ namespace Project_MVVM.model
             try
             {
                 trans = Database.BeginTransaction();
-                string sql = "UPDATE LineUpTable SET From=@From, Until=@Until, Band=@Band, Stage=@Stage WHERE ID=@ID";
+                string sql = "UPDATE LineUpTable SET Date=@Date, [From]=@From, Until=@Until, Band=@Band, Stage=@Stage WHERE ID=@ID";
 
                 DbParameter par1 = Database.AddParameter("@ID", lnp.ID);
                 DbParameter par2 = Database.AddParameter("@From", lnp.From);
                 DbParameter par3 = Database.AddParameter("@Until", lnp.Until);
-                DbParameter par4 = Database.AddParameter("@Band", lnp.Bands);
-                DbParameter par5 = Database.AddParameter("@Stage", lnp.Stages);
+                DbParameter par4 = Database.AddParameter("@Band", lnp.Bands.ID);
+                DbParameter par5 = Database.AddParameter("@Stage", lnp.Stages.ID);
+                DbParameter par6 = Database.AddParameter("@Date", lnp.Date);
 
                 int rowsaffected = 0;
 
-                rowsaffected += Database.ModifyData(trans,sql, par2, par3, par4, par5, par1);
+                rowsaffected += Database.ModifyData(trans,sql, par2, par3, par4, par5,par6, par1);
                 Console.WriteLine(rowsaffected + " row(s) are affected");
                 trans.Commit();
                 return rowsaffected;
@@ -139,6 +140,67 @@ namespace Project_MVVM.model
                 return 0;
             }
         }
+
+        public static int InsertLineUp(LineUp lnp)
+        {
+            DbTransaction trans = null;
+
+            try
+            {
+                trans = Database.BeginTransaction();
+                string sql = "INSERT INTO LineUpTable (Date,[From],Until,Band,Stage)VALUES(@Date,@From,@Until,@Band,@Stage)";
+
+                //DbParameter par1 = Database.AddParameter("@ID", lnp.ID);
+                DbParameter par1 = Database.AddParameter("@Date", lnp.Date);
+                DbParameter par2 = Database.AddParameter("@From", lnp.From);
+                DbParameter par3 = Database.AddParameter("@Until", lnp.Until);
+                DbParameter par4 = Database.AddParameter("@Band", lnp.Bands.ID);
+                DbParameter par5 = Database.AddParameter("@Stage", lnp.Stages.ID);
+                
+
+                int rowsaffected = 0;
+
+                rowsaffected += Database.ModifyData(trans, sql, par1, par2, par3, par4, par5);
+                Console.WriteLine(rowsaffected + " row(s) are affected");
+                trans.Commit();
+                return rowsaffected;
+            }
+            catch (Exception)
+            {
+                trans.Rollback();
+                return 0;
+            }
+        }
+
+        public static int DeleteLineUp(LineUp lnp)
+        {
+            DbTransaction trans = null;
+
+            try
+            {
+                trans = Database.BeginTransaction();
+                string sql = "DELETE FROM LineUpTable WHERE Date=@Date AND Band=@Band AND Stage=@Stage";
+
+                DbParameter par1 = Database.AddParameter("@ID", lnp.ID);
+                DbParameter par2 = Database.AddParameter("@Date", lnp.Date);
+                DbParameter par3 = Database.AddParameter("@Band", lnp.Bands.ID);
+                DbParameter par4 = Database.AddParameter("@Stage", lnp.Stages.ID);
+
+
+                int rowsaffected = 0;
+
+                rowsaffected += Database.ModifyData(trans, sql, par2, par1, par3, par4);
+                Console.WriteLine(rowsaffected + " row(s) are affected");
+                trans.Commit();
+                return rowsaffected;
+            }
+            catch (Exception)
+            {
+                trans.Rollback();
+                return 0;
+            }
+        }
+
         public override string ToString()
         {
             return ID + " " + From + " "+ Until;

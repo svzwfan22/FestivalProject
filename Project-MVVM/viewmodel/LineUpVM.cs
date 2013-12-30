@@ -70,6 +70,22 @@ namespace Project_MVVM.viewmodel
             _lineUpList = LineUp.GetLineUp();
         }
 
+        public ICommand VoegToeCommand
+        {
+            get { return new RelayCommand(VoegToeLineUp); }
+        }
+
+        private void VoegToeLineUp()
+        {
+            LineUp lnp = new LineUp();
+            
+            lnp.Bands = new Band();
+            lnp.Stages = new Stage();
+            lnp.ID = LineUp.aantal;
+
+            LineUp.lineup.Add(lnp);
+        }
+
         public ICommand UpdateLineUpCommand
         {
             get { return new RelayCommand<LineUp>(UpdateLineUp); }
@@ -77,7 +93,22 @@ namespace Project_MVVM.viewmodel
 
         public void UpdateLineUp(LineUp lnp)
         {
-            LineUp.UpdateLineUp(SelectedLineUp);
+
+
+
+            LineUp lineup = SelectedLineUp;
+            int id = (int)lineup.ID;
+
+            if (id != LineUp.aantal)
+            {
+                LineUp.UpdateLineUp(SelectedLineUp);
+
+            }
+            else
+            {
+                LineUp.InsertLineUp(SelectedLineUp);
+
+            }
         }
 
         public ICommand DeleteLineUpCommand
@@ -88,6 +119,7 @@ namespace Project_MVVM.viewmodel
 
         public void DeleteLineUp()
         {
+            LineUp.DeleteLineUp(SelectedLineUp);
             if (SelectedLineUp != null)
                 LineUpList.Remove(SelectedLineUp);
             Console.WriteLine("delete command");
