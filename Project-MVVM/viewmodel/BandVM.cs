@@ -28,6 +28,21 @@ namespace Project_MVVM.viewmodel
             set { _bandList = value; OnPropertyChanged("BandList"); }
         }
 
+        private ObservableCollection<Genre> _genreList;
+        public ObservableCollection<Genre> GenreList
+        {
+            get { return _genreList; }
+            set { _genreList = value; OnPropertyChanged("GenreList"); }
+        }
+
+        private ObservableCollection<BandGenre> _bandsList;
+
+        public ObservableCollection<BandGenre> BandsList
+        {
+            get { return _bandsList; }
+            set { _bandsList = value; OnPropertyChanged("BandsList"); }
+        }
+
         //private byte[] _imageSource;
 
         //public byte[] ImageSource
@@ -47,6 +62,10 @@ namespace Project_MVVM.viewmodel
         public BandVM()
         {
             _bandList = Band.band;
+            if(SelectedBand != null){
+            BandsList = BandGenre.GetBandgenres(SelectedBand.GenreListBand);
+            }
+            _genreList = BandGenre.GenreList;
         }
 
         private Band _selectedBand;
@@ -57,6 +76,24 @@ namespace Project_MVVM.viewmodel
             set { _selectedBand = value; OnPropertyChanged("SelectedBand"); }
         }
 
+        private BandGenre _selectedGenre;
+        public BandGenre SelectedGenre
+        {
+            get { return _selectedGenre; }
+            set
+            {
+                _selectedGenre = value;
+                OnPropertyChanged("SelectedGenre");
+                if (BandGenre.aantal == SelectedGenre.ID)
+                {
+                    Genre g = new Genre();
+                    g = SelectedGenre.GenreBand;
+                    SelectedBand.GenreListBand.Add(g);
+                }
+                //BandVM.SelectedItem = SelectedBand;
+                //ApplicationVM.BandGenre = SelectedGenre;
+            }
+        }
 
 
         public ICommand DeleteBandCommand
@@ -151,10 +188,12 @@ namespace Project_MVVM.viewmodel
             
         }
 
-       
+
+
+
+
         
-        
-        }
+    }
 
         
     }

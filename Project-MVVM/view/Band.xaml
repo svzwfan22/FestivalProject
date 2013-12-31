@@ -12,8 +12,8 @@
     </UserControl.Resources>
     <Grid>
         <ListBox x:Name="lstBand" Margin="83,136,1015,182" ItemsSource="{Binding BandList}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedBand}"/>
-        <Label x:Name="lblNaam" Content="Naam:" HorizontalAlignment="Left" Margin="880,179,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtNaam" HorizontalAlignment="Left" Height="23" Margin="880,210,0,0" TextWrapping="Wrap" Text="{Binding ElementName=lstBand, Path=SelectedItem.Name}" VerticalAlignment="Top" Width="120" />
+        <Label x:Name="lblNaam" Content="Naam:" HorizontalAlignment="Left" Margin="880,117,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtNaam" HorizontalAlignment="Left" Height="23" Margin="880,148,0,0" TextWrapping="Wrap" Text="{Binding ElementName=lstBand, Path=SelectedItem.Name}" VerticalAlignment="Top" Width="120" />
         <Image Margin="403,191,606,239"  Source="{Binding SelectedBand.Picture,Converter={StaticResource image},UpdateSourceTrigger=PropertyChanged}">
            <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDown">
@@ -21,21 +21,33 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </Image>
-        <Label x:Name="lblOmschrijving" Content="Omschrijving:" HorizontalAlignment="Left" Margin="880,238,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtOmschrijving" HorizontalAlignment="Left" Height="46" Margin="880,269,0,0" TextWrapping="Wrap" Text="{Binding ElementName=lstBand, Path=SelectedItem.Description}" VerticalAlignment="Top" Width="227"/>
-        <Label x:Name="lblGenres" Content="Genres:" HorizontalAlignment="Left" Margin="880,320,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblOmschrijving" Content="Omschrijving:" HorizontalAlignment="Left" Margin="880,171,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtOmschrijving" HorizontalAlignment="Left" Height="46" Margin="880,202,0,0" TextWrapping="Wrap" Text="{Binding ElementName=lstBand, Path=SelectedItem.Description}" VerticalAlignment="Top" Width="227"/>
+        <Label x:Name="lblGenres" Content="Genres:" HorizontalAlignment="Left" Margin="880,248,0,0" VerticalAlignment="Top"/>
         
-        <Label x:Name="lblFacebook" Content="Facebook:" HorizontalAlignment="Left" Margin="880,437,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtFacebook" HorizontalAlignment="Left" Height="23" Margin="880,468,0,0" TextWrapping="Wrap" Text="{Binding ElementName=lstBand, Path=SelectedItem.Facebook}" VerticalAlignment="Top" Width="186"/>
-        <Label x:Name="lblTwitter" Content="Twitter:" HorizontalAlignment="Left" Margin="880,379,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtTwitter" HorizontalAlignment="Left" Height="23" Margin="880,409,0,0" TextWrapping="Wrap" Text="{Binding ElementName=lstBand, Path=SelectedItem.Twitter}" VerticalAlignment="Top" Width="186"/>
+        <Label x:Name="lblFacebook" Content="Facebook:" HorizontalAlignment="Left" Margin="880,480,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtFacebook" HorizontalAlignment="Left" Height="23" Margin="880,511,0,0" TextWrapping="Wrap" Text="{Binding ElementName=lstBand, Path=SelectedItem.Facebook}" VerticalAlignment="Top" Width="186"/>
+        <Label x:Name="lblTwitter" Content="Twitter:" HorizontalAlignment="Left" Margin="880,421,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtTwitter" HorizontalAlignment="Left" Height="23" Margin="880,452,0,0" TextWrapping="Wrap" Text="{Binding ElementName=lstBand, Path=SelectedItem.Twitter}" VerticalAlignment="Top" Width="186"/>
         <Button x:Name="btnOpslaan" Content="Opslaan" HorizontalAlignment="Left" Margin="879,550,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SaveBandCommand}"/>
         <Button x:Name="btnVerwijderen" Content="Verwijderen" HorizontalAlignment="Left" Margin="986,550,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteBandCommand}"/>
         
         
         <Button Content="Add Foto" HorizontalAlignment="Left" Height="20" Margin="543,550,0,0" VerticalAlignment="Top" Width="71" Command="{Binding SelectImageCommand}"/>
-        <TextBox x:Name="txtGenres" HorizontalAlignment="Left" Height="23" Margin="880,351,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.Genres, ElementName=lstBand}" VerticalAlignment="Top" Width="186" />
+        <TextBox x:Name="txtGenres" HorizontalAlignment="Left" Height="23" Margin="880,279,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.Genres, ElementName=lstBand}" VerticalAlignment="Top" Width="186" />
         <Button Content="Voeg toe" HorizontalAlignment="Left" Height="20" Margin="177,590,0,0" VerticalAlignment="Top" Width="71" Command="{Binding AddCommand}"/>
+        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding BandsList,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedGenre}" CanUserAddRows="False" HorizontalAlignment="Left" Height="95" Margin="880,321,0,0" VerticalAlignment="Top" Width="227">
+            <DataGridTemplateColumn Header="Genres">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <ComboBox   ItemsSource="{Binding GenreList}"  DisplayMemberPath="Name" SelectedItem="{Binding GenreBand.Name,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="ID" SelectedValue="{Binding GenreBand.ID,UpdateSourceTrigger=PropertyChanged}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+
+        </DataGrid>
+        <Button Content="+" HorizontalAlignment="Left" Margin="1122,321,0,0" VerticalAlignment="Top" Width="34" Height="30"/>
+        <Button Content="-" HorizontalAlignment="Left" Margin="1122,386,0,0" VerticalAlignment="Top" Width="34" Height="30"/>
 
     </Grid>
 </UserControl>

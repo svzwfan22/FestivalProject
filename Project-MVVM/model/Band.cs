@@ -67,10 +67,29 @@ namespace Project_MVVM.model
             get { return _bands; }
             set { _bands = value; }
         }
+
+        private static ObservableCollection<Genre> _genreList;
+        public static ObservableCollection<Genre> GenreList
+        {
+            get { return _genreList; }
+            set { _genreList = value; }
+        }
+
+        private ObservableCollection<Genre> _genreListBand = new ObservableCollection<Genre>();
+        public ObservableCollection<Genre> GenreListBand
+        {
+            get { return _genreListBand; }
+            set { _genreListBand = value; }
+        }
+
         public static ObservableCollection<Band> band = new ObservableCollection<Band>();
         public static int aantal = 1;
+        public static int aantalgenres = 1;
         public static ObservableCollection<Band> GetBand()
         {
+            GenreList = Genre.genres;
+            BandGenre.GenreList = GenreList;
+
             string sql = "SELECT * FROM Bands";
             // DbParameter par1= Database.AddParameter("par1","jan")
             DbDataReader reader = Database.GetData(sql);//,par1);
@@ -104,8 +123,20 @@ namespace Project_MVVM.model
             band.Description = record["Description"].ToString();
             band.Twitter = record["Twitter"].ToString();
             band.Facebook = record["Facebook"].ToString();
-            band.Genres = record["Genres"].ToString();
+            //band.Genres = record["Genres"].ToString();
+
             
+            string[] split = record["Genres"].ToString().Split(new Char[] { ';' });
+
+            for (int i = 0; i < split.Count() - 1; i++)
+            {
+                Genre genre = new Genre();
+                genre.ID = Convert.ToInt32(split[i]);
+                genre.Name = GenreList[Convert.ToInt32(split[i]) - 1].Name;
+                band.GenreListBand.Add(genre);
+                aantalgenres++;
+            }
+        
 
             return band;
         }
