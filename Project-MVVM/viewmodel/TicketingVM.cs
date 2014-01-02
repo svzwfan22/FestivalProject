@@ -142,6 +142,12 @@ namespace Project_MVVM.viewmodel
                 Ticket.InsertTicket(SelectedTicket);
                 
             }
+            
+            TicketList.Clear();
+            _ticketList = Ticket.GetTicket();
+            TicketTypeList.Clear();
+            _ticketTypeList = TicketType.GetTicketTypes();
+
         }
 
         public ICommand DeleteTicketCommand

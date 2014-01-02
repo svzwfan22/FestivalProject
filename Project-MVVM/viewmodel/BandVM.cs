@@ -62,9 +62,11 @@ namespace Project_MVVM.viewmodel
         public BandVM()
         {
             _bandList = Band.band;
+            
             if(SelectedBand != null){
             BandsList = BandGenre.GetBandgenres(SelectedBand.GenreListBand);
             }
+            
             _genreList = BandGenre.GenreList;
         }
 
@@ -73,9 +75,12 @@ namespace Project_MVVM.viewmodel
         public Band SelectedBand
         {
             get { return _selectedBand; }
-            set { _selectedBand = value; OnPropertyChanged("SelectedBand"); }
+            set { _selectedBand = value; OnPropertyChanged("SelectedBand");
+            
+            }
         }
 
+        
         private BandGenre _selectedGenre;
         public BandGenre SelectedGenre
         {
