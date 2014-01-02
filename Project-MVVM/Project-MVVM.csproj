@@ -80,9 +80,13 @@
     <Compile Include="model\Ticket.cs" />
     <Compile Include="model\TicketType.cs" />
     <Compile Include="viewmodel\BandVM.cs" />
+    <Compile Include="viewmodel\TimeLineVM.cs" />
     <Compile Include="viewmodel\TicketingVM.cs" />
     <Compile Include="view\Band.xaml.cs">
       <DependentUpon>Band.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="view\TimeLine.xaml.cs">
+      <DependentUpon>TimeLine.xaml</DependentUpon>
     </Compile>
     <Compile Include="view\Ticketing.xaml.cs">
       <DependentUpon>Ticketing.xaml</DependentUpon>
@@ -97,6 +101,10 @@
       <DependentUpon>Contactpersonen.xaml</DependentUpon>
     </Compile>
     <Page Include="view\Band.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="view\TimeLine.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

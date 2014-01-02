@@ -15,6 +15,7 @@ namespace Project_MVVM.viewmodel
             Pages.Add(new AlgemeenVM());
             Pages.Add(new ContactpersonenVM());
             Pages.Add(new LineUpVM());
+            Pages.Add(new TimeLineVM());
             Pages.Add(new TicketingVM());
             Pages.Add(new BandVM());
            
