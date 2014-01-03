@@ -17,6 +17,9 @@
         <DataTemplate DataType="{x:Type vm:LineUpVM}">
             <v:LineUp/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:TimeLineVM}">
+            <v:TimeLine/>
+        </DataTemplate>
         <DataTemplate DataType="{x:Type vm:TicketingVM}">
             <v:Ticketing/>
         </DataTemplate>

@@ -79,6 +79,7 @@
     <Compile Include="model\Stage.cs" />
     <Compile Include="model\Ticket.cs" />
     <Compile Include="model\TicketType.cs" />
+    <Compile Include="model\Uren.cs" />
     <Compile Include="viewmodel\BandVM.cs" />
     <Compile Include="viewmodel\TimeLineVM.cs" />
     <Compile Include="viewmodel\TicketingVM.cs" />

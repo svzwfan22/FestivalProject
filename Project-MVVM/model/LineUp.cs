@@ -54,6 +54,21 @@ namespace Project_MVVM.model
             set { _bands = value; }
         }
 
+        private string _width;
+        public string Width
+        {
+            get { return _width; }
+            set { _width = value; }
+        }
+
+        private string _margin;
+        public string Margin
+        {
+            get { return _margin; }
+            set { _margin = value; }
+        }
+
+
         private static ObservableCollection<Stage> _stagekesList;
 
         public static ObservableCollection<Stage> StagekesList
@@ -69,8 +84,16 @@ namespace Project_MVVM.model
             get { return _bandjesList; }
             set { _bandjesList = value; }
         }
-        public static ObservableCollection<LineUp> lineup = new ObservableCollection<LineUp>();
+
+        public static int vorigeWidth;
+        public static int Height = 0;
         public static int aantal = 1;
+        public static int aantal2 = 1;
+
+        public static ObservableCollection<LineUp> sLineUp = new ObservableCollection<LineUp>();
+
+        public static ObservableCollection<LineUp> lineup = new ObservableCollection<LineUp>();
+        //public static int aantal = 1;
         public static ObservableCollection<LineUp> GetLineUp()
         {
             string sql = "SELECT * FROM LineUpTable";
@@ -85,33 +108,118 @@ namespace Project_MVVM.model
                 lineup.Add(Create(reader));
                 aantal++;
             }
+
+            SortList();
             return lineup;
+           
+        }
+
+        private static void SortList()
+        {
+            ObservableCollection<LineUp> temp1 = new ObservableCollection<LineUp>();
+
+            foreach (LineUp l in lineup)
+            {
+                temp1.Add(l);
+            }
+            ObservableCollection<LineUp> temp2 = new ObservableCollection<LineUp>();
+            int ruimte = 0;
+            //sLineUp.Add(lineUp[0]);
+
+            int id = 1;
+            while (temp1.Count() > 0)
+            {
+                bool isToegevoegd = false;
+                for (int i = 0; i < temp1.Count(); i++)
+                {
+                    if (temp1[i].Stages.ID == id)
+                    {
+                        temp1[i].Margin = GetMargin(temp1[i], GetFrom(temp1[i]), GetUntil(temp1[i]), temp1[i].Stages.ID - ruimte);
+                        ruimte = temp1[i].Stages.ID;
+                        temp2.Add(temp1[i]);
+                        temp1.RemoveAt(i);
+                        isToegevoegd = true;
+                        aantal2++;
+                    }
+                }
+                if (!isToegevoegd)
+                {
+                    id++;
+                }
+            }
+            sLineUp = temp2;
         }
 
         private static LineUp Create(IDataRecord record)
         {
-            return new LineUp()
-            {
-                ID = (int)record["ID"],
+            
+            LineUp lineup = new LineUp();
+                lineup.ID = (int)record["ID"];
                 
-                From = record["From"].ToString(),
-                Until = record["Until"].ToString(),
+                lineup.From = record["From"].ToString();
+                lineup.Until = record["Until"].ToString();
                 
-                Date = (DateTime)record["Date"],
-                Bands = new Band
+                lineup.Date = (DateTime)record["Date"];
+                lineup.Bands = new Band
                 {
                     ID = (int)record["Band"],
                     Name = BandjesList[(int)record["Band"]-1].Name
-                },
-                Stages = new Stage
+                };
+                lineup.Stages = new Stage
                 {
                     ID = (int)record["Stage"],
                     Name = StagekesList[(int)record["Stage"]-1].Name
-                }
-                
+                };
+                lineup.Width = GetWidth(lineup, GetFrom(lineup), GetUntil(lineup));
+            return lineup;
 
-            };
+            
         }
+
+        public static string[] GetUntil(LineUp lineUp)
+        {
+            String[] until = lineUp.Until.Split(new Char[] { ':' });
+            return until;
+        }
+
+        public static string[] GetFrom(LineUp lineUp)
+        {
+            String[] from = lineUp.From.Split(new Char[] { ':' });
+            return from;
+        }
+
+        public static string GetWidth(LineUp lineUp, string[] from, string[] until)
+        {
+            int uurUntil = Convert.ToInt32(until[0]);
+            int uurFrom = Convert.ToInt32(from[0]);
+            double minutenUntil = Convert.ToDouble(until[1]);
+            double minutenFrom = Convert.ToDouble(from[1]);
+
+            double uur = (uurUntil + minutenUntil / 60) - (uurFrom + minutenFrom / 60);
+
+            int width = (int)(100 * uur * 2);
+
+            return width.ToString();
+        }
+
+        public static string GetMargin(LineUp lineUp, string[] from, string[] until, int ruimte)
+        {
+            int top = 0;
+            //top = ((lineUp.Stage.ID - 1) * 60) - Height - ((aantal - 1) * 8); //((lineUp.Stage.ID - 1) * 60)
+            top = ((ruimte - 1) * 60);// -((aantal2 - 1) * 8);
+            //int height = ((lineUp.Stage.ID) * 60);
+            //if (height > Height)
+            //{
+            //    Height = height+60;
+            //}
+            //Height = height;
+            int uur = Convert.ToInt32(from[0]);
+            double minuut = Convert.ToDouble(from[1]) / 60;
+            double left = (uur * 200) + (minuut * 200);
+            return Convert.ToInt32(left) + "," + top + ",0,0";
+        }
+
+
         public static int UpdateLineUp(LineUp lnp)
         {
             DbTransaction trans = null;

@@ -63,9 +63,9 @@ namespace Project_MVVM.viewmodel
         {
             _bandList = Band.band;
             
-            if(SelectedBand != null){
+           if(SelectedBand != null){
             BandsList = BandGenre.GetBandgenres(SelectedBand.GenreListBand);
-            }
+           }
             
             _genreList = BandGenre.GenreList;
         }
@@ -76,6 +76,7 @@ namespace Project_MVVM.viewmodel
         {
             get { return _selectedBand; }
             set { _selectedBand = value; OnPropertyChanged("SelectedBand");
+            _genreList = BandGenre.GenreList;
             
             }
         }
