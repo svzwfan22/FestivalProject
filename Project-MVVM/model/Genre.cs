@@ -61,6 +61,33 @@ namespace Project_MVVM.model
         //        Console.WriteLine(genre.ToString());
         //    }
         //}
+        public static ObservableCollection<Genre> GetGenresByBandID(int id)
+        {
+            try
+            {
+                string query = "SELECT * FROM Genre INNER JOIN BandGenre on BandGenre.GenreID = Genre.ID WHERE BandID = " + id + ";";
+
+                ObservableCollection<Genre> gevondenGenres = new ObservableCollection<Genre>();
+                DbDataReader reader = Database.GetData(query);
+                while (reader.Read())
+                {
+                    Genre genre = new Genre();
+                    genre.Name = Convert.ToString(reader["Name"]);
+                    genre.ID = (int)(reader["ID"]);
+                    gevondenGenres.Add(genre);
+                }
+                if (reader != null)
+                    reader.Close();
+                return gevondenGenres;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("get genres by band id: " + ex.Message);
+                return null;
+            }
+        }
+
+
         public static ObservableCollection<Genre> genres = new ObservableCollection<Genre>();
         public static int aantal = 1;
         public static ObservableCollection<Genre> GetGenres()

@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Project_MVVM.viewmodel
@@ -49,9 +50,18 @@ namespace Project_MVVM.viewmodel
             set { _selectedTicketType = value; OnPropertyChanged("SelectedTicketType"); }
         }
 
+        private ObservableCollection<Ticket> _gefilterdeTickets;
+
+        public ObservableCollection<Ticket> GefilterdeTickets
+        {
+            get { return _gefilterdeTickets; }
+            set { _gefilterdeTickets = value; OnPropertyChanged("GefilterdeTickets"); }
+        }
+
         public TicketingVM()
         {
             _ticketList = Ticket.GetTicket();
+            _gefilterdeTickets = TicketList;
             _ticketTypeList = TicketType.ticketType;
             
         }
@@ -80,16 +90,22 @@ namespace Project_MVVM.viewmodel
 
         public void SaveTicketType(TicketType tkt)
         {
-            TicketType tickettype = SelectedTicketType;
-            int id = (int)tickettype.ID;
-
-            if (id != TicketType.aantalType)
-            {
-                TicketType.UpdateTicketType(SelectedTicketType);
+            if (SelectedTicketType == null) {
+                MessageBox.Show("Gelieve het tickettype te selecteren die u wilt opslaan.");
             }
             else
             {
-                TicketType.InsertTicketType(SelectedTicketType);
+                TicketType tickettype = SelectedTicketType;
+                int id = (int)tickettype.ID;
+
+                if (id != TicketType.aantalType)
+                {
+                    TicketType.UpdateTicketType(SelectedTicketType);
+                }
+                else
+                {
+                    TicketType.InsertTicketType(SelectedTicketType);
+                }
             }
         }
 
@@ -100,11 +116,17 @@ namespace Project_MVVM.viewmodel
 
         public void DeleteTicketType(TicketType tkt)
         {
-            TicketType.DeleteTicketType(SelectedTicketType);
-            if (SelectedTicketType != null)
-                TicketTypeList.Remove(SelectedTicketType);
-            Console.WriteLine("delete command");
-            TicketType.PrintTickets(TicketTypeList);
+            if (SelectedTicketType == null) {
+                MessageBox.Show("Gelieve het tickettype te selecteren die u wilt verwijderen.");
+            }
+            else
+            {
+                TicketType.DeleteTicketType(SelectedTicketType);
+                if (SelectedTicketType != null)
+                    TicketTypeList.Remove(SelectedTicketType);
+                Console.WriteLine("delete command");
+                TicketType.PrintTickets(TicketTypeList);
+            }
         }
 
         public ICommand AddTicketCommand
@@ -129,25 +151,31 @@ namespace Project_MVVM.viewmodel
 
         public void SaveTicket(Ticket tkt)
         {
-            Ticket ticket = SelectedTicket;
-            int id = (int)ticket.ID;
-
-            if (id != Ticket.aantal)
-            {
-                Ticket.UpdateTicket(SelectedTicket);
-                
+            if (SelectedTicket == null) {
+                MessageBox.Show("Gelieve de reservatie te selecteren die u wenst op te slaan.");
             }
             else
             {
-                Ticket.InsertTicket(SelectedTicket);
-                
-            }
-            
-            TicketList.Clear();
-            _ticketList = Ticket.GetTicket();
-            TicketTypeList.Clear();
-            _ticketTypeList = TicketType.GetTicketTypes();
+                Ticket ticket = SelectedTicket;
+                int id = (int)ticket.ID;
 
+                if (id != Ticket.aantal)
+                {
+                    Ticket.UpdateTicket(SelectedTicket);
+
+                }
+                else
+                {
+                    Ticket.InsertTicket(SelectedTicket);
+
+                }
+
+                TicketList.Clear();
+                _ticketList = Ticket.GetTicket();
+                TicketTypeList.Clear();
+                _ticketTypeList = TicketType.GetTicketTypes();
+
+            }
         }
 
         public ICommand DeleteTicketCommand
@@ -157,11 +185,17 @@ namespace Project_MVVM.viewmodel
 
         public void DeleteTicket(Ticket tkt)
         {
-            Ticket.DeleteTicket(SelectedTicket);
-            if (SelectedTicket != null)
-                TicketList.Remove(SelectedTicket);
-            Console.WriteLine("delete command");
-            Ticket.PrintTicketjes(TicketList);
+            if (SelectedTicket == null) {
+                MessageBox.Show("Gelieve de reservatie te selecteren die u wenst te verwijderen.");
+            }
+            else
+            {
+                Ticket.DeleteTicket(SelectedTicket);
+                if (SelectedTicket != null)
+                    TicketList.Remove(SelectedTicket);
+                Console.WriteLine("delete command");
+                Ticket.PrintTicketjes(TicketList);
+            }
         }
 
         public ICommand PrintTicketCommand
@@ -172,6 +206,16 @@ namespace Project_MVVM.viewmodel
         public void PrintTicket(Ticket tkt)
         {
             Ticket.PrintTickets(SelectedTicket);
+        }
+
+        public ICommand SearchCommand
+        {
+            get { return new RelayCommand<string>(Search); }
+        }
+        private void Search(string str)
+        {
+            Console.WriteLine(str);
+            GefilterdeTickets = Ticket.GetTicketsByString(str);
         }
     }
 }

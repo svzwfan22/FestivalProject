@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Project_MVVM.viewmodel
@@ -94,20 +95,25 @@ namespace Project_MVVM.viewmodel
         public void UpdateLineUp(LineUp lnp)
         {
 
-
-
-            LineUp lineup = SelectedLineUp;
-            int id = (int)lineup.ID;
-
-            if (id != LineUp.aantal)
-            {
-                LineUp.UpdateLineUp(SelectedLineUp);
-
+            if (SelectedLineUp == null) {
+                MessageBox.Show("Gelieve de line-up te selecteren die u wilt opslaan.");
             }
             else
             {
-                LineUp.InsertLineUp(SelectedLineUp);
 
+                LineUp lineup = SelectedLineUp;
+                int id = (int)lineup.ID;
+
+                if (id != LineUp.aantal)
+                {
+                    LineUp.UpdateLineUp(SelectedLineUp);
+
+                }
+                else
+                {
+                    LineUp.InsertLineUp(SelectedLineUp);
+
+                }
             }
         }
 
@@ -119,11 +125,17 @@ namespace Project_MVVM.viewmodel
 
         public void DeleteLineUp()
         {
-            LineUp.DeleteLineUp(SelectedLineUp);
-            if (SelectedLineUp != null)
-                LineUpList.Remove(SelectedLineUp);
-            Console.WriteLine("delete command");
-            LineUp.PrintLineUps(LineUpList);
+            if (SelectedLineUp == null) {
+                MessageBox.Show("Gelieve de line-up te selecteren die u wilt verwijderen.");
+            }
+            else
+            {
+                LineUp.DeleteLineUp(SelectedLineUp);
+                if (SelectedLineUp != null)
+                    LineUpList.Remove(SelectedLineUp);
+                Console.WriteLine("delete command");
+                LineUp.PrintLineUps(LineUpList);
+            }
         }
 
         

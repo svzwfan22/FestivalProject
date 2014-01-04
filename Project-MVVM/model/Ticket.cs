@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Project_MVVM.model
 {
@@ -172,8 +173,8 @@ namespace Project_MVVM.model
                         }
                         catch (Exception)
                         {
-                            
-                            trans.Rollback();
+                            MessageBox.Show("Gelieve alle velden in te vullen vooraleer u de reservatie wilt opslaan.");
+                            //trans.Rollback();
                             return 0;
                         }
                     }
@@ -220,8 +221,8 @@ namespace Project_MVVM.model
             }
             catch (Exception)
             {
-                
-                trans.Rollback();
+                MessageBox.Show("Gelieve alle velden in te vullen vooraleer u de reservatie wilt opslaan.");
+                //trans.Rollback();
                 return 0;
             }
         }
@@ -288,8 +289,8 @@ namespace Project_MVVM.model
                 }
                 catch (Exception)
                 {
-                    
-                    trans.Rollback();
+                    MessageBox.Show("Gelieve alle velden in te vullen vooraleer u de reservatie wilt opslaan.");
+                    //trans.Rollback();
                     return 0;
                 }
             }
@@ -326,6 +327,21 @@ namespace Project_MVVM.model
                 return 0;
             }
         }
+
+
+        public static ObservableCollection<Ticket> GetTicketsByString(string search)
+        {
+            ObservableCollection<Ticket> lstGevondenTickets = new ObservableCollection<Ticket>();
+            foreach (Ticket ticket in tickets)
+            {
+                if (ticket.Ticketholder.ToUpper().Contains(search.ToUpper()) || ticket.TicketholderEmail.ToUpper().Contains(search.ToUpper()) )
+                {
+                    lstGevondenTickets.Add(ticket);
+                }
+            }
+            return lstGevondenTickets;
+        }
+
 
         public override string ToString()
         {

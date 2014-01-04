@@ -9,11 +9,13 @@
              mc:Ignorable="d" Width="1358" Height="752">
     <UserControl.Resources>
         <converter:BytesToImageConverter x:Key="image"/>
+        <!--<c:ObservablecollectionToStringConverter x:Key="ObsToString"/>-->
     </UserControl.Resources>
+
     <Grid>
         <ListBox x:Name="lstBand" Margin="83,136,1015,182" ItemsSource="{Binding BandList}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedBand}"/>
         <Label x:Name="lblNaam" Content="Naam:" HorizontalAlignment="Left" Margin="880,117,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtNaam" HorizontalAlignment="Left" Height="23" Margin="880,148,0,0" TextWrapping="Wrap" Text="{Binding ElementName=lstBand, Path=SelectedItem.Name}" VerticalAlignment="Top" Width="120" />
+        <TextBox x:Name="txtNaam" HorizontalAlignment="Left" Height="23" Margin="880,148,0,0" TextWrapping="Wrap" Text="{Binding ElementName=lstBand, Path=SelectedItem.Name,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}" VerticalAlignment="Top" Width="120" />
         <Image Margin="403,191,606,239"  Source="{Binding SelectedBand.Picture,Converter={StaticResource image},UpdateSourceTrigger=PropertyChanged}">
            <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDown">
@@ -40,7 +42,7 @@
             <DataGridTemplateColumn Header="Genres">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
-                        <ComboBox   ItemsSource="{Binding GenreList}"  DisplayMemberPath="Name" SelectedItem="{Binding GenreBand.Name,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="ID" SelectedValue="{Binding GenreBand.ID,UpdateSourceTrigger=PropertyChanged}"/>
+                        <ComboBox   ItemsSource="{Binding BandList}"  DisplayMemberPath="Name" SelectedItem="{Binding BandList.Genres,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="ID" SelectedValue="{Binding BandList.ID,UpdateSourceTrigger=PropertyChanged}"/>
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>

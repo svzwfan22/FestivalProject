@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Project_MVVM.viewmodel
@@ -114,15 +115,21 @@ namespace Project_MVVM.viewmodel
         {
             get { return new RelayCommand<Genre>(DeleteGenre); }
         }
-       
+
 
         public void DeleteGenre(Genre gnr)
         {
-            Genre.DeleteGenre(SelectedGenre);
-            if (SelectedGenre != null)
-                GenreList.Remove(SelectedGenre);
-            Console.WriteLine("delete command");
-            Genre.PrintGenres(GenreList);
+            if (SelectedGenre == null) {
+                MessageBox.Show("Gelieve het genre te selecteren dat u wilt verwijderen.");
+            }
+            else
+            {
+                Genre.DeleteGenre(SelectedGenre);
+                if (SelectedGenre != null)
+                    GenreList.Remove(SelectedGenre);
+                Console.WriteLine("delete command");
+                Genre.PrintGenres(GenreList);
+            }
         }
 
         private Genre _newGenre;
@@ -143,17 +150,24 @@ namespace Project_MVVM.viewmodel
 
         public void AddGenre(Genre gnr)
         {
-            
-
-            Genre genre = SelectedGenre;
-            int id = (int)genre.ID;
-
-            if (id != Genre.aantal) {
-                Genre.UpdateGenre(SelectedGenre);
-            } else {
-                Genre.InsertGenre(SelectedGenre);
+            if (SelectedGenre == null) {
+                MessageBox.Show("Gelieve het genre te selecteren dat u wilt opslaan.");
             }
+            else
+            {
 
+                Genre genre = SelectedGenre;
+                int id = (int)genre.ID;
+
+                if (id != Genre.aantal)
+                {
+                    Genre.UpdateGenre(SelectedGenre);
+                }
+                else
+                {
+                    Genre.InsertGenre(SelectedGenre);
+                }
+            }
             
         }
 
@@ -187,11 +201,17 @@ namespace Project_MVVM.viewmodel
 
         public void DeleteContactpersonType(ContactpersonType cpt)
         {
-            ContactpersonType.DeleteContactpersonType(SelectedContactpersonType);
-            if (SelectedContactpersonType != null)
-                ContactpersonTypeList.Remove(SelectedContactpersonType);
-            Console.WriteLine("delete command");
-            ContactpersonType.PrintContactpersonTypes(ContactpersonTypeList);
+            if (SelectedContactpersonType == null) {
+                MessageBox.Show("Gelieve het contactpersoonstype die u wilt verwijderen te selecteren.");
+            }
+            else
+            {
+                ContactpersonType.DeleteContactpersonType(SelectedContactpersonType);
+                if (SelectedContactpersonType != null)
+                    ContactpersonTypeList.Remove(SelectedContactpersonType);
+                Console.WriteLine("delete command");
+                ContactpersonType.PrintContactpersonTypes(ContactpersonTypeList);
+            }
         }
 
         private ContactpersonType _newContactpersonType;
@@ -212,16 +232,22 @@ namespace Project_MVVM.viewmodel
 
         public void AddContactpersonType(ContactpersonType cpt)
         {
-            ContactpersonType contactpersooon = SelectedContactpersonType;
-            int id = (int)contactpersooon.ID;
-
-            if (id != ContactpersonType.aantal)
-            {
-                ContactpersonType.UpdateContactpersonType(SelectedContactpersonType);
+            if (SelectedContactpersonType == null) {
+                MessageBox.Show("Gelieve het contactpersoonstype die u wilt opslaan te selecteren.");
             }
             else
             {
-                ContactpersonType.InsertContactpersonType(SelectedContactpersonType);
+                ContactpersonType contactpersooon = SelectedContactpersonType;
+                int id = (int)contactpersooon.ID;
+
+                if (id != ContactpersonType.aantal)
+                {
+                    ContactpersonType.UpdateContactpersonType(SelectedContactpersonType);
+                }
+                else
+                {
+                    ContactpersonType.InsertContactpersonType(SelectedContactpersonType);
+                }
             }
         }
 
@@ -256,11 +282,17 @@ namespace Project_MVVM.viewmodel
 
         public void DeleteStage(Stage stg)
         {
-            Stage.DeleteStage(SelectedStage);
-            if (SelectedStage != null)
-                StageList.Remove(SelectedStage);
-            Console.WriteLine("delete command");
-            Stage.PrintStages(StageList);
+            if (SelectedStage == null) {
+                MessageBox.Show("Gelieve een stage te selecteren die u wilt verwijderen.");
+            }
+            else
+            {
+                Stage.DeleteStage(SelectedStage);
+                if (SelectedStage != null)
+                    StageList.Remove(SelectedStage);
+                Console.WriteLine("delete command");
+                Stage.PrintStages(StageList);
+            }
         }
 
         private Stage _newStage;
@@ -281,16 +313,22 @@ namespace Project_MVVM.viewmodel
 
         public void AddStage(Stage stg)
         {
-            Stage stagee = SelectedStage;
-            int id = (int)stagee.ID;
-
-            if (id != Stage.aantal)
-            {
-                Stage.UpdateStage(SelectedStage);
+            if (SelectedStage == null) {
+                MessageBox.Show("Gelieve een stage te selecteren die u wilt opslaan.");
             }
             else
             {
-                Stage.InsertStage(SelectedStage);
+                Stage stagee = SelectedStage;
+                int id = (int)stagee.ID;
+
+                if (id != Stage.aantal)
+                {
+                    Stage.UpdateStage(SelectedStage);
+                }
+                else
+                {
+                    Stage.InsertStage(SelectedStage);
+                }
             }
         }
     }

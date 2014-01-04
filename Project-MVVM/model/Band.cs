@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Project_MVVM.model
 {
-    public class Band
+    public class Band : IDataErrorInfo
     {
         private int _ID;
 
@@ -56,8 +58,8 @@ namespace Project_MVVM.model
             get { return _facebook; }
             set { _facebook = value; }
         }
-        private string _genres;
-        public string Genres
+        private ObservableCollection<Genre> _genres;
+        public ObservableCollection<Genre> Genres
         {
             get { return _genres; }
             set { _genres = value; }
@@ -91,9 +93,9 @@ namespace Project_MVVM.model
         public static ObservableCollection<Band> GetBand()
         {
             GenreList = Genre.genres;
-            BandGenre.GenreList = GenreList;
+            
 
-            string sql = "SELECT * FROM Bands";
+            string sql = "SELECT * FROM Banden";
             // DbParameter par1= Database.AddParameter("par1","jan")
             DbDataReader reader = Database.GetData(sql);//,par1);
 
@@ -126,19 +128,7 @@ namespace Project_MVVM.model
             band.Description = record["Description"].ToString();
             band.Twitter = record["Twitter"].ToString();
             band.Facebook = record["Facebook"].ToString();
-            //band.Genres = record["Genres"].ToString();
-
-            
-            string[] split = record["Genres"].ToString().Split(new Char[] { ';' });
-
-            for (int i = 0; i < split.Count() - 1; i++)
-            {
-                Genre genre = new Genre();
-                genre.ID = Convert.ToInt32(split[i]);
-                genre.Name = GenreList[Convert.ToInt32(split[i]) - 1].Name;
-                band.GenreListBand.Add(genre);
-                aantalgenres++;
-            }
+            band.Genres = Genre.GetGenresByBandID(Convert.ToInt32(record["ID"]));
         
 
             return band;
@@ -151,27 +141,28 @@ namespace Project_MVVM.model
             try
             {
                 trans = Database.BeginTransaction();
-                string sql = "INSERT INTO Bands(Name,Description,Facebook,Genres,Twitter,Picture) VALUES (@Name,@Description,@Facebook,@Genres,@Twitter,@Picture);";
+                string sql = "INSERT INTO Banden(Name,Description,Facebook,Twitter,Picture) VALUES (@Name,@Description,@Facebook,@Twitter,@Picture);";
 
                 //DbParameter par1 = Database.AddParameter("@ID", cpn.ID);
                 DbParameter par2 = Database.AddParameter("@Name", bnd.Name);
                 DbParameter par3 = Database.AddParameter("@Description", bnd.Description);
                 DbParameter par4 = Database.AddParameter("@Facebook", bnd.Facebook);
-                DbParameter par5 = Database.AddParameter("@Genres", bnd.Genres);
+                //DbParameter par5 = Database.AddParameter("@Genres", bnd.Genres);
                 DbParameter par6 = Database.AddParameter("@Twitter", bnd.Twitter);
                 DbParameter par7 = Database.AddParameter("@Picture", bnd.Picture);
 
 
                 int rowsaffected = 0;
 
-                rowsaffected += Database.ModifyData(trans, sql, par2, par3, par4, par5, par6, par7);
+                rowsaffected += Database.ModifyData(trans, sql, par2, par3, par4, par6, par7);
                 Console.WriteLine(rowsaffected + " row(s) are affected");
                 trans.Commit();
                 return rowsaffected;
             }
             catch (Exception)
             {
-                trans.Rollback();
+                MessageBox.Show("Gelieve alle velden in te vullen vooraleer u de band wilt opslaan.");
+                //trans.Rollback();
                 return 0;
             }
         }
@@ -183,27 +174,28 @@ namespace Project_MVVM.model
             try
             {
                 trans = Database.BeginTransaction();
-                string sql = "UPDATE Bands SET Name=@name, Description=@Description, Facebook=@Facebook, Genres=@Genres, Twitter=@Twitter, Picture=@Picture WHERE ID=@ID";
+                string sql = "UPDATE Banden SET Name=@name, Description=@Description, Facebook=@Facebook, Twitter=@Twitter, Picture=@Picture WHERE ID=@ID";
 
                 DbParameter par1 = Database.AddParameter("@ID", bnd.ID);
                 DbParameter par2 = Database.AddParameter("@Name", bnd.Name);
                 DbParameter par3 = Database.AddParameter("@Description", bnd.Description);
                 DbParameter par4 = Database.AddParameter("@Facebook", bnd.Facebook);
-                DbParameter par5 = Database.AddParameter("@Genres", bnd.Genres);
+                //DbParameter par5 = Database.AddParameter("@Genres", bnd.Genres);
                 DbParameter par6 = Database.AddParameter("@Twitter", bnd.Twitter);
                 DbParameter par7 = Database.AddParameter("@Picture", bnd.Picture);
 
 
                 int rowsaffected = 0;
 
-                rowsaffected += Database.ModifyData(trans, sql, par1, par2, par3, par4, par5, par6, par7);
+                rowsaffected += Database.ModifyData(trans, sql, par1, par2, par3, par4, par6, par7);
                 Console.WriteLine(rowsaffected + " row(s) are affected");
                 trans.Commit();
                 return rowsaffected;
             }
             catch (Exception)
             {
-                trans.Rollback();
+                MessageBox.Show("Gelieve alle velden in te vullen vooraleer u de band wilt opslaan.");
+                //trans.Rollback();
                 return 0;
             }
         }
@@ -215,7 +207,7 @@ namespace Project_MVVM.model
             try
             {
                 trans = Database.BeginTransaction();
-                string sql = "DELETE FROM Bands WHERE Name=@name";
+                string sql = "DELETE FROM Banden WHERE Name=@name";
 
                 DbParameter par1 = Database.AddParameter("@ID", bnd.ID);
                 DbParameter par2 = Database.AddParameter("@Name", bnd.Name);
@@ -251,6 +243,31 @@ namespace Project_MVVM.model
             foreach (Band band in Bands)
             {
                 Console.WriteLine(band.ToString());
+            }
+        }
+
+        public string Error
+        {
+            get { return "Het object is niet valid"; }
+        }
+
+        public string this[string columName]
+        {
+            get
+            {
+                try
+                {
+                    object value = this.GetType().GetProperty(columName).GetValue(this);
+                    Validator.ValidateProperty(value, new ValidationContext(this, null, null)
+                    {
+                        MemberName = columName
+                    });
+                }
+                catch (Exception ex)
+                {
+                    return ex.Message;
+                }
+                return string.Empty;
             }
         }
     }

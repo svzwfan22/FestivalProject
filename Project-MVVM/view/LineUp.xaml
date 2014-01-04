@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" Height="747" Width="1144">
     <Grid Margin="0,0,-744,-436"  >
-        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" Name="lstLineUp" HorizontalAlignment="Left" Height="460" Margin="107,198,0,0" VerticalAlignment="Top" Width="967" ItemsSource="{Binding LineUpList}" SelectedItem="{Binding SelectedLineUp}">
+        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" Name="lstLineUp" HorizontalAlignment="Left" Height="460" Margin="70,166,0,0" VerticalAlignment="Top" Width="967" ItemsSource="{Binding LineUpList}" SelectedItem="{Binding SelectedLineUp}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Date" Binding="{Binding Date}"></DataGridTextColumn>
                 <DataGridTextColumn Header="From" Binding="{Binding From}"></DataGridTextColumn>
@@ -27,9 +27,9 @@
             </DataGrid.Columns>
         </DataGrid>
         
-        <Button Name="btnVoegToe" Content="Voeg toe" HorizontalAlignment="Left" Margin="107,698,0,0" VerticalAlignment="Top" Width="75" Command="{Binding VoegToeCommand}" />
-        <Button Name="btnVerwijderen2" Content="Verwijderen" HorizontalAlignment="Left" Margin="248,698,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteLineUpCommand}"/>
-        <Button x:Name="btnUpdate" Content="Opslaan" HorizontalAlignment="Left" Margin="390,698,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateLineUpCommand}"/>
+        <Button Name="btnVoegToe" Content="Voeg toe" HorizontalAlignment="Left" Margin="70,656,0,0" VerticalAlignment="Top" Width="75" Command="{Binding VoegToeCommand}" />
+        <Button Name="btnVerwijderen2" Content="Verwijderen" HorizontalAlignment="Left" Margin="211,656,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteLineUpCommand}"/>
+        <Button x:Name="btnUpdate" Content="Opslaan" HorizontalAlignment="Left" Margin="353,656,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateLineUpCommand}"/>
 
     </Grid>
 </UserControl>

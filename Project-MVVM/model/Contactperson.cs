@@ -235,7 +235,7 @@ namespace Project_MVVM.model
             }
             catch (Exception)
             {
-                MessageBox.Show("Gelieve alle velden in te vullen.");
+                MessageBox.Show("Gelieve alle velden in te vullen vooraleer u de contactpersoon wilt opslaan.");
                 //trans.Rollback();
                 return 0;
             }
@@ -269,7 +269,8 @@ namespace Project_MVVM.model
             }
             catch (Exception)
             {
-                trans.Rollback();
+                MessageBox.Show("Gelieve alle velden in te vullen vooraleer u de contactpersoon wilt opslaan.");
+                //trans.Rollback();
                 return 0;
             }
         }

@@ -35,13 +35,7 @@ namespace Project_MVVM.viewmodel
             set { _genreList = value; OnPropertyChanged("GenreList"); }
         }
 
-        private ObservableCollection<BandGenre> _bandsList;
-
-        public ObservableCollection<BandGenre> BandsList
-        {
-            get { return _bandsList; }
-            set { _bandsList = value; OnPropertyChanged("BandsList"); }
-        }
+        
 
         //private byte[] _imageSource;
 
@@ -63,11 +57,7 @@ namespace Project_MVVM.viewmodel
         {
             _bandList = Band.band;
             
-           if(SelectedBand != null){
-            BandsList = BandGenre.GetBandgenres(SelectedBand.GenreListBand);
-           }
-            
-            _genreList = BandGenre.GenreList;
+           
         }
 
         private Band _selectedBand;
@@ -76,31 +66,13 @@ namespace Project_MVVM.viewmodel
         {
             get { return _selectedBand; }
             set { _selectedBand = value; OnPropertyChanged("SelectedBand");
-            _genreList = BandGenre.GenreList;
+            
             
             }
         }
 
         
-        private BandGenre _selectedGenre;
-        public BandGenre SelectedGenre
-        {
-            get { return _selectedGenre; }
-            set
-            {
-                _selectedGenre = value;
-                OnPropertyChanged("SelectedGenre");
-                if (BandGenre.aantal == SelectedGenre.ID)
-                {
-                    Genre g = new Genre();
-                    g = SelectedGenre.GenreBand;
-                    SelectedBand.GenreListBand.Add(g);
-                }
-                //BandVM.SelectedItem = SelectedBand;
-                //ApplicationVM.BandGenre = SelectedGenre;
-            }
-        }
-
+       
 
         public ICommand DeleteBandCommand
         {
@@ -110,11 +82,17 @@ namespace Project_MVVM.viewmodel
 
         public void DeleteBand()
         {
-            Band.DeleteBand(SelectedBand);
-            if (SelectedBand != null)
-                BandList.Remove(SelectedBand);
-            Console.WriteLine("delete command");
-            Band.PrintBands(BandList);
+            if (SelectedBand == null) {
+                MessageBox.Show("Gelieve de band te selecteren die u wilt verwijderen.");
+            }
+            else
+            {
+                Band.DeleteBand(SelectedBand);
+                if (SelectedBand != null)
+                    BandList.Remove(SelectedBand);
+                Console.WriteLine("delete command");
+                Band.PrintBands(BandList);
+            }
         }
 
         public ICommand SelectImageCommand
@@ -161,18 +139,24 @@ namespace Project_MVVM.viewmodel
 
         public void UpdateContactperson(Band bnd)
         {
-
-            //Contactperson.UpdateContactperson(SelectedContactperson);
-            Band contactpersoon = SelectedBand;
-            int id = (int)contactpersoon.ID;
-
-            if (id != Band.aantal)
+            if (SelectedBand == null)
             {
-                Band.UpdateBand(SelectedBand);
+                MessageBox.Show("Gelieve de band te selecteren die u wilt opslaan.");
             }
             else
             {
-                Band.SaveBand(SelectedBand);
+                //Contactperson.UpdateContactperson(SelectedContactperson);
+                Band contactpersoon = SelectedBand;
+                int id = (int)contactpersoon.ID;
+
+                if (id != Band.aantal)
+                {
+                    Band.UpdateBand(SelectedBand);
+                }
+                else
+                {
+                    Band.SaveBand(SelectedBand);
+                }
             }
         }
 

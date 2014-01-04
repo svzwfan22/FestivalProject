@@ -8,5 +8,12 @@
             <Setter Property="MinHeight" Value="150"/>
             <!--<Setter Property="Source" Value="content/images/blank.jpg"/>-->
         </Style>
+
+        <ControlTemplate x:Key="ErrorTemplate" TargetType="{x:Type Control}">
+            <StackPanel>
+                <Border BorderBrush="#999999" BorderThickness="0">
+                </Border>
+            </StackPanel>
+        </ControlTemplate>
     </Application.Resources>
 </Application>

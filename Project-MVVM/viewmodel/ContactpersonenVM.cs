@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Project_MVVM.viewmodel
@@ -66,11 +67,17 @@ namespace Project_MVVM.viewmodel
 
         public void DeleteContactperson(Contactperson cpn)
         {
-            Contactperson.DeleteContactperson(SelectedContactperson);
-            if (SelectedContactperson != null)
-                ContactpersonList.Remove(SelectedContactperson);
-            Console.WriteLine("delete command");
-            Contactperson.PrintContactpersons(ContactpersonList);
+            if (SelectedContactperson == null) {
+                MessageBox.Show("Gelieve de contactpersoon te selecteren die u wilt verwijderen.");
+            }
+            else
+            {
+                Contactperson.DeleteContactperson(SelectedContactperson);
+                if (SelectedContactperson != null)
+                    ContactpersonList.Remove(SelectedContactperson);
+                Console.WriteLine("delete command");
+                Contactperson.PrintContactpersons(ContactpersonList);
+            }
         }
 
         public ICommand SaveCommand
@@ -97,15 +104,23 @@ namespace Project_MVVM.viewmodel
 
         public void UpdateContactperson(Contactperson cpn)
         {
+            if (SelectedContactperson == null) {
+                MessageBox.Show("Gelieve de contactpersoon te selecteren die u wilt opslaan.");
+            }
+            else
+            {
+                //Contactperson.UpdateContactperson(SelectedContactperson);
+                Contactperson contactpersoon = SelectedContactperson;
+                int id = (int)contactpersoon.ID;
 
-            //Contactperson.UpdateContactperson(SelectedContactperson);
-            Contactperson contactpersoon = SelectedContactperson;
-            int id = (int)contactpersoon.ID;
-
-            if (id != Contactperson.aantal) {
-                Contactperson.UpdateContactperson(SelectedContactperson);
-            } else {
-                Contactperson.SaveContactperson(SelectedContactperson);
+                if (id != Contactperson.aantal)
+                {
+                    Contactperson.UpdateContactperson(SelectedContactperson);
+                }
+                else
+                {
+                    Contactperson.SaveContactperson(SelectedContactperson);
+                }
             }
         }
 

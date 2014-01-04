@@ -12,7 +12,7 @@
                 <DataGridTextColumn Header="Available Tickets" Binding="{Binding AvailableTickets}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" Name="lstReservaties" HorizontalAlignment="Left" Height="638" Margin="544,50,0,0" VerticalAlignment="Top" Width="680" ItemsSource="{Binding TicketList}" SelectedItem="{Binding SelectedTicket}">
+        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" Name="lstReservaties" HorizontalAlignment="Left" Height="638" Margin="544,50,0,0" VerticalAlignment="Top" Width="680" ItemsSource="{Binding GefilterdeTickets}" SelectedItem="{Binding SelectedTicket}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Ticketholder" Binding="{Binding Ticketholder}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Ticketholder Email" Binding="{Binding TicketholderEmail}"></DataGridTextColumn>
@@ -34,5 +34,7 @@
         <Button x:Name="btnVerwijderen" Content="Verwijderen" HorizontalAlignment="Left" Margin="322,710,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteTicketTypeCommand}"/>
         <Button x:Name="btnToevoegenReservatie" Content="Toevoegen" HorizontalAlignment="Left" Margin="796,710,0,0" VerticalAlignment="Top" Width="75" Command="{Binding AddTicketCommand}"/>
         <Button x:Name="btnAfdrukken" Content="Afdrukken" HorizontalAlignment="Left" Margin="678,710,0,0" VerticalAlignment="Top" Width="75" Command="{Binding PrintTicketCommand}"/>
+        <TextBox Name="txtZoeken2" HorizontalAlignment="Left" Height="23" Margin="1016,22,0,0" TextWrapping="Wrap" Text="Zoeken" VerticalAlignment="Top" Width="134"/>
+        <Button Content="Zoeken" HorizontalAlignment="Left" Height="23" Margin="1165,22,0,0" VerticalAlignment="Top" Width="59" Command="{Binding SearchCommand}" CommandParameter="{Binding ElementName=txtZoeken2, Path=Text}"/>
     </Grid>
 </UserControl>
