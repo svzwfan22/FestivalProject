@@ -1,4 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Command;
+//using Project_MVVM.view;
+using Project_MVVM.model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +22,7 @@ namespace Project_MVVM.viewmodel
             Pages.Add(new BandVM());
            
             CurrentPage = Pages[0];
-
+            LineUp.JsonWegschrijven();
         }
 
         private IPage _currentpage;

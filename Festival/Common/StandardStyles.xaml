@@ -142,7 +142,7 @@
     </Style>
 
     <!-- Button styles -->
-    
+
     <!--
         TextButtonStyle is used to style a Button using subheader-styled text with no other adornment.  There
         are two styles that are based on TextButtonStyle (TextPrimaryButtonStyle and TextSecondaryButtonStyle)
@@ -733,13 +733,13 @@
         <Setter Property="AutomationProperties.AutomationId" Value="RenameAppBarButton"/>
         <Setter Property="AutomationProperties.Name" Value="Rename"/>
         <Setter Property="Content" Value="&#xE13E;"/>
-    </Style>
+    </Style>-->
     <Style x:Key="PinAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
         <Setter Property="AutomationProperties.AutomationId" Value="PinAppBarButton"/>
         <Setter Property="AutomationProperties.Name" Value="Pin"/>
         <Setter Property="Content" Value="&#xE141;"/>
     </Style>
-    <Style x:Key="MusicInfoAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
+    <!--<Style x:Key="MusicInfoAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
         <Setter Property="AutomationProperties.AutomationId" Value="MusicInfoAppBarButton"/>
         <Setter Property="AutomationProperties.Name" Value="Music Info"/>
         <Setter Property="Content" Value="&#xE142;"/>
@@ -1653,7 +1653,6 @@
         </Grid>
     </DataTemplate>
 
-
     <!-- Grid-appropriate 500 by 130 pixel item template as seen in the GroupDetailPage -->
     <DataTemplate x:Key="Standard500x130ItemTemplate">
         <Grid Height="110" Width="360" Margin="10">
@@ -1666,16 +1665,19 @@
             </Border>
             <StackPanel Grid.Column="1" VerticalAlignment="Top" Margin="10,0,0,0">
                 <TextBlock Text="{Binding ShortTitle}" Style="{StaticResource TitleTextStyle}" TextWrapping="NoWrap"/>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Preparation time:" Style="{StaticResource BodyTextStyle}" />
-                    <TextBlock Text="{Binding PrepTime}" Style="{StaticResource BodyTextStyle}" Margin="4,0,4,0" />
-                    <TextBlock Text="minutes" Style="{StaticResource BodyTextStyle}" />
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontSize="26.667" FontWeight="Light" Text="Facebook:"/>
+                        <TextBlock FontSize="26.667" FontWeight="Light" Text="{Binding Facebook}" Margin="8,0,8,0"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontSize="26.667" FontWeight="Light" Text="Twitter:"/>
+                        <TextBlock FontSize="26.667" FontWeight="Light" Text="{Binding Twitter}" Margin="8,0,8,0"/>
+                    </StackPanel>
                 </StackPanel>
             </StackPanel>
         </Grid>
     </DataTemplate>
-
-
 
     <!-- List-appropriate 130 pixel high item template as seen in the SplitPage -->
     <DataTemplate x:Key="Standard130ItemTemplate">
@@ -1705,15 +1707,25 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" Width="60" Height="60">
+            <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" Width="80">
                 <Image Source="{Binding Image}" Stretch="UniformToFill"/>
             </Border>
             <StackPanel Grid.Column="1" Margin="10,0,0,0">
-                <TextBlock Text="{Binding Title}" Style="{StaticResource ItemTextStyle}" MaxHeight="40"/>
-                <TextBlock Text="{Binding Subtitle}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap"/>
+                <TextBlock Text="{Binding ShortTitle}" Style="{StaticResource ItemTextStyle}" MaxHeight="40"/>
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontSize="26.667" FontWeight="Light" Text="Facebook:"/>
+                        <TextBlock FontSize="26.667" FontWeight="Light" Text="{Binding Facebook}" Margin="8,0,8,0"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontSize="26.667" FontWeight="Light" Text="Twitter:"/>
+                        <TextBlock FontSize="26.667" FontWeight="Light" Text="{Binding Twitter}" Margin="8,0,8,0"/>
+                    </StackPanel>
+                </StackPanel>
             </StackPanel>
         </Grid>
     </DataTemplate>
+
 
     <!-- Grid-appropriate 300 by 70 pixel item template as seen in the SearchResultsPage -->
     <DataTemplate x:Key="StandardSmallIcon300x70ItemTemplate">
@@ -1722,12 +1734,11 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" Margin="0,0,0,10" Width="40" Height="40">
+            <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" Margin="0,0,0,10" Width="60" Height="45">
                 <Image Source="{Binding Image}" Stretch="UniformToFill"/>
             </Border>
             <StackPanel Grid.Column="1" Margin="10,-10,0,0">
-                <TextBlock Text="{Binding Title}" Style="{StaticResource BodyTextStyle}" TextWrapping="NoWrap"/>
-                <TextBlock Text="{Binding Subtitle}" Style="{StaticResource BodyTextStyle}" Foreground="{StaticResource ApplicationSecondaryForegroundThemeBrush}" TextWrapping="NoWrap"/>
+                <TextBlock Text="{Binding ShortTitle}" Style="{StaticResource BodyTextStyle}" TextWrapping="NoWrap"/>
                 <TextBlock Text="{Binding Description}" Style="{StaticResource BodyTextStyle}" Foreground="{StaticResource ApplicationSecondaryForegroundThemeBrush}" TextWrapping="NoWrap"/>
             </StackPanel>
         </Grid>

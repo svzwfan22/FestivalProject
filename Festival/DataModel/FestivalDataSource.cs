@@ -106,46 +106,51 @@ namespace Festival.Data
         }
     }
 
-    /// <summary>
-    /// Recipe item data model.
-    /// </summary>
     public class FestivalDataItem : FestivalDataCommon
     {
         public FestivalDataItem()
             : base(String.Empty, String.Empty, String.Empty, String.Empty)
         {
         }
-        
-        public FestivalDataItem(String uniqueId, String title, String shortTitle, String imagePath, int preptime, String directions, ObservableCollection<string> ingredients, FestivalDataGroup group)
+
+        public FestivalDataItem(String uniqueId, String title, String shortTitle, String imagePath, String twitter, String facebook, String discription, ObservableCollection<string> genres, FestivalDataGroup group)
             : base(uniqueId, title, shortTitle, imagePath)
         {
-            this._preptime = preptime;
-            this._directions = directions;
-            this._ingredients = ingredients;
+            this._twitter = twitter;
+            this._facebook = facebook;
+            this._discription = discription;
+            this._genres = genres;
             this._group = group;
         }
 
-        private int _preptime = 0;
-        public int PrepTime
+        private string _twitter;
+        public string Twitter
         {
-            get { return this._preptime; }
-            set { this.SetProperty(ref this._preptime, value); }
-        }
-        
-        private string _directions = string.Empty;
-        public string Directions
-        {
-            get { return this._directions; }
-            set { this.SetProperty(ref this._directions, value); }
+            get { return this._twitter; }
+            set { this.SetProperty(ref this._twitter, value); }
         }
 
-        private ObservableCollection<string> _ingredients;
-        public ObservableCollection<string> Ingredients
+        private string _facebook;
+        public string Facebook
         {
-            get { return this._ingredients; }
-            set { this.SetProperty(ref this._ingredients, value); }
+            get { return this._facebook; }
+            set { this.SetProperty(ref this._facebook, value); }
         }
-    
+
+        private string _discription = string.Empty;
+        public string Discription
+        {
+            get { return this._discription; }
+            set { this.SetProperty(ref this._discription, value); }
+        }
+
+        private ObservableCollection<string> _genres;
+        public ObservableCollection<string> Genres
+        {
+            get { return this._genres; }
+            set { this.SetProperty(ref this._genres, value); }
+        }
+
         private FestivalDataGroup _group;
         public FestivalDataGroup Group
         {
@@ -163,7 +168,7 @@ namespace Festival.Data
                 return new Uri(FestivalDataCommon._baseUri, this._tileImagePath);
             }
         }
-        
+
         public ImageSource TileImage
         {
             get
@@ -198,7 +203,7 @@ namespace Festival.Data
             : base(String.Empty, String.Empty, String.Empty, String.Empty)
         {
         }
-        
+
         public FestivalDataGroup(String uniqueId, String title, String shortTitle, String imagePath, String description)
             : base(uniqueId, title, shortTitle, imagePath)
         {
@@ -230,7 +235,7 @@ namespace Festival.Data
         }
 
         private ImageSource _groupImage;
-        private string _groupImagePath;  
+        private string _groupImagePath;
 
         public ImageSource GroupImage
         {
@@ -253,9 +258,9 @@ namespace Festival.Data
         {
             get
             {
-                return this.Items.Count; 
-            } 
-        } 
+                return this.Items.Count;
+            }
+        }
 
         public void SetGroupImage(String path)
         {
@@ -273,7 +278,7 @@ namespace Festival.Data
         //public event EventHandler RecipesLoaded;
 
         private static FestivalDataSource _festivalDataSource = new FestivalDataSource();
-        
+
         private ObservableCollection<FestivalDataGroup> _allGroups = new ObservableCollection<FestivalDataGroup>();
         public ObservableCollection<FestivalDataGroup> AllGroups
         {
@@ -305,7 +310,7 @@ namespace Festival.Data
 
         public static async Task LoadRemoteDataAsync()
         {
-            // Retrieve recipe data from Azure
+            //// Retrieve recipe data from Azure
             //var client = new HttpClient();
             //client.MaxResponseContentBufferSize = 1024 * 1024; // Read up to 1 MB of data
             //var response = await client.GetAsync(new Uri("http://contosorecipes8.blob.core.windows.net/AzureRecipesRP"));
@@ -315,7 +320,7 @@ namespace Festival.Data
             //var recipes = JsonArray.Parse(result);
 
             //// Convert the JSON objects into RecipeDataItems and RecipeDataGroups
-            //CreateFestivalAndFestivalGroups(recipes);
+            //CreateFestivalAndRecipeGroups(recipes);
         }
 
         public static async Task LoadLocalDataAsync()
@@ -328,10 +333,10 @@ namespace Festival.Data
             var recipes = JsonArray.Parse(result);
 
             // Convert the JSON objects into RecipeDataItems and RecipeDataGroups
-            CreateFestivalAndFestivalGroups(recipes);
+            CreateFestivalAndRecipeGroups(recipes);
         }
 
-        private static void CreateFestivalAndFestivalGroups(JsonArray array)
+        private static void CreateFestivalAndRecipeGroups(JsonArray array)
         {
             foreach (var item in array)
             {
@@ -356,16 +361,19 @@ namespace Festival.Data
                         case "shortTitle":
                             recipe.ShortTitle = val.GetString();
                             break;
-                        case "preptime":
-                            recipe.PrepTime = (int)val.GetNumber();
+                        case "twitter":
+                            recipe.Twitter = val.GetString();
                             break;
-                        case "directions":
-                            recipe.Directions = val.GetString();
+                        case "facebook":
+                            recipe.Facebook = val.GetString();
                             break;
-                        case "ingredients":
-                            var ingredients = val.GetArray();
-                            var list = (from i in ingredients select i.GetString()).ToList();
-                            recipe.Ingredients = new ObservableCollection<string>(list);
+                        case "discription":
+                            recipe.Discription = val.GetString();
+                            break;
+                        case "genres":
+                            var genres = val.GetArray();
+                            var list = (from i in genres select i.GetString()).ToList();
+                            recipe.Genres = new ObservableCollection<string>(list);
                             break;
                         case "backgroundImage":
                             recipe.SetImage(val.GetString());
@@ -383,7 +391,7 @@ namespace Festival.Data
                             group = _festivalDataSource.AllGroups.FirstOrDefault(c => c.UniqueId.Equals(groupKey.GetString()));
 
                             if (group == null)
-                                group = CreateRecipeGroup(recipeGroup);
+                                group = CreateFestivalGroup(recipeGroup);
 
                             recipe.Group = group;
                             break;
@@ -394,8 +402,8 @@ namespace Festival.Data
                     group.Items.Add(recipe);
             }
         }
-        
-        private static FestivalDataGroup CreateRecipeGroup(JsonObject obj)
+
+        private static FestivalDataGroup CreateFestivalGroup(JsonObject obj)
         {
             FestivalDataGroup group = new FestivalDataGroup();
 
@@ -422,9 +430,9 @@ namespace Festival.Data
                     case "backgroundImage":
                         group.SetImage(val.GetString());
                         break;
-                    case "groupImage" :
+                    case "groupImage":
                         group.SetGroupImage(val.GetString());
-                        break; 
+                        break;
                 }
             }
 

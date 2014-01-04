@@ -26,7 +26,6 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <ComboBox Name="cboStageKeuze" HorizontalAlignment="Left" Margin="107,146,0,0" VerticalAlignment="Top" Width="161" ItemsSource="{Binding StageList}" DisplayMemberPath="Name"/>
         
         <Button Name="btnVoegToe" Content="Voeg toe" HorizontalAlignment="Left" Margin="107,698,0,0" VerticalAlignment="Top" Width="75" Command="{Binding VoegToeCommand}" />
         <Button Name="btnVerwijderen2" Content="Verwijderen" HorizontalAlignment="Left" Margin="248,698,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteLineUpCommand}"/>

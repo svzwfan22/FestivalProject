@@ -1,11 +1,15 @@
 ﻿using Festival.Data;
-
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Media.Capture;
+using Windows.Storage;
+using Windows.Storage.Streams;
+using Windows.UI.StartScreen;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -28,6 +32,8 @@ namespace Festival
         {
             this.InitializeComponent();
         }
+        private StorageFile _photo; // Photo file to share
+        private StorageFile _video; // Video file to share
 
         /// <summary>
         /// Populates the page with content passed during navigation.  Any saved state is also
@@ -51,6 +57,110 @@ namespace Festival
             this.DefaultViewModel["Group"] = item.Group;
             this.DefaultViewModel["Items"] = item.Group.Items;
             this.flipView.SelectedItem = item;
+            // Register for DataRequested events
+            DataTransferManager.GetForCurrentView().DataRequested += OnDataRequested;
+        }
+
+        private async void OnPinRecipeButtonClicked(object sender, RoutedEventArgs e)
+        {
+            var item = (FestivalDataItem)this.flipView.SelectedItem;
+            var uri = new Uri(item.TileImagePath.AbsoluteUri);
+
+            var tile = new SecondaryTile(
+                    item.UniqueId,              // Tile ID
+                    item.ShortTitle,            // Tile short name
+                    item.Title,                 // Tile display name
+                    item.UniqueId,              // Activation argument
+                    TileOptions.ShowNameOnLogo, // Tile options
+                    uri                         // Tile logo URI
+                );
+
+            await tile.RequestCreateAsync();
+        }
+
+        private void OnBragButtonClicked(object sender, RoutedEventArgs e)
+        {
+            // Create a menu containing two items
+            //var menu = new Menu();
+            //var item1 = new MenuItem { Text = "Photo" };
+            //item1.Tapped += OnCapturePhoto;
+            //menu.Items.Add(item1);
+            //var item2 = new MenuItem { Text = "Video" };
+            //item2.Tapped += OnCaptureVideo;
+            //menu.Items.Add(item2);
+
+            // Show the menu in a Flyout anchored to the Brag button
+            //var flyout = new Flyout();
+            //flyout.Placement = PlacementMode.Top;
+            //flyout.HorizontalAlignment = HorizontalAlignment.Left;
+            //flyout.HorizontalContentAlignment = HorizontalAlignment.Left;
+            //flyout.PlacementTarget = BragButton;
+            //flyout.Content = menu;
+            //flyout.IsOpen = true;
+        }
+
+        private async void OnCapturePhoto(object sender, TappedRoutedEventArgs e)
+        {
+            var camera = new CameraCaptureUI();
+            var file = await camera.CaptureFileAsync(CameraCaptureUIMode.Photo);
+
+            if (file != null)
+            {
+                _photo = file;
+                DataTransferManager.ShowShareUI();
+            }
+        }
+
+        private async void OnCaptureVideo(object sender, TappedRoutedEventArgs e)
+        {
+            var camera = new CameraCaptureUI();
+            camera.VideoSettings.Format = CameraCaptureUIVideoFormat.Wmv;
+            var file = await camera.CaptureFileAsync(CameraCaptureUIMode.Video);
+
+            if (file != null)
+            {
+                _video = file;
+                DataTransferManager.ShowShareUI();
+            }
+        }
+
+        void OnDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        {
+            var request = args.Request;
+            var item = (FestivalDataItem)this.flipView.SelectedItem;
+            request.Data.Properties.Title = item.Title;
+
+            if (_photo != null)
+            {
+                request.Data.Properties.Description = "Recipe photo";
+                var reference = Windows.Storage.Streams.RandomAccessStreamReference.CreateFromFile(_photo);
+                request.Data.Properties.Thumbnail = reference;
+                request.Data.SetBitmap(reference);
+                _photo = null;
+            }
+            else if (_video != null)
+            {
+                request.Data.Properties.Description = "Recipe video";
+                List<StorageFile> items = new List<StorageFile>();
+                items.Add(_video);
+                request.Data.SetStorageItems(items);
+                _video = null;
+            }
+            else
+            {
+                request.Data.Properties.Description = "Recipe genres and discription";
+
+                // Share recipe text
+                var recipe = "\r\nINGREDIENTS\r\n";
+                recipe += String.Join("\r\n", item.Genres);
+                recipe += ("\r\n\r\nDIRECTIONS\r\n" + item.Discription);
+                request.Data.SetText(recipe);
+
+                // Share recipe image
+                var reference = RandomAccessStreamReference.CreateFromUri(new Uri(item.ImagePath.AbsoluteUri));
+                request.Data.Properties.Thumbnail = reference;
+                request.Data.SetBitmap(reference);
+            }
         }
 
         /// <summary>
@@ -63,6 +173,8 @@ namespace Festival
         {
             var selectedItem = (FestivalDataItem)this.flipView.SelectedItem;
             pageState["SelectedItem"] = selectedItem.UniqueId;
+            // Deregister the DataRequested event handler
+            DataTransferManager.GetForCurrentView().DataRequested -= OnDataRequested;
         }
     }
 }

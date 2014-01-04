@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
@@ -19,7 +20,8 @@ namespace Project_MVVM.model
             set { _ID = value; }
         }
         private string _name;
-
+        [Required(ErrorMessage = "U moet een naam invullen")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Een naam moet tussen de 3 en 50 karakters liggen")]
         public string Name
         {
             get { return _name; }
@@ -33,7 +35,8 @@ namespace Project_MVVM.model
             set { _picture = value; }
         }
         private string _description;
-
+        [Required(ErrorMessage = "U moet een beschrijving invullen")]
+        [StringLength(255, MinimumLength = 5, ErrorMessage = "Een omschrijving moet tussen de 5 en 255 karakters liggen")]
         public string Description
         {
             get { return _description; }

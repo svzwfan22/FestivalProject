@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -319,6 +320,61 @@ namespace Project_MVVM.model
             foreach (LineUp lineup in LineUps)
             {
                 Console.WriteLine(lineup.ToString());
+            }
+        }
+
+        public static void JsonWegschrijven()
+        {
+            StreamWriter sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "test.txt");
+            //sw.WriteLine("this \"word\" test");
+           // lineup.RemoveAt(1);
+            //lineup.RemoveAt(1);
+            //lineup.RemoveAt(1);
+            sw.WriteLine("[ ");
+            for (int i = 0; i < lineup.Count(); i++)
+            {
+                foreach (Band b in Band.band)
+                {
+                    if (b.Name == lineup[i].Bands.Name)
+                    {
+                        foreach (Genre g in Band.GenreList)
+                        {
+                            WegTeSchrijvenItem(sw, i, g, b);
+                        }
+                    }
+                }
+            }
+            sw.WriteLine("]");
+            sw.Close();
+        }
+
+        private static void WegTeSchrijvenItem(StreamWriter sw, int i, Genre g, Band b)
+        {
+            sw.WriteLine("{ ");
+            sw.WriteLine("\"backgroundImage\" : \"images/" + g.Name + "/" + lineup[i].Bands.Name + ".jpg,");
+            sw.WriteLine("\"discription\" : \"" + b.Description + "\",");
+            sw.WriteLine("\"group\" : { \"backgroundImage\" : \"images/" + g.Name + "/" + g.Name + "_group_detail.jpg\",");
+            sw.WriteLine("\"description\" : \"" + b.Description + "\",");
+            sw.WriteLine("\"groupImage\" : \"" + b.Picture + "\",");
+            sw.WriteLine("\"key\" : \"" + g.Name + "\",");
+            sw.WriteLine("\"shortTitle\" : \"" + g.Name + "\",");
+            sw.WriteLine("\"title\" : \"" + g.Name + "\"");
+            sw.WriteLine("\"},");
+            sw.WriteLine("\"genres\" : [\"" + g.Name + "\"],");
+            sw.WriteLine("\"facebook\" : \"" + b.Facebook + "\",");
+            sw.WriteLine("\"twitter\" : \"" + b.Twitter + "\",");
+            sw.WriteLine("\"shortTitle\" : \"" + b.Name + "\",");
+            sw.WriteLine("\"tileImage\" : \"" + b.Picture + "\",");
+            sw.WriteLine("\"title\" : \"" + b.Name + "\"");
+            
+
+            if (lineup.Count() == 1 || lineup.Count() - 1 == i)
+            {
+                sw.WriteLine("}");
+            }
+            else
+            {
+                sw.WriteLine("},");
             }
         }
 
