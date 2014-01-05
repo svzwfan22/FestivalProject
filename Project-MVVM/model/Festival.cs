@@ -37,6 +37,7 @@ namespace Project_MVVM.model
 
         public static ObservableCollection<Festival> datums = new ObservableCollection<Festival>();
         public static int aantal = 1;
+        //de data ophalen uit de database
         public static ObservableCollection<Festival> GetDatums()
         {
             string sql = "SELECT * FROM Festivaldagen";
@@ -49,11 +50,11 @@ namespace Project_MVVM.model
             while (reader.Read())
             {
                 datums.Add(Create(reader));
-                aantal++;
+                //aantal++;
             }
             return datums;
         }
-
+        //de data uit de database verwerken
         private static Festival Create(IDataRecord record)
         {
             return new Festival()
@@ -64,7 +65,7 @@ namespace Project_MVVM.model
                 
             };
         }
-
+        //de datums updaten
         public static int UpdateDatum(Festival fst)
         {
             DbTransaction trans = null;
@@ -75,8 +76,8 @@ namespace Project_MVVM.model
                 string sql = "UPDATE Festivaldagen SET StartDate=@StartDate,EndDate=@EndDate WHERE ID=@ID";
 
                 DbParameter par1 = Database.AddParameter("@ID", aantal);
-                DbParameter par2 = Database.AddParameter("@Name", fst.StartDate);
-                DbParameter par3 = Database.AddParameter("@Price", fst.EndDate);
+                DbParameter par2 = Database.AddParameter("@StartDate", fst.StartDate);
+                DbParameter par3 = Database.AddParameter("@EndDate", fst.EndDate);
                 
 
 

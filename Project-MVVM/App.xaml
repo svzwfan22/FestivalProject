@@ -3,17 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="view/MainWindow.xaml">
     <Application.Resources>
-        <Style x:Key="ImageBox" TargetType="{x:Type Image}">
-            <Setter Property="MinWidth" Value="50"/>
-            <Setter Property="MinHeight" Value="150"/>
-            <!--<Setter Property="Source" Value="content/images/blank.jpg"/>-->
-        </Style>
-
-        <ControlTemplate x:Key="ErrorTemplate" TargetType="{x:Type Control}">
-            <StackPanel>
-                <Border BorderBrush="#999999" BorderThickness="0">
-                </Border>
-            </StackPanel>
-        </ControlTemplate>
+        
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                   
+                    <ResourceDictionary Source="Dictionary.xaml"/>
+                    <ResourceDictionary Source="Templates.xaml"/>
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
     </Application.Resources>
 </Application>

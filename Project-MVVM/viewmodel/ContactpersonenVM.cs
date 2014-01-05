@@ -35,7 +35,7 @@ namespace Project_MVVM.viewmodel
         }
 
         
-
+        //de lijsten opvullen
         public ContactpersonenVM()
         {
             _contactpersonList = Contactperson.GetContactpersons();
@@ -58,7 +58,7 @@ namespace Project_MVVM.viewmodel
             get { return _selectedContactpersonType; }
             set { _selectedContactpersonType = value; OnPropertyChanged("SelectedContactpersonType"); }
         }
-
+        //contactpersoon verwijderen
         public ICommand DeleteContactpersonCommand
         {
             get { return new RelayCommand<Contactperson>(DeleteContactperson); }
@@ -79,7 +79,7 @@ namespace Project_MVVM.viewmodel
                 Contactperson.PrintContactpersons(ContactpersonList);
             }
         }
-
+        //contactpersoon toevoegen
         public ICommand SaveCommand
         {
             get { return new RelayCommand(SaveContactperson); }
@@ -96,7 +96,7 @@ namespace Project_MVVM.viewmodel
 
            
         }
-
+        //contactpersoon toevoegen of updaten
         public ICommand UpdateContactpersonCommand
         {
             get { return new RelayCommand<Contactperson>(UpdateContactperson); }
@@ -123,7 +123,7 @@ namespace Project_MVVM.viewmodel
                 }
             }
         }
-
+        //zoeken naar een contactpersoon
         public ICommand SearchCommand
         {
             get { return new RelayCommand<string>(Search); }

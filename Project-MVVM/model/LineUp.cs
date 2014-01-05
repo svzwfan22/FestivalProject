@@ -70,6 +70,21 @@ namespace Project_MVVM.model
             set { _margin = value; }
         }
 
+        private DateTime _startDatum;
+
+        public DateTime StartDatum
+        {
+            get { return _startDatum; }
+            set { _startDatum = value; }
+        }
+
+        private DateTime _eindDatum;
+
+        public DateTime EindDatum
+        {
+            get { return _eindDatum; }
+            set { _eindDatum = value; }
+        }
 
         private static ObservableCollection<Stage> _stagekesList;
 
@@ -86,7 +101,7 @@ namespace Project_MVVM.model
             get { return _bandjesList; }
             set { _bandjesList = value; }
         }
-
+        //hoogte en breedte nodig om da lineup in de timeline goed te kunnen weergeven
         public static int vorigeWidth;
         public static int Height = 0;
         public static int aantal = 1;
@@ -95,7 +110,40 @@ namespace Project_MVVM.model
         public static ObservableCollection<LineUp> sLineUp = new ObservableCollection<LineUp>();
 
         public static ObservableCollection<LineUp> lineup = new ObservableCollection<LineUp>();
+
+        public static ObservableCollection<LineUp> festival = new ObservableCollection<LineUp>();
+
         //public static int aantal = 1;
+
+        public static ObservableCollection<LineUp> GetDatums()
+        {
+            string sql = "SELECT * FROM Festivaldagen";
+            // DbParameter par1= Database.AddParameter("par1","jan")
+            DbDataReader reader = Database.GetData(sql);//,par1);
+
+
+
+
+            while (reader.Read())
+            {
+                festival.Add(Create2(reader));
+                
+            }
+            return festival;
+        }
+
+        private static LineUp Create2(IDataRecord record)
+        {
+            return new LineUp()
+            {
+                ID = (int)record["ID"],
+                StartDatum = (DateTime)record["StartDate"],
+                EindDatum = (DateTime)record["EndDate"]
+
+            };
+        }
+
+        //alle data uit de database halen
         public static ObservableCollection<LineUp> GetLineUp()
         {
             string sql = "SELECT * FROM LineUpTable";
@@ -104,6 +152,7 @@ namespace Project_MVVM.model
 
             StagekesList = Stage.GetStages();
             BandjesList = Band.GetBand();
+            
 
             while (reader.Read())
             {
@@ -151,7 +200,7 @@ namespace Project_MVVM.model
             }
             sLineUp = temp2;
         }
-
+        //voor alle data een lineup item maken
         private static LineUp Create(IDataRecord record)
         {
             
@@ -177,19 +226,19 @@ namespace Project_MVVM.model
 
             
         }
-
+        //het einduur ophalen
         public static string[] GetUntil(LineUp lineUp)
         {
             String[] until = lineUp.Until.Split(new Char[] { ':' });
             return until;
         }
-
+        //het beginuur ophalen
         public static string[] GetFrom(LineUp lineUp)
         {
             String[] from = lineUp.From.Split(new Char[] { ':' });
             return from;
         }
-
+        //de breedte ophalen en berekenen
         public static string GetWidth(LineUp lineUp, string[] from, string[] until)
         {
             int uurUntil = Convert.ToInt32(until[0]);
@@ -203,7 +252,7 @@ namespace Project_MVVM.model
 
             return width.ToString();
         }
-
+        //de tussenruimte ophalen en berekenen
         public static string GetMargin(LineUp lineUp, string[] from, string[] until, int ruimte)
         {
             int top = 0;
@@ -221,37 +270,41 @@ namespace Project_MVVM.model
             return Convert.ToInt32(left) + "," + top + ",0,0";
         }
 
-
+        //een item updaten
         public static int UpdateLineUp(LineUp lnp)
         {
-            DbTransaction trans = null;
+            
+            
+                DbTransaction trans = null;
 
-            try
-            {
-                trans = Database.BeginTransaction();
-                string sql = "UPDATE LineUpTable SET Date=@Date, [From]=@From, Until=@Until, Band=@Band, Stage=@Stage WHERE ID=@ID";
+                try
+                {
+                    trans = Database.BeginTransaction();
+                    string sql = "UPDATE LineUpTable SET Date=@Date, [From]=@From, Until=@Until, Band=@Band, Stage=@Stage WHERE ID=@ID";
 
-                DbParameter par1 = Database.AddParameter("@ID", lnp.ID);
-                DbParameter par2 = Database.AddParameter("@From", lnp.From);
-                DbParameter par3 = Database.AddParameter("@Until", lnp.Until);
-                DbParameter par4 = Database.AddParameter("@Band", lnp.Bands.ID);
-                DbParameter par5 = Database.AddParameter("@Stage", lnp.Stages.ID);
-                DbParameter par6 = Database.AddParameter("@Date", lnp.Date);
+                    DbParameter par1 = Database.AddParameter("@ID", lnp.ID);
+                    DbParameter par2 = Database.AddParameter("@From", lnp.From);
+                    DbParameter par3 = Database.AddParameter("@Until", lnp.Until);
+                    DbParameter par4 = Database.AddParameter("@Band", lnp.Bands.ID);
+                    DbParameter par5 = Database.AddParameter("@Stage", lnp.Stages.ID);
+                    DbParameter par6 = Database.AddParameter("@Date", lnp.Date);
 
-                int rowsaffected = 0;
+                    int rowsaffected = 0;
 
-                rowsaffected += Database.ModifyData(trans,sql, par2, par3, par4, par5,par6, par1);
-                Console.WriteLine(rowsaffected + " row(s) are affected");
-                trans.Commit();
-                return rowsaffected;
+                    rowsaffected += Database.ModifyData(trans, sql, par2, par3, par4, par5, par6, par1);
+                    Console.WriteLine(rowsaffected + " row(s) are affected");
+                    trans.Commit();
+                    return rowsaffected;
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Gelieve alle velden in te vullen vooraleer u de line-up wilt opslaan.");
+                    //trans.Rollback();
+                    return 0;
+                }
             }
-            catch (Exception){
-                MessageBox.Show("Gelieve alle velden in te vullen vooraleer u de line-up wilt opslaan.");
-                 //trans.Rollback();
-                return 0;
-            }
-        }
-
+        
+        //een item toevoegen aan de lineup
         public static int InsertLineUp(LineUp lnp)
         {
             DbTransaction trans = null;
@@ -283,7 +336,7 @@ namespace Project_MVVM.model
                 return 0;
             }
         }
-
+        //een item verwijderen uit de lineup
         public static int DeleteLineUp(LineUp lnp)
         {
             DbTransaction trans = null;
@@ -325,7 +378,7 @@ namespace Project_MVVM.model
                 Console.WriteLine(lineup.ToString());
             }
         }
-
+        //json aanmaken voor de windows store app
         public static void JsonWegschrijven()
         {
             StreamWriter sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "test.txt");

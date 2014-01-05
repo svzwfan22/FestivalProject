@@ -27,40 +27,7 @@ namespace Project_MVVM.model
             set { _name = value; }
         }
 
-        //public static ObservableCollection<Genre> GetGenres()
-        //{
-        //    ObservableCollection<Genre> Genres = new ObservableCollection<Genre>();
-        //    //Create the XmlDocument.
-        //    XmlDocument doc = new XmlDocument();
-        //    doc.Load("Genres.xml");
-
-        //    //Display all the controles.
-        //    XmlNodeList elemList = doc.GetElementsByTagName("genre");
-        //    for (int i = 1; i < elemList.Count; i++)
-        //    {
-        //        Genre sc = new Genre();
-        //        sc.Name = elemList[i]["naam"].InnerText;
-        //        sc.ID = elemList[i]["id"].InnerText;
-                
-
-        //        Genres.Add(sc);
-        //    }
-        //    return Genres;
-        //}
-
-
-        //public override string ToString()
-        //{
-        //    return Name + "" + ID;
-        //}
-        //public static void PrintGenres(ObservableCollection<Genre> Genres)
-        //{
-
-        //    foreach (Genre genre in Genres)
-        //    {
-        //        Console.WriteLine(genre.ToString());
-        //    }
-        //}
+        //alle genres uit de database ophalen die gekoppeld zijn met een band, op basis van het band id en het genre id
         public static ObservableCollection<Genre> GetGenresByBandID(int id)
         {
             try
@@ -90,6 +57,8 @@ namespace Project_MVVM.model
 
         public static ObservableCollection<Genre> genres = new ObservableCollection<Genre>();
         public static int aantal = 1;
+
+        //alle genres uit de database ophalen
         public static ObservableCollection<Genre> GetGenres()
         {
             string sql = "SELECT * FROM Genre";
@@ -105,7 +74,7 @@ namespace Project_MVVM.model
             }
             return genres;
         }
-
+        //de genres aanmaken voor in de lijst
         private static Genre Create(IDataRecord record)
         {
             return new Genre()
@@ -115,7 +84,7 @@ namespace Project_MVVM.model
 
             };
         }
-
+        //een genre updaten
         public static int UpdateGenre(Genre gnr)
         {
             DbTransaction trans = null;
@@ -142,7 +111,7 @@ namespace Project_MVVM.model
                 return 0;
             }
         }
-
+        //een genre toevoegen
         public static int InsertGenre(Genre gnr)
         {
             DbTransaction trans = null;
@@ -169,7 +138,7 @@ namespace Project_MVVM.model
                 return 0;
             }
         }
-
+        //een genre verwijderen
         public static int DeleteGenre(Genre gnr)
         {
             DbTransaction trans = null;

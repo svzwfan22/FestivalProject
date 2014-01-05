@@ -79,50 +79,7 @@ namespace Project_MVVM.model
             set { _cellphone = value; }
         }
 
-        //private string _type;
-
-        //public string Type
-        //{
-        //    get { return _type; }
-        //    set { _type = value;  }
-        //}
-
-        //public static ObservableCollection<Contactperson> GetContactpersons()
-        //{
-        //    ObservableCollection<Contactperson> Contactpersons = new ObservableCollection<Contactperson>();
-        //    //Create the XmlDocument.
-        //    XmlDocument doc = new XmlDocument();
-        //    doc.Load("Contactpersonen.xml");
-
-        //    //Display all the controles.
-        //    XmlNodeList elemList = doc.GetElementsByTagName("contactpersoon");
-        //    for (int i = 1; i < elemList.Count; i++)
-        //    {
-        //        Contactperson sc = new Contactperson();
-        //        sc.Name = elemList[i]["naam"].InnerText;
-        //        sc.Voornaam = elemList[i]["voornaam"].InnerText;
-        //        sc.Phone = elemList[i]["telefoon"].InnerText;
-        //        sc.Email = elemList[i]["email"].InnerText;
-        //        sc.Type = elemList[i]["type"].InnerText;
-
-        //        Contactpersons.Add(sc);
-        //    }
-        //    return Contactpersons;
-        //}
-
-
-        //public override string ToString()
-        //{
-        //    return Name + "" + Voornaam + " " + Phone + "" + Email + "" + Type;
-        //}
-        //public static void PrintContactpersons(ObservableCollection<Contactperson> Contactpersons)
-        //{
-
-        //    foreach (Contactperson contactperson in Contactpersons)
-        //    {
-        //        Console.WriteLine(contactperson.ToString());
-        //    }
-        //}
+        
 
         private static ObservableCollection<ContactpersonType> _jobRoleList;
 
@@ -133,6 +90,8 @@ namespace Project_MVVM.model
         }
         public static ObservableCollection<Contactperson> contactpersons = new ObservableCollection<Contactperson>();
         public static int aantal = 1;
+
+        //alle contactpersonen ophalen uit de database
         public static ObservableCollection<Contactperson> GetContactpersons()
         {
             string sql = "SELECT * FROM ContactPerson";
@@ -149,7 +108,7 @@ namespace Project_MVVM.model
             }
             return contactpersons;
         }
-
+        //alle contactpersonen uit de database omzetten naar info uit de lijst
         private static Contactperson Create(IDataRecord record)
         {
             //Contactperson contactpersoon = new Contactperson();
@@ -173,7 +132,7 @@ namespace Project_MVVM.model
             };
                 //return contactpersoon;
         }
-
+        //contactpersonen verwijderen
         public static int DeleteContactperson(Contactperson cpn)
         {
             DbTransaction trans = null;
@@ -206,7 +165,7 @@ namespace Project_MVVM.model
                 return 0;
             }
         }
-
+        //contactpersonen opslaan
         public static int SaveContactperson(Contactperson cpn)
         {
             DbTransaction trans = null;
@@ -240,7 +199,7 @@ namespace Project_MVVM.model
                 return 0;
             }
         }
-
+        //contactpersonen updaten
         public static int UpdateContactperson(Contactperson cpn)
         {
             DbTransaction trans = null;
@@ -274,7 +233,7 @@ namespace Project_MVVM.model
                 return 0;
             }
         }
-
+        //het zoeken naar een bepaalde contactpersoon, door alle items te vergelijken
         public static ObservableCollection<Contactperson> GetContactsByString(string search)
         {
             ObservableCollection<Contactperson> lstGevondenContacts = new ObservableCollection<Contactperson>();

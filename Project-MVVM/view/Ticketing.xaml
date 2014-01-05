@@ -5,17 +5,17 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" Width="1358" Height="752">
     <Grid  Margin="0,0,0,-22" >
-        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" Name="lstTickets" ItemsSource="{Binding TicketTypeList}" SelectedItem="{Binding SelectedTicketType,UpdateSourceTrigger=PropertyChanged}" Margin="91,50,936,86">
+        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" Name="lstTickets" ItemsSource="{Binding TicketTypeList}" SelectedItem="{Binding SelectedTicketType,UpdateSourceTrigger=PropertyChanged}" Margin="91,50,900,86">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Price" Binding="{Binding Price}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Available Tickets" Binding="{Binding AvailableTickets}"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Name"  CellTemplate="{StaticResource EditingNameTemplate}" CellEditingTemplate="{StaticResource EditingNameTemplate}"></DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Price"  CellTemplate="{StaticResource PrijsTemplate}" CellEditingTemplate="{StaticResource PrijsTemplate}"></DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Available Tickets"  CellTemplate="{StaticResource AvailableTemplate}" CellEditingTemplate="{StaticResource AvailableTemplate}"></DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" Name="lstReservaties" HorizontalAlignment="Left" Height="638" Margin="544,50,0,0" VerticalAlignment="Top" Width="680" ItemsSource="{Binding GefilterdeTickets}" SelectedItem="{Binding SelectedTicket}">
+        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" Name="lstReservaties" HorizontalAlignment="Left" Height="638" Margin="536,50,0,0" VerticalAlignment="Top" Width="688" ItemsSource="{Binding GefilterdeTickets}" SelectedItem="{Binding SelectedTicket}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Ticketholder" Binding="{Binding Ticketholder}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Ticketholder Email" Binding="{Binding TicketholderEmail}"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Ticketholder"  CellTemplate="{StaticResource TicketholderTemplate}" CellEditingTemplate="{StaticResource TicketholderTemplate}"></DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Ticketholder Email"  CellTemplate="{StaticResource TicketholderEmailTemplate}" CellEditingTemplate="{StaticResource TicketholderEmailTemplate}"></DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="TicketType">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -23,15 +23,15 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Amount" Binding="{Binding Amount}"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Amount"  CellTemplate="{StaticResource AantalTemplate}" CellEditingTemplate="{StaticResource AantalTemplate}"></DataGridTemplateColumn>
             </DataGrid.Columns>
             
         </DataGrid>
         <Button Name="btnReserveren2" Content="Opslaan" HorizontalAlignment="Left" Margin="912,710,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SaveTicketCommand}" />
         <Button Name="btnReserverenVerwijderen" Content="Verwijderen" HorizontalAlignment="Left" Margin="1031,710,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteTicketCommand}"/>
-        <Button Name="btnToevoegen" Content="Toevoegen" HorizontalAlignment="Left" Margin="112,710,0,0" VerticalAlignment="Top" Width="75" Command="{Binding AddTicketTypeCommand}"/>
-        <Button x:Name="btnOpslaan" Content="Opslaan" HorizontalAlignment="Left" Margin="216,710,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SaveTicketTypeCommand}"/>
-        <Button x:Name="btnVerwijderen" Content="Verwijderen" HorizontalAlignment="Left" Margin="322,710,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteTicketTypeCommand}"/>
+        <Button Name="btnToevoegen" Content="Toevoegen" HorizontalAlignment="Left" Margin="132,710,0,0" VerticalAlignment="Top" Width="75" Command="{Binding AddTicketTypeCommand}"/>
+        <Button x:Name="btnOpslaan" Content="Opslaan" HorizontalAlignment="Left" Margin="236,710,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SaveTicketTypeCommand}"/>
+        <Button x:Name="btnVerwijderen" Content="Verwijderen" HorizontalAlignment="Left" Margin="342,710,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteTicketTypeCommand}"/>
         <Button x:Name="btnToevoegenReservatie" Content="Toevoegen" HorizontalAlignment="Left" Margin="796,710,0,0" VerticalAlignment="Top" Width="75" Command="{Binding AddTicketCommand}"/>
         <Button x:Name="btnAfdrukken" Content="Afdrukken" HorizontalAlignment="Left" Margin="678,710,0,0" VerticalAlignment="Top" Width="75" Command="{Binding PrintTicketCommand}"/>
         <TextBox Name="txtZoeken2" HorizontalAlignment="Left" Height="23" Margin="1016,22,0,0" TextWrapping="Wrap" Text="Zoeken" VerticalAlignment="Top" Width="134"/>

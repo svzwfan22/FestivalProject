@@ -35,23 +35,6 @@ namespace Project_MVVM.viewmodel
             set { _genreList = value; OnPropertyChanged("GenreList"); }
         }
 
-        
-
-        //private byte[] _imageSource;
-
-        //public byte[] ImageSource
-        //{
-        //    get { return _imageSource; }
-        //    set { _imageSource = value; OnPropertyChanged("ImageSource"); }
-        //}
-
-        //private string _selectedImagePad;
-
-        //public string SelectedImagePad
-        //{
-        //    get { return _selectedImagePad; }
-        //    set { _selectedImagePad = value; }
-        //}
 
         public BandVM()
         {
@@ -73,7 +56,7 @@ namespace Project_MVVM.viewmodel
 
         
        
-
+        //band verwijderen
         public ICommand DeleteBandCommand
         {
             get { return new RelayCommand(DeleteBand); }
@@ -94,7 +77,7 @@ namespace Project_MVVM.viewmodel
                 Band.PrintBands(BandList);
             }
         }
-
+        //foto selecteren
         public ICommand SelectImageCommand
         {
             get { return new RelayCommand<DragEventArgs>(SelectImage); }
@@ -131,7 +114,7 @@ namespace Project_MVVM.viewmodel
             fs.Close();
             return data;
         }
-
+        //band toevoegen of updaten
         public ICommand SaveBandCommand
         {
             get { return new RelayCommand<Band>(UpdateContactperson); }
@@ -159,7 +142,7 @@ namespace Project_MVVM.viewmodel
                 }
             }
         }
-
+        //band toevoegen
         public ICommand AddCommand
         {
             get { return new RelayCommand(AddBand); }

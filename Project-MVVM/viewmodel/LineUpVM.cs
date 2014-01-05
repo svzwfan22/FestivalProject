@@ -34,6 +34,14 @@ namespace Project_MVVM.viewmodel
             set { _selectedLineUp = value; OnPropertyChanged("SelectedLineUp"); }
         }
 
+        private ObservableCollection<LineUp> _datumList;
+
+        public ObservableCollection<LineUp> DatumList
+        {
+            get { return _datumList; }
+            set { _datumList = value; OnPropertyChanged("DatumList"); }
+        }
+
         private ObservableCollection<Stage> _stageList;
 
         public ObservableCollection<Stage> StageList
@@ -64,13 +72,14 @@ namespace Project_MVVM.viewmodel
             set { _selectedBand = value; OnPropertyChanged("SelectedBand"); }
         }
         
-
+        //de lijsten opvullen
         public LineUpVM()
         {
             //_stageList = Stage.GetStages();
             _lineUpList = LineUp.GetLineUp();
+            _datumList = LineUp.GetDatums();
         }
-
+        //lineup toevoegen
         public ICommand VoegToeCommand
         {
             get { return new RelayCommand(VoegToeLineUp); }
@@ -86,7 +95,7 @@ namespace Project_MVVM.viewmodel
 
             LineUp.lineup.Add(lnp);
         }
-
+        //lineup toevoegen of updaten
         public ICommand UpdateLineUpCommand
         {
             get { return new RelayCommand<LineUp>(UpdateLineUp); }
@@ -101,22 +110,30 @@ namespace Project_MVVM.viewmodel
             else
             {
 
+                
                 LineUp lineup = SelectedLineUp;
                 int id = (int)lineup.ID;
 
-                if (id != LineUp.aantal)
-                {
-                    LineUp.UpdateLineUp(SelectedLineUp);
-
+                if (lineup.Date > lineup.EindDatum || lineup.Date < lineup.StartDatum) {
+                    MessageBox.Show("Gelieve een datum tussen het begin en het einde van het festival te kiezen");
                 }
                 else
                 {
-                    LineUp.InsertLineUp(SelectedLineUp);
 
+                    if (id != LineUp.aantal)
+                    {
+                        LineUp.UpdateLineUp(SelectedLineUp);
+
+                    }
+                    else
+                    {
+                        LineUp.InsertLineUp(SelectedLineUp);
+
+                    }
                 }
             }
         }
-
+        //lineup verwijderen
         public ICommand DeleteLineUpCommand
         {
             get { return new RelayCommand(DeleteLineUp); }

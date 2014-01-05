@@ -27,42 +27,10 @@ namespace Project_MVVM.model
             set { _name = value; }
         }
 
-        //public static ObservableCollection<Stage> GetStages()
-        //{
-        //    ObservableCollection<Stage> Stages = new ObservableCollection<Stage>();
-        //    //Create the XmlDocument.
-        //    XmlDocument doc = new XmlDocument();
-        //    doc.Load("Stages.xml");
-
-        //    //Display all the controles.
-        //    XmlNodeList elemList = doc.GetElementsByTagName("stage");
-        //    for (int i = 1; i < elemList.Count; i++)
-        //    {
-        //        Stage sc = new Stage();
-        //        sc.Name = elemList[i]["naam"].InnerText;
-        //        sc.ID = elemList[i]["id"].InnerText;
-
-
-        //        Stages.Add(sc);
-        //    }
-        //    return Stages;
-        //}
-
-
-        //public override string ToString()
-        //{
-        //    return Name + "" + ID;
-        //}
-        //public static void PrintStages(ObservableCollection<Stage> Stages)
-        //{
-
-        //    foreach (Stage stage in Stages)
-        //    {
-        //        Console.WriteLine(stage.ToString());
-        //    }
-        //}
+        
         public static ObservableCollection<Stage> stages = new ObservableCollection<Stage>();
         public static int aantal = 1;
+        //alle data uit de database halen
         public static ObservableCollection<Stage> GetStages()
         {
             string sql = "SELECT * FROM Stage";
@@ -78,7 +46,7 @@ namespace Project_MVVM.model
             }
             return stages;
         }
-
+        //voor iedere lijn een stageitem maken voor ind e lijst
         private static Stage Create(IDataRecord record)
         {
             return new Stage()
@@ -88,7 +56,7 @@ namespace Project_MVVM.model
                 
             };
         }
-
+        //een stage updaten, aanpassen
         public static int UpdateStage(Stage stg)
         {
             DbTransaction trans = null;
@@ -115,7 +83,7 @@ namespace Project_MVVM.model
                 return 0;
             }
         }
-
+        //een stage toevoegen
         public static int InsertStage(Stage stg)
         {
             DbTransaction trans = null;
@@ -142,7 +110,7 @@ namespace Project_MVVM.model
                 return 0;
             }
         }
-
+        //een stage verwijderen
         public static int DeleteStage(Stage stg)
         {
             DbTransaction trans = null;

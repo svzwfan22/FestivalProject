@@ -8,8 +8,8 @@
         <DataGrid  AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding GefilterdeContacts}" HorizontalAlignment="Left" Height="484" Margin="11,168,0,0" VerticalAlignment="Top" Width="986" SelectedItem="{Binding SelectedContactperson}">
             <DataGrid.Columns>
                 <!--<DataGridTextColumn Header="ID" Binding="{Binding ID}"></DataGridTextColumn>-->
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Company" Binding="{Binding Company}"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Name"  CellTemplate="{StaticResource EditingNameTemplate}" CellEditingTemplate="{StaticResource EditingNameTemplate}"></DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Company"  CellTemplate="{StaticResource CompanyTemplate}" CellEditingTemplate="{StaticResource CompanyTemplate}"></DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="JobRole">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -17,10 +17,10 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="City" Binding="{Binding City}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Email" Binding="{Binding Email}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Phone" Binding="{Binding Phone}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Cellphone" Binding="{Binding Cellphone}"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="City"  CellTemplate="{StaticResource CityTemplate}" CellEditingTemplate="{StaticResource CityTemplate}"></DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Email"  CellTemplate="{StaticResource EmailTemplate}" CellEditingTemplate="{StaticResource EmailTemplate}"></DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Phone"  CellTemplate="{StaticResource TelefoonTemplate}" CellEditingTemplate="{StaticResource TelefoonTemplate}"></DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Cellphone"  CellTemplate="{StaticResource CellphoneTemplate}" CellEditingTemplate="{StaticResource CellphoneTemplate}"></DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Contactpersonen" HorizontalAlignment="Left" Margin="11,133,0,0" VerticalAlignment="Top"/>

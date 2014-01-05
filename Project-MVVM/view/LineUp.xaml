@@ -8,8 +8,8 @@
         <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" Name="lstLineUp" HorizontalAlignment="Left" Height="460" Margin="70,166,0,0" VerticalAlignment="Top" Width="967" ItemsSource="{Binding LineUpList}" SelectedItem="{Binding SelectedLineUp}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Date" Binding="{Binding Date}"></DataGridTextColumn>
-                <DataGridTextColumn Header="From" Binding="{Binding From}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Until" Binding="{Binding Until}"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="From"  CellTemplate="{StaticResource FromTemplate}" CellEditingTemplate="{StaticResource FromTemplate}"></DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Until"  CellTemplate="{StaticResource UntilTemplate}" CellEditingTemplate="{StaticResource UntilTemplate}"></DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Stage">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

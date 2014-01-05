@@ -90,6 +90,8 @@ namespace Project_MVVM.model
         public static ObservableCollection<Band> band = new ObservableCollection<Band>();
         public static int aantal = 1;
         public static int aantalgenres = 1;
+
+        //alle info van de bands ophalen
         public static ObservableCollection<Band> GetBand()
         {
             GenreList = Genre.genres;
@@ -108,7 +110,7 @@ namespace Project_MVVM.model
             }
             return band;
         }
-
+        //bands aanmaken voor in de lijst van bands
         private static Band Create(IDataRecord record)
         {
             Band band = new Band();
@@ -133,7 +135,7 @@ namespace Project_MVVM.model
 
             return band;
         }
-
+        //bands opslaan, met de ingevulde of bewerkte info
         public static int SaveBand(Band bnd)
         {
             DbTransaction trans = null;
@@ -166,7 +168,7 @@ namespace Project_MVVM.model
                 return 0;
             }
         }
-
+        //bands updaten
         public static int UpdateBand(Band bnd)
         {
             DbTransaction trans = null;
@@ -199,7 +201,7 @@ namespace Project_MVVM.model
                 return 0;
             }
         }
-
+        //bands verwijderen
         public static int DeleteBand(Band bnd)
         {
             DbTransaction trans = null;

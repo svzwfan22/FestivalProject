@@ -29,6 +29,8 @@ namespace Project_MVVM.model
 
         public static ObservableCollection<ContactpersonType> contactpersontypes = new ObservableCollection<ContactpersonType>();
         public static int aantal = 1;
+
+        //alles ophalen uit de database
         public static ObservableCollection<ContactpersonType> GetContactpersonTypes()
         {
             string sql = "SELECT * FROM ContactpersonType";
@@ -44,7 +46,7 @@ namespace Project_MVVM.model
             }
             return contactpersontypes;
         }
-
+        //met de data contactpersoontypes maken en in de lijst zetten
         private static ContactpersonType Create(IDataRecord record)
         {
             return new ContactpersonType()
@@ -54,7 +56,7 @@ namespace Project_MVVM.model
 
             };
         }
-
+        //contactpersoontypes updaten
         public static int UpdateContactpersonType(ContactpersonType cpt)
         {
             DbTransaction trans = null;
@@ -81,7 +83,7 @@ namespace Project_MVVM.model
                 return 0;
             }
         }
-
+        //contactpersoontypes toevoegen
         public static int InsertContactpersonType(ContactpersonType cpt)
         {
             DbTransaction trans = null;
@@ -108,7 +110,7 @@ namespace Project_MVVM.model
                 return 0;
             }
         }
-
+        //contactpersoontypes verwijderen
         public static int DeleteContactpersonType(ContactpersonType cpt)
         {
             DbTransaction trans = null;

@@ -43,7 +43,7 @@ namespace Project_MVVM.viewmodel
             get { return _urenList; }
             set { _urenList = value; OnPropertyChanged("UrenList"); }
         }
-
+        //de lijsten opvullen om zo de linup te kunnen weergeven
         public TimeLineVM()
         {
             UrenList = clock.GetUren();

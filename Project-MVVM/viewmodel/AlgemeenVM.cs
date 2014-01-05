@@ -56,6 +56,7 @@ namespace Project_MVVM.viewmodel
             set { _stageList = value; OnPropertyChanged("StageList"); }
         }
 
+        //de lijsten opvullen die getoond zullen worden
         public AlgemeenVM()
         {
            // _contactpersonList = Contactperson.GetContactpersons();
@@ -97,7 +98,7 @@ namespace Project_MVVM.viewmodel
         {
             get { return new RelayCommand(UpdateGenre); }
         }
-
+        //genre toevoegen
         public void UpdateGenre()
         {
             
@@ -110,7 +111,7 @@ namespace Project_MVVM.viewmodel
 
             //Genre.UpdateGenre(SelectedGenre);
         }
-
+        //genre verwijderen
         public ICommand DeleteGenreCommand
         {
             get { return new RelayCommand<Genre>(DeleteGenre); }
@@ -141,7 +142,7 @@ namespace Project_MVVM.viewmodel
         }
 
 
-
+        //genre toevoegen of updaten
         public ICommand AddGenreCommand
         {
             get { return new RelayCommand<Genre>(AddGenre); }
@@ -183,7 +184,7 @@ namespace Project_MVVM.viewmodel
         {
             get { return new RelayCommand(UpdateContactpersonType); }
         }
-
+        //contactpersoontype toevoegen
         public void UpdateContactpersonType()
         {
             ContactpersonType cpt = new ContactpersonType();
@@ -192,7 +193,7 @@ namespace Project_MVVM.viewmodel
             
             ContactpersonType.contactpersontypes.Add(cpt);
         }
-
+        //contactpersoontype verwijderen
         public ICommand DeleteContactpersonTypeCommand
         {
             get { return new RelayCommand<ContactpersonType>(DeleteContactpersonType); }
@@ -222,7 +223,7 @@ namespace Project_MVVM.viewmodel
             set { _newContactpersonType = value; OnPropertyChanged("NewContactpersonType"); }
         }
 
-
+        //contactpersoontype toevoegen of updaten
 
         public ICommand AddContactpersonTypeCommand
         {
@@ -258,7 +259,7 @@ namespace Project_MVVM.viewmodel
             get { return _selectedStage; }
             set { _selectedStage = value; OnPropertyChanged("SelectedStage"); }
         }
-
+        //stage toevoegen
         public ICommand UpdateStageCommand
         {
             get { return new RelayCommand(UpdateStage); }
@@ -273,7 +274,7 @@ namespace Project_MVVM.viewmodel
             Stage.stages.Add(stg);
         }
 
-
+        //stage verwijderen
         public ICommand DeleteStageCommand
         {
             get { return new RelayCommand<Stage>(DeleteStage); }
@@ -304,7 +305,7 @@ namespace Project_MVVM.viewmodel
         }
 
 
-
+        //stage toevoegen of updaten
         public ICommand AddStageCommand
         {
             get { return new RelayCommand<Stage>(AddStage); }

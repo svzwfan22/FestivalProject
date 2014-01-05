@@ -67,6 +67,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="convertor\BytesToImageConverter.cs" />
+    <Compile Include="errorhandling\Email.cs" />
+    <Compile Include="errorhandling\Number.cs" />
+    <Compile Include="errorhandling\Text.cs" />
+    <Compile Include="errorhandling\TextNumber.cs" />
+    <Compile Include="errorhandling\Uur.cs" />
+    <Compile Include="errorhandling\Valuta.cs" />
     <Compile Include="model\Band.cs" />
     <Compile Include="model\Contactperson.cs" />
     <Compile Include="model\ContactpersonType.cs" />
@@ -100,6 +106,14 @@
     <Compile Include="view\Contactpersonen.xaml.cs">
       <DependentUpon>Contactpersonen.xaml</DependentUpon>
     </Compile>
+    <Page Include="Dictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Templates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="view\Band.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

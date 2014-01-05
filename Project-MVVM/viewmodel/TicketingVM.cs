@@ -57,7 +57,7 @@ namespace Project_MVVM.viewmodel
             get { return _gefilterdeTickets; }
             set { _gefilterdeTickets = value; OnPropertyChanged("GefilterdeTickets"); }
         }
-
+        //de lijsten opvullen
         public TicketingVM()
         {
             _ticketList = Ticket.GetTicket();
@@ -65,7 +65,7 @@ namespace Project_MVVM.viewmodel
             _ticketTypeList = TicketType.ticketType;
             
         }
-
+        //tickettype toevoegen
         public ICommand AddTicketTypeCommand
         {
             get { return new RelayCommand(AddTicketType); }
@@ -82,7 +82,7 @@ namespace Project_MVVM.viewmodel
 
             
         }
-
+        //tickettype toevoegen of updaten
         public ICommand SaveTicketTypeCommand
         {
             get { return new RelayCommand<TicketType>(SaveTicketType); }
@@ -108,7 +108,7 @@ namespace Project_MVVM.viewmodel
                 }
             }
         }
-
+        //tickettype verwijderen
         public ICommand DeleteTicketTypeCommand
         {
             get { return new RelayCommand<TicketType>(DeleteTicketType); }
@@ -128,7 +128,7 @@ namespace Project_MVVM.viewmodel
                 TicketType.PrintTickets(TicketTypeList);
             }
         }
-
+        //reservatie toevoegen
         public ICommand AddTicketCommand
         {
             get { return new RelayCommand(AddTicket); }
@@ -143,7 +143,7 @@ namespace Project_MVVM.viewmodel
 
             Ticket.tickets.Add(tkt);
         }
-
+        //reservatie toevoegen of updaten
         public ICommand SaveTicketCommand
         {
             get { return new RelayCommand<Ticket>(SaveTicket); }
@@ -177,7 +177,7 @@ namespace Project_MVVM.viewmodel
 
             }
         }
-
+        //reservatie verwijderen
         public ICommand DeleteTicketCommand
         {
             get { return new RelayCommand<Ticket>(DeleteTicket); }
@@ -197,7 +197,7 @@ namespace Project_MVVM.viewmodel
                 Ticket.PrintTicketjes(TicketList);
             }
         }
-
+        //resrvaties afdrukken naar word
         public ICommand PrintTicketCommand
         {
             get { return new RelayCommand<Ticket>(PrintTicket); }
@@ -207,7 +207,7 @@ namespace Project_MVVM.viewmodel
         {
             Ticket.PrintTickets(SelectedTicket);
         }
-
+        //zoeken naar een reservatie
         public ICommand SearchCommand
         {
             get { return new RelayCommand<string>(Search); }

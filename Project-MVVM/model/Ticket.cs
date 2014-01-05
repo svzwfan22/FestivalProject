@@ -96,22 +96,22 @@ namespace Project_MVVM.model
                 Ticketholder = record["Ticketholder"].ToString(),
                 TicketholderEmail = record["TicketholderEmail"].ToString(),
                 //TicketType = record["TicketType"].ToString(),
-                 Amount = (int)record["Amount"],
-                 AantalVorig = (int)record["AantalVorig"],
+                Amount = (int)record["Amount"],
+                AantalVorig = (int)record["AantalVorig"],
                 TicketTypeID = new TicketType
                 {
                     ID = (int)record["TicketTypeID"],
-                    Name = TicketTypesList[(int)record["TicketTypeID"]-1].Name,
-                    Price = TicketTypesList[(int)record["TicketTypeID"]-1].Price
+                    Name = TicketTypesList[(int)record["TicketTypeID"] - 1].Name,
+                    Price = TicketTypesList[(int)record["TicketTypeID"] - 1].Price
                 }
-                
+
 
             };
         }
 
         public static int UpdateTicket(Ticket ticket)
         {
-           
+
             DbTransaction trans = null;
 
             ObservableCollection<TicketType> ticketType = TicketType.ticketType;
@@ -128,7 +128,7 @@ namespace Project_MVVM.model
                 }
                 else
                 {
-                    
+
                     return 0;
                 }
             }
@@ -145,7 +145,7 @@ namespace Project_MVVM.model
             }
             else
             {
-                int idVorig = ticketVorig[ticket.ID -1].TicketTypeID.ID;
+                int idVorig = ticketVorig[ticket.ID - 1].TicketTypeID.ID;
                 if (idVorig != ticket.TicketTypeID.ID)
                 {
                     if (aantaltickets >= aantalNu)
@@ -165,10 +165,10 @@ namespace Project_MVVM.model
                             DbParameter par5 = Database.AddParameter("@Amount", ticket.Amount);
                             DbParameter par6 = Database.AddParameter("@AantalVorig", ticket.Amount);
 
-                            rowsaffected += Database.ModifyData(trans, sql, par1, par2, par3, par4, par5,par6);
+                            rowsaffected += Database.ModifyData(trans, sql, par1, par2, par3, par4, par5, par6);
 
                             trans.Commit();
-                            
+
                             return rowsaffected;
                         }
                         catch (Exception)
@@ -180,13 +180,13 @@ namespace Project_MVVM.model
                     }
                     else
                     {
-                        
+
                         return 0;
                     }
                 }
                 else
                 {
-                    
+
                     return 0;
                 }
             }
@@ -216,7 +216,7 @@ namespace Project_MVVM.model
                 rowsaffected += Database.ModifyData(trans, sql, par1, par2, par3, par4, par5, par6);
 
                 trans.Commit();
-                
+
                 return rowsaffected;
             }
             catch (Exception)
@@ -229,7 +229,7 @@ namespace Project_MVVM.model
 
         public static int UpdateTicketType(int id, int tickets, int vorig)
         {
-            
+
             DbTransaction trans = null;
 
             try
@@ -244,12 +244,12 @@ namespace Project_MVVM.model
                 rowsaffected += Database.ModifyData(trans, sql, par1, par2);
 
                 trans.Commit();
-                
+
                 return rowsaffected;
             }
             catch (Exception)
             {
-                
+
                 trans.Rollback();
                 return 0;
             }
@@ -257,7 +257,7 @@ namespace Project_MVVM.model
 
         public static int InsertTicket(Ticket ticket)
         {
-            
+
             DbTransaction trans = null;
 
             int aantaltickets = TicketType.ticketType[ticket.TicketTypeID.ID - 1].AvailableTickets;
@@ -281,10 +281,10 @@ namespace Project_MVVM.model
                     DbParameter par6 = Database.AddParameter("@AantalVorig", ticket.Amount);
 
                     int rowsaffected = 0;
-                    rowsaffected += Database.ModifyData(trans, sql, par1, par3, par4, par5,par6);
+                    rowsaffected += Database.ModifyData(trans, sql, par1, par3, par4, par5, par6);
 
                     trans.Commit();
-                    
+
                     return rowsaffected;
                 }
                 catch (Exception)
@@ -296,7 +296,7 @@ namespace Project_MVVM.model
             }
             else
             {
-                
+
                 return 0;
             }
         }
@@ -334,7 +334,7 @@ namespace Project_MVVM.model
             ObservableCollection<Ticket> lstGevondenTickets = new ObservableCollection<Ticket>();
             foreach (Ticket ticket in tickets)
             {
-                if (ticket.Ticketholder.ToUpper().Contains(search.ToUpper()) || ticket.TicketholderEmail.ToUpper().Contains(search.ToUpper()) )
+                if (ticket.Ticketholder.ToUpper().Contains(search.ToUpper()) || ticket.TicketholderEmail.ToUpper().Contains(search.ToUpper()))
                 {
                     lstGevondenTickets.Add(ticket);
                 }
@@ -360,7 +360,7 @@ namespace Project_MVVM.model
         {
             foreach (Ticket ssc in tickets)
             {
-                string filename = "Ticket" + "_" + ssc.Ticketholder +".docx";
+                string filename = "Ticket" + "_" + ssc.Ticketholder + ".docx";
                 File.Copy("template.docx", filename, true);
                 WordprocessingDocument newdoc = WordprocessingDocument.Open(filename, true);
                 IDictionary<String, BookmarkStart> bookmarks = new Dictionary<String, BookmarkStart>();

@@ -17,7 +17,7 @@ namespace Project_MVVM.model
         }
 
         public static ObservableCollection<clock> uren = new ObservableCollection<clock>();
-
+        //de uren van de dag berekenen
         public static ObservableCollection<clock> GetUren()
         {
             for (int i = 0; i < 24; i++)

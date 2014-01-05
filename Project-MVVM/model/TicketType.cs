@@ -57,7 +57,7 @@ namespace Project_MVVM.model
                 aantalType++;
             }
             return ticketType;
-            
+
         }
 
         private static TicketType Create(IDataRecord record)
@@ -88,7 +88,7 @@ namespace Project_MVVM.model
 
                 int rowsaffected = 0;
 
-                rowsaffected += Database.ModifyData(trans, sql, par2, par1, par3,par4);
+                rowsaffected += Database.ModifyData(trans, sql, par2, par1, par3, par4);
                 Console.WriteLine(rowsaffected + " row(s) are affected");
                 trans.Commit();
                 return rowsaffected;
@@ -117,7 +117,7 @@ namespace Project_MVVM.model
 
                 int rowsaffected = 0;
 
-                rowsaffected += Database.ModifyData(trans, sql, par2,par3,par4);
+                rowsaffected += Database.ModifyData(trans, sql, par2, par3, par4);
                 Console.WriteLine(rowsaffected + " row(s) are affected");
                 trans.Commit();
                 return rowsaffected;
@@ -159,7 +159,7 @@ namespace Project_MVVM.model
 
         public override string ToString()
         {
-            return Name + " " +  "Price: " + Price + " "+" Available Tickets: " + AvailableTickets;
+            return Name + " " + "Price: " + Price + " " + " Available Tickets: " + AvailableTickets;
         }
         public static void PrintTickets(ObservableCollection<TicketType> Tickets)
         {

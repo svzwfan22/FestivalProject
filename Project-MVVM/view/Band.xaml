@@ -15,7 +15,7 @@
     <Grid>
         <ListBox x:Name="lstBand" Margin="83,136,1015,182" ItemsSource="{Binding BandList}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedBand}"/>
         <Label x:Name="lblNaam" Content="Naam:" HorizontalAlignment="Left" Margin="880,117,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtNaam" HorizontalAlignment="Left" Height="23" Margin="880,148,0,0" TextWrapping="Wrap" Text="{Binding ElementName=lstBand, Path=SelectedItem.Name,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}" VerticalAlignment="Top" Width="120" />
+        <TextBox x:Name="txtNaam" HorizontalAlignment="Left" Height="23" Margin="880,148,0,0" TextWrapping="Wrap" Text="{Binding ElementName=lstBand, Path=SelectedItem.Name,  UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, ValidatesOnDataErrors=True}"  VerticalAlignment="Top" Width="120" />
         <Image Margin="403,191,606,239"  Source="{Binding SelectedBand.Picture,Converter={StaticResource image},UpdateSourceTrigger=PropertyChanged}">
            <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDown">

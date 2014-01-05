@@ -8,19 +8,17 @@
         <DataGrid CanUserAddRows="False" Name="lstStages" HorizontalAlignment="Left" Height="364" Margin="62,228,0,0" VerticalAlignment="Top" Width="228" ItemsSource="{Binding StageList}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedStage}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <!--<DataGridTextColumn Header="ID" Binding="{Binding ID}"></DataGridTextColumn>-->
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Name"  CellTemplate="{StaticResource EditingNameTemplate}" CellEditingTemplate="{StaticResource EditingNameTemplate}"></DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
         <DataGrid CanUserAddRows="False" AutoGenerateColumns="False" Name="lstContactpersoontypes" HorizontalAlignment="Left" Height="364" Margin="532,228,0,0" VerticalAlignment="Top" Width="228" ItemsSource="{Binding ContactpersonTypeList}"  SelectedItem="{Binding SelectedContactpersonType}">
             <DataGrid.Columns>
-                <!--<DataGridTextColumn Header="ID" Binding="{Binding ID}"></DataGridTextColumn>-->
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Name"  CellTemplate="{StaticResource EditingNameTemplate}" CellEditingTemplate="{StaticResource EditingNameTemplate}"></DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
         <DataGrid CanUserAddRows="False" AutoGenerateColumns="False" Name="lstGenres" HorizontalAlignment="Left" Height="364" Margin="1006,228,0,0" VerticalAlignment="Top" Width="228" ItemsSource="{Binding GenreList}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedGenre}">
             <DataGrid.Columns>
-                <!--<DataGridTextColumn Header="ID" Binding="{Binding ID}"></DataGridTextColumn>-->
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Name"  CellTemplate="{StaticResource EditingNameTemplate}" CellEditingTemplate="{StaticResource EditingNameTemplate}"></DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="Voeg toe" HorizontalAlignment="Left" Margin="62,628,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateStageCommand}"/>
@@ -35,10 +33,26 @@
         <Label Content="Stages" HorizontalAlignment="Left" Margin="152,169,0,0" VerticalAlignment="Top" Height="31" Width="48"/>
         <Label Content="Contactpersoontypes" HorizontalAlignment="Left" Margin="579,169,0,0" VerticalAlignment="Top" Height="31" Width="137"/>
         <Label Content="Genres" HorizontalAlignment="Left" Margin="1094,169,0,0" VerticalAlignment="Top" Height="31" Width="49"/>
-        <Label Content="festival:" HorizontalAlignment="Left" Margin="62,60,0,0" VerticalAlignment="Top"/>
-        <DatePicker HorizontalAlignment="Left" Margin="129,60,0,0" VerticalAlignment="Top" Text="{Binding Path=DatumList.StartDate}"/>
-        <DatePicker HorizontalAlignment="Left" Margin="319,60,0,0" VerticalAlignment="Top" Text="{Binding Path=DatumList.EndDate}"/>
-        <Label Content="tot" HorizontalAlignment="Left" Margin="279,60,0,0" VerticalAlignment="Top"/>
-        <Button Content="Instellen" HorizontalAlignment="Left" Margin="479,62,0,0" VerticalAlignment="Top" Width="75"  Command="{Binding UpdateDatumCommand}"/>
+        <Button Content="Instellen" HorizontalAlignment="Left" Margin="171,126,0,0" VerticalAlignment="Top" Width="75"  Command="{Binding UpdateDatumCommand}"/>
+        <DataGrid ItemsSource="{Binding DatumList,UpdateSourceTrigger=PropertyChanged}" CanUserAddRows="False" AutoGenerateColumns="False" HorizontalAlignment="Left" Margin="62,54,0,0" VerticalAlignment="Top" Height="57" Width="303" SelectedItem="{Binding SelectedDatum}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="StartDate" Binding="{Binding StartDate,UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
+                <DataGridTextColumn Header="EndDate" Binding="{Binding EndDate,UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
+                <!--<DataGridTemplateColumn Header="StartDatum">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding StartDate,UpdateSourceTrigger=PropertyChanged}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="EindDatum">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding EndDate,UpdateSourceTrigger=PropertyChanged}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>-->
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>
