@@ -196,6 +196,10 @@ namespace Project_MVVM.viewmodel
                 Console.WriteLine("delete command");
                 Ticket.PrintTicketjes(TicketList);
             }
+            TicketList.Clear();
+            _ticketList = Ticket.GetTicket();
+            TicketTypeList.Clear();
+            _ticketTypeList = TicketType.GetTicketTypes();
         }
         //resrvaties afdrukken naar word
         public ICommand PrintTicketCommand

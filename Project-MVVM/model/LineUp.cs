@@ -381,11 +381,10 @@ namespace Project_MVVM.model
         //json aanmaken voor de windows store app
         public static void JsonWegschrijven()
         {
-            StreamWriter sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "test.txt");
-            //sw.WriteLine("this \"word\" test");
-           // lineup.RemoveAt(1);
-            //lineup.RemoveAt(1);
-            //lineup.RemoveAt(1);
+            string path = AppDomain.CurrentDomain.BaseDirectory;
+            path = path.Replace("\\Project-MVVM\\bin\\Debug\\", "\\Festival\\Data\\");
+            StreamWriter sw = new StreamWriter(path + "Festivals.txt");
+
             sw.WriteLine("[ ");
             for (int i = 0; i < lineup.Count(); i++)
             {
@@ -402,7 +401,11 @@ namespace Project_MVVM.model
             }
             sw.WriteLine("]");
             sw.Close();
+
+
+            
         }
+        
 
         private static void WegTeSchrijvenItem(StreamWriter sw, int i, Genre g, Band b)
         {

@@ -114,11 +114,7 @@ namespace Project_MVVM.viewmodel
                 LineUp lineup = SelectedLineUp;
                 int id = (int)lineup.ID;
 
-                if (lineup.Date > lineup.EindDatum || lineup.Date < lineup.StartDatum) {
-                    MessageBox.Show("Gelieve een datum tussen het begin en het einde van het festival te kiezen");
-                }
-                else
-                {
+                
 
                     if (id != LineUp.aantal)
                     {
@@ -131,7 +127,7 @@ namespace Project_MVVM.viewmodel
 
                     }
                 }
-            }
+            
         }
         //lineup verwijderen
         public ICommand DeleteLineUpCommand

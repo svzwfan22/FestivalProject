@@ -6,6 +6,7 @@ using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Project_MVVM.model
 {
@@ -79,7 +80,8 @@ namespace Project_MVVM.model
             }
             catch (Exception)
             {
-                trans.Rollback();
+                MessageBox.Show("gelieve alles correct in te vullen");
+                //trans.Rollback();
                 return 0;
             }
         }
@@ -106,7 +108,8 @@ namespace Project_MVVM.model
             }
             catch (Exception)
             {
-                trans.Rollback();
+                MessageBox.Show("gelieve alles correct in te vullen");
+                //trans.Rollback();
                 return 0;
             }
         }

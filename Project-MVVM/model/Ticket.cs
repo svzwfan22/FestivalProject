@@ -1,5 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+
 
 namespace Project_MVVM.model
 {
@@ -71,6 +73,7 @@ namespace Project_MVVM.model
 
         public static ObservableCollection<Ticket> tickets = new ObservableCollection<Ticket>();
         public static int aantal = 1;
+        //alle data uit de database halen
         public static ObservableCollection<Ticket> GetTicket()
         {
             string sql = "SELECT * FROM Tickets";
@@ -87,7 +90,7 @@ namespace Project_MVVM.model
             }
             return tickets;
         }
-
+        //voor iedere reservatie een item maken
         private static Ticket Create(IDataRecord record)
         {
             return new Ticket()
@@ -102,13 +105,14 @@ namespace Project_MVVM.model
                 {
                     ID = (int)record["TicketTypeID"],
                     Name = TicketTypesList[(int)record["TicketTypeID"] - 1].Name,
-                    Price = TicketTypesList[(int)record["TicketTypeID"] - 1].Price
+                    Price = TicketTypesList[(int)record["TicketTypeID"] - 1].Price,
+                    AvailableTickets = TicketTypesList[(int)record["TicketTypeID"] - 1].AvailableTickets
                 }
 
 
             };
         }
-
+        //reservaties updaten
         public static int UpdateTicket(Ticket ticket)
         {
 
@@ -191,7 +195,7 @@ namespace Project_MVVM.model
                 }
             }
         }
-
+        //reservaties updaten
         public static int UpdateTicket(DbTransaction trans, Ticket ticket, int aantaltickets)
         {
             ObservableCollection<TicketType> types = new ObservableCollection<TicketType>();
@@ -226,7 +230,7 @@ namespace Project_MVVM.model
                 return 0;
             }
         }
-
+        //types updaten
         public static int UpdateTicketType(int id, int tickets, int vorig)
         {
 
@@ -255,6 +259,7 @@ namespace Project_MVVM.model
             }
         }
 
+        //reservaties toevoegen
         public static int InsertTicket(Ticket ticket)
         {
 
@@ -300,9 +305,11 @@ namespace Project_MVVM.model
                 return 0;
             }
         }
-
+        //reservaties verwijderen
         public static int DeleteTicket(Ticket tkt)
         {
+            WijzigTicketType(tkt.TicketTypeID.ID, tkt.Amount, tkt.TicketTypeID.AvailableTickets);
+
             DbTransaction trans = null;
 
             try
@@ -327,8 +334,36 @@ namespace Project_MVVM.model
                 return 0;
             }
         }
+        //types updaten
+        private static int WijzigTicketType(int id, int amount, int available)
+        {
+            int NieuwAantal = amount + available;
+            DbTransaction trans = null;
 
+            try
+            {
+                trans = Database.BeginTransaction();
 
+                string sql = "UPDATE TicketTypes SET AvailableTickets=@AvailableTickets WHERE ID=@ID";
+                DbParameter par1 = Database.AddParameter("@ID", id);
+                DbParameter par2 = Database.AddParameter("@AvailableTickets", NieuwAantal);
+
+                int rowsaffected = 0;
+                rowsaffected += Database.ModifyData(trans, sql, par1, par2);
+                Console.WriteLine(rowsaffected + " row(s) are affected");
+                trans.Commit();
+
+                return rowsaffected;
+            }
+            catch (Exception)
+            {
+
+                trans.Rollback();
+                return 0;
+            }
+        }
+
+        //zoeken in reservaties
         public static ObservableCollection<Ticket> GetTicketsByString(string search)
         {
             ObservableCollection<Ticket> lstGevondenTickets = new ObservableCollection<Ticket>();
@@ -355,38 +390,42 @@ namespace Project_MVVM.model
                 Console.WriteLine(ticket.ToString());
             }
         }
-
+        //tickets afdrukken naar word
         public static void PrintTickets(Ticket tkt)
         {
             foreach (Ticket ssc in tickets)
             {
-                string filename = "Ticket" + "_" + ssc.Ticketholder + ".docx";
-                File.Copy("template.docx", filename, true);
-                WordprocessingDocument newdoc = WordprocessingDocument.Open(filename, true);
-                IDictionary<String, BookmarkStart> bookmarks = new Dictionary<String, BookmarkStart>();
-                foreach (BookmarkStart bms in newdoc.MainDocumentPart.RootElement.Descendants<BookmarkStart>())
-                {
-                    bookmarks[bms.Name] = bms;
-                }
+                Random random = new Random();
+                string barcode = random.Next(100000000, 999999999).ToString();
+                
+                        string filename = "Ticket" + "_" + ssc.Ticketholder + ".docx";
+                        File.Copy("template.docx", filename, true);
+                        WordprocessingDocument newdoc = WordprocessingDocument.Open(filename, true);
+                        IDictionary<String, BookmarkStart> bookmarks = new Dictionary<String, BookmarkStart>();
+                        foreach (BookmarkStart bms in newdoc.MainDocumentPart.RootElement.Descendants<BookmarkStart>())
+                        {
+                            bookmarks[bms.Name] = bms;
+                        }
 
-                double prijs = ssc.TicketTypeID.Price * ssc.Amount;
+                        double prijs = ssc.TicketTypeID.Price * ssc.Amount;
 
-                bookmarks["Date"].Parent.InsertAfter<Run>(new Run(new Text(DateTime.Today.ToString())), bookmarks["Date"]);
-                bookmarks["Name"].Parent.InsertAfter<Run>(new Run(new Text(ssc.Ticketholder)), bookmarks["Name"]);
-                bookmarks["Type"].Parent.InsertAfter<Run>(new Run(new Text(ssc.TicketTypeID.Name)), bookmarks["Type"]);
-                bookmarks["Amount"].Parent.InsertAfter<Run>(new Run(new Text(ssc.Amount.ToString())), bookmarks["Amount"]);
-                bookmarks["Price"].Parent.InsertAfter<Run>(new Run(new Text(ssc.TicketTypeID.Price.ToString())), bookmarks["Price"]);
-                bookmarks["Total"].Parent.InsertAfter<Run>(new Run(new Text(prijs.ToString())), bookmarks["Total"]);
-                Run run = new Run(new Text("111000111"));
-                RunProperties prop = new RunProperties();
-                RunFonts font = new RunFonts() { Ascii = "Free 3 of 9 Extended", HighAnsi = "Free 3 of 9 Extended" };
-                FontSize size = new FontSize() { Val = "96" };
-                prop.Append(font);
-                prop.Append(size);
-                run.PrependChild<RunProperties>(prop);
-                bookmarks["Barcode"].Parent.InsertAfter<Run>(run, bookmarks["Barcode"]);
-                newdoc.Close();
-            }
+                        bookmarks["Date"].Parent.InsertAfter<Run>(new Run(new Text(DateTime.Today.ToString())), bookmarks["Date"]);
+                        bookmarks["Name"].Parent.InsertAfter<Run>(new Run(new Text(ssc.Ticketholder)), bookmarks["Name"]);
+                        bookmarks["Type"].Parent.InsertAfter<Run>(new Run(new Text(ssc.TicketTypeID.Name)), bookmarks["Type"]);
+                        bookmarks["Amount"].Parent.InsertAfter<Run>(new Run(new Text(ssc.Amount.ToString())), bookmarks["Amount"]);
+                        bookmarks["Price"].Parent.InsertAfter<Run>(new Run(new Text(ssc.TicketTypeID.Price.ToString())), bookmarks["Price"]);
+                        bookmarks["Total"].Parent.InsertAfter<Run>(new Run(new Text(prijs.ToString())), bookmarks["Total"]);
+                        Run run = new Run(new Text(barcode));
+                        RunProperties prop = new RunProperties();
+                        RunFonts font = new RunFonts() { Ascii = "Free 3 of 9 Extended", HighAnsi = "Free 3 of 9 Extended" };
+                        FontSize size = new FontSize() { Val = "96" };
+                        prop.Append(font);
+                        prop.Append(size);
+                        run.PrependChild<RunProperties>(prop);
+                        bookmarks["Barcode"].Parent.InsertAfter<Run>(run, bookmarks["Barcode"]);
+                        newdoc.Close();
+                    }
+             
         }
 
     }

@@ -1,10 +1,10 @@
-﻿[ 
+[ 
 { 
-"backgroundImage" : "images/Chinese/Chinese_1_600_C.jpg",
+"backgroundImage" : "images/dsc_4486-dk-kop-walter.jpg",
 "discription" : "rockgroep die muziek maakt en zich amuseert op het podium",
-"group" : { "backgroundImage" : "images/Chinese/chinese_group_detail.png",
+"group" : { "backgroundImage" : "images/dsc_4486-dk-kop-walter.jpg",
 "description" : "rockgroep die muziek maakt en zich amuseert op het podium",
-"groupImage" : "images/Chinese/chinese_group.png",
+"groupImage" : "images/dsc_4486-dk-kop-walter.jpg",
 "key" : "Electro",
 "shortTitle" : "Electro",
 "title" : "Electro"
@@ -13,7 +13,77 @@
 "facebook" : "dekreunes",
 "twitter" : "@dekreunes",
 "shortTitle" : "De kreuners",
-"tileImage" : "images/Chinese/Chinese_2_150_C.jpg",
+"tileImage" : "images/dsc_4486-dk-kop-walter.jpg",
 "title" : "De kreuners"
+},
+
+{ 
+"backgroundImage" : "images/Dimitri-Vegas-en-Like-Mike-met-de-Tomorrowland-strip-.jpg",
+"discription" : "beste belgische dj's",
+"group" : { "backgroundImage" : "images/Dimitri-Vegas-en-Like-Mike-met-de-Tomorrowland-strip-.jpg",
+"description" : "beste belgische dj's",
+"groupImage" : "images/dsc_4486-dk-kop-walter.jpg",
+"key" : "Electro",
+"shortTitle" : "Electro",
+"title" : "Electro"
+},
+"genres" : ["Electro"],
+"facebook" : "LikeM&Dvegas",
+"twitter" : "@lm&dv",
+"shortTitle" : "Like Mike & Dimitri Vegas",
+"tileImage" : "images/Dimitri-Vegas-en-Like-Mike-met-de-Tomorrowland-strip-.jpg",
+"title" : "Like Mike & Dimitri Vegas"
+},
+{ 
+"backgroundImage" : "images/Demoniak-Clockwork-FRONT.jpg",
+"discription" : "dj's in hardstyle en tekstyle",
+"group" : { "backgroundImage" : "images/Demoniak-Clockwork-FRONT.jpg",
+"description" : "dj's in hardstyle en tekstyle",
+"groupImage" : "images/Demoniak-Clockwork-FRONT.jpg",
+"key" : "Hardstyle",
+"shortTitle" : "Hardstyle",
+"title" : "Hardstyle"
+},
+"genres" : ["Hardstyle"],
+"facebook" : "demoniak",
+"twitter" : "@demoniak",
+"shortTitle" : "Demoniak",
+"tileImage" : "images/Demoniak-Clockwork-FRONT.jpg",
+"title" : "Demoniak"
+},
+{ 
+"backgroundImage" : "images/download.jpg",
+"discription" : "wereldbekende dj",
+"group" : { "backgroundImage" : "images/download.jpg",
+"description" : "wereldbekende dj",
+"groupImage" : "images/download.jpg",
+"key" : "House",
+"shortTitle" : "House",
+"title" : "House"
+},
+"genres" : ["House"],
+"facebook" : "Avicii",
+"twitter" : "@Avicii",
+"shortTitle" : "Avicii",
+"tileImage" : "images/download.jpg",
+"title" : "Avicii"
+},
+{ 
+"backgroundImage" : "images/mark_with_a_k-music_is_my_alibi_s.jpg",
+"discription" : "dj in hardstyle en tekstyle",
+"group" : { "backgroundImage" : "images/mark_with_a_k-music_is_my_alibi_s.jpg",
+"description" : "dj in hardstyle en tekstyle",
+"groupImage" : "images/mark_with_a_k-music_is_my_alibi_s.jpg",
+"key" : "Tekstyle",
+"shortTitle" : "Tekstyle",
+"title" : "Tekstyle"
+},
+"genres" : ["Tekstyle"],
+"facebook" : "MWAK",
+"twitter" : "@mwak",
+"shortTitle" : "MWAK",
+"tileImage" : "images/mark_with_a_k-music_is_my_alibi_s.jpg",
+"title" : "Markt with a K"
 }
 ]
+

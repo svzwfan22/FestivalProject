@@ -43,6 +43,7 @@ namespace Project_MVVM.model
 
         public static ObservableCollection<TicketType> ticketType = new ObservableCollection<TicketType>();
         public static int aantalType = 1;
+        //alle data uit de database halen
         public static ObservableCollection<TicketType> GetTicketTypes()
         {
             string sql = "SELECT * FROM TicketTypes";
@@ -59,7 +60,7 @@ namespace Project_MVVM.model
             return ticketType;
 
         }
-
+        //voor ieder type een item maken
         private static TicketType Create(IDataRecord record)
         {
             return new TicketType()
@@ -70,7 +71,7 @@ namespace Project_MVVM.model
                 AvailableTickets = (int)record["AvailableTickets"]
             };
         }
-
+        //tickettypes updaten
         public static int UpdateTicketType(TicketType tkt)
         {
             DbTransaction trans = null;
@@ -100,7 +101,7 @@ namespace Project_MVVM.model
                 return 0;
             }
         }
-
+        //types toevoegen
         public static int InsertTicketType(TicketType tkt)
         {
             DbTransaction trans = null;
@@ -129,7 +130,7 @@ namespace Project_MVVM.model
                 return 0;
             }
         }
-
+        //types verwijderen
         public static int DeleteTicketType(TicketType tkt)
         {
             DbTransaction trans = null;
